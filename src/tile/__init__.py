@@ -1,0 +1,1 @@
+from src.core import SCREEN_WIDTH, SCREEN_HEIGHT
