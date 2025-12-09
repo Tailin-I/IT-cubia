@@ -5,95 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/ITCUBIA.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/dungeon_1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/dungeon_2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/first_village.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/forest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/house_0.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/new_map.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/maps/tiledata.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/048.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/049.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/050.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/051.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/052.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/053.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/054.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/055.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/056.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/057.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/058.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/059.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/060.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/061.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/062.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/063.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/064.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/keyhandler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/tile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/tilemanager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/ui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/keyhandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/keyhandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +26,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -127,7 +50,7 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Slava",
     "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/src/main.py",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
@@ -186,11 +109,45 @@
         <entry key="c2978786-f4c9-4863-8cbb-ab9be01feba5" value="TOOL_WINDOW" />
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Slava" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="user">
+                    <value>
+                      <list>
+                        <option value="*" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
         <entry key="c2978786-f4c9-4863-8cbb-ab9be01feba5">

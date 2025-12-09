@@ -1,10 +1,10 @@
 import arcade
-from src import Game
+from src import GamePanel
 
 
 def main():
 
-    game = Game()
+    game = GamePanel()
     game.setup()
     arcade.run()
 

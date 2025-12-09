@@ -1,1 +1,1 @@
-from .gamepanel import Game, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE
+from .gamepanel import GamePanel, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE

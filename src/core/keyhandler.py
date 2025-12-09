@@ -31,12 +31,12 @@ class KeyHandler:
             'fullscreen': False,
         }
 
-    def on_key_press(self, key, modifiers):
+    def on_key_press(self, key):
         """Обработка нажатия клавиши"""
         self.keys_pressed.add(key)
         self.update_actions()
 
-    def on_key_release(self, key, modifiers):
+    def on_key_release(self, key):
         """Обработка отпускания клавиши"""
         if key in self.keys_pressed:
             self.keys_pressed.remove(key)
@@ -50,24 +50,3 @@ class KeyHandler:
     def get_action(self, action_name):
         """Проверяет, активно ли действие"""
         return self.actions.get(action_name, False)
-
-    def get_movement(self):
-        """Возвращает нормализованный вектор движения"""
-        dx, dy = 0, 0
-
-        if self.actions['move_up']:
-            dy += 1
-        if self.actions['move_down']:
-            dy -= 1
-        if self.actions['move_left']:
-            dx -= 1
-        if self.actions['move_right']:
-            dx += 1
-
-        # Нормализация
-        if dx != 0 and dy != 0:
-            factor = 0.7071
-            dx *= factor
-            dy *= factor
-
-        return dx, dy

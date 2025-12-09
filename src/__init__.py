@@ -1,1 +1,1 @@
-from core import Game
+from core import GamePanel
