@@ -4,12 +4,11 @@ from entity.entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, texture_list: list[arcade.Texture], key_h):
+    def __init__(self, texture_list, key_h):
         # Вызываем конструктор Entity
+        super().__init__(texture_list, 5)
 
-
-
-        super().__init__(texture_list)
+        self.textures = texture_list
 
         self.key_h = key_h
 
@@ -28,9 +27,18 @@ class Player(Entity):
         # Скорость игрока
         self.speed = 4
 
+    def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
+        self.time_elapsed += delta_time
 
-    # def update(self):
-    #     self.move()
+        if self.time_elapsed > 0.1:
+
+            if self.cur_texture_index < len(self.textures):
+                self.set_texture(self.cur_texture_index)
+                self.cur_texture_index += 1 # !!!
+            self.time_elapsed = 0
+
+        if self.cur_texture_index == 7:
+            self.cur_texture_index = 0
 
     # def draw(self):
 

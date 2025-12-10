@@ -91,6 +91,7 @@ class GamePanel(arcade.Window):
 
     def fixed_update(self):
         self.player.move()
+        self.player.update()
 
     def on_key_press(self, key, modifiers):
         self.key_handler.on_key_press(key, modifiers)
