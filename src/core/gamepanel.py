@@ -2,6 +2,7 @@ import arcade
 from typing import Final
 
 from core.keyhandler import KeyHandler
+from entity.player import Player
 
 # ===== НАСТРОЙКИ ЭКРАНА =====
 ORIGINAL_TILE_SIZE: Final[int] = 16  # Размер тайла в оригинальной графике
@@ -35,36 +36,30 @@ class GamePanel(arcade.Window):
         self.screen_width = SCREEN_WIDTH
         self.screen_height = SCREEN_HEIGHT
 
-        self.accumulated_time = 0
         arcade.set_background_color(arcade.color.BLACK)
-        self.player_x = 100
-        self.player_y = self.screen_height
-        self.player_speed = 4
 
         # инициализация классов
-        self.key_handler = KeyHandler()
+        self.key_handler = KeyHandler()  # обработчик ввода
+
+        player_grid = arcade.load_spritesheet("res/player/player.png")
+        player_list = player_grid.get_texture_grid(size=(16, 16),columns=8, count=8)
+        self.player = Player(player_list, self.key_handler)  # игрок
 
 
-
-    def on_key_press(self, key, modifiers):
-        self.key_handler.on_key_press(key)
-        if self.key_handler.actions['fullscreen']:
-            if not self.fullscreen:
-                self.set_fullscreen(True)
-            else:
-                self.set_fullscreen(False)
-
-    def on_key_release(self, key, modifiers):
-        self.key_handler.on_key_release(key)
+        # SpriteList (для отрисовки)
+        self.player_list = arcade.SpriteList()
+        self.player_list.append(self.player)
 
     def setup(self):
         """Инициализация игры"""
+        self.accumulated_time = 0
 
     def on_draw(self):
         self.clear()
+        self.player_list.draw()
 
-        arcade.draw_rect_filled(arcade.rect.XYWH(self.player_x, self.player_y, self.tile_size, self.tile_size),
-                                arcade.color.PINK)
+        # arcade.draw_rect_filled(arcade.rect.XYWH(self.player_x, self.player_y, self.tile_size, self.tile_size),
+        #                         arcade.color.PINK)
 
     def on_update(self, delta_time):
         """Game loop с фиксированным шагом времени"""
@@ -95,31 +90,20 @@ class GamePanel(arcade.Window):
         # self.render_interpolated(alpha)
 
     def fixed_update(self):
-        self.move()
+        self.player.move()
 
-    def get_movement(self):
-        """Возвращает нормализованный вектор движения"""
-        dx, dy = 0, 0
+    def on_key_press(self, key, modifiers):
+        self.key_handler.on_key_press(key, modifiers)
 
-        if self.key_handler.actions['move_up']:
-            dy += self.player_speed
-        if self.key_handler.actions['move_down']:
-            dy -= self.player_speed
-        if self.key_handler.actions['move_left']:
-            dx -= self.player_speed
-        if self.key_handler.actions['move_right']:
-            dx += self.player_speed
+        if self.key_handler.actions['fullscreen']:
+            if not self.fullscreen:
+                self.set_fullscreen(True)
+            else:
+                self.set_fullscreen(False)
 
-        # Нормализация
-        if dx != 0 and dy != 0:
-            factor = 0.7071
-            dx *= factor
-            dy *= factor
+        # Ctrl+Q для выхода
+        if key == arcade.key.Q and modifiers & arcade.key.MOD_CTRL:
+            arcade.close_window()
 
-        return dx, dy
-
-    def move(self):
-        """"персонаж всегда двигается (пусть порой и на 0 px) """
-        dx, dy = self.get_movement()
-        self.player_x += dx
-        self.player_y += dy
+    def on_key_release(self, key, modifiers):
+        self.key_handler.on_key_release(key, modifiers)

@@ -31,12 +31,13 @@ class KeyHandler:
             'fullscreen': False,
         }
 
-    def on_key_press(self, key):
+    def on_key_press(self, key, modifiers):
         """Обработка нажатия клавиши"""
         self.keys_pressed.add(key)
         self.update_actions()
+        # print(arcade.key.key_string(key) + " - pressed!")
 
-    def on_key_release(self, key):
+    def on_key_release(self, key, modifiers):
         """Обработка отпускания клавиши"""
         if key in self.keys_pressed:
             self.keys_pressed.remove(key)
