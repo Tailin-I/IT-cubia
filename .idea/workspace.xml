@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="сохранение клавиш в json">
-      <change afterPath="$PROJECT_DIR$/src/core/resource_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/game.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/game.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/keyhandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/keyhandler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="загрузчик файлов Resource Manager&#10;+ оптимизация" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -140,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765437748327</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="загрузчик файлов Resource Manager&#10;+ оптимизация">
+      <option name="closed" value="true" />
+      <created>1765486672016</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1765486672016</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,7 +201,8 @@
     <MESSAGE value="герой крутится (задержка)" />
     <MESSAGE value="герой крутится (анимация ходьбы)" />
     <MESSAGE value="сохранение клавиш в json" />
-    <option name="LAST_COMMIT_MESSAGE" value="сохранение клавиш в json" />
+    <MESSAGE value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
+    <option name="LAST_COMMIT_MESSAGE" value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
