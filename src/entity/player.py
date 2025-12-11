@@ -1,8 +1,13 @@
+import logging
+
 from entity.entity import Entity
 
 
 class Player(Entity):
     def __init__(self, texture_list, key_h):
+        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
+
+
         # Вызываем конструктор Entity
         super().__init__(texture_list, 3)
 
@@ -25,9 +30,10 @@ class Player(Entity):
         self.speed = 4
 
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
+
         self.time_elapsed += delta_time
 
-        if self.time_elapsed > 1: # значение увеличено  лдя отладки
+        if self.time_elapsed > 0.3: # значение увеличено  лдя отладки
             if self.cur_texture_index < len(self.textures):
                 self.set_texture(self.cur_texture_index)
             self.time_elapsed = 0
@@ -69,7 +75,7 @@ class Player(Entity):
 
         # Проверяем, сменилось ли направление
         if current_direction != self.last_direction:
-           self.time_elapsed = 0  # Сбрасываем таймер анимации
+           self.time_elapsed = 1 # Сбрасываем таймер анимации (любое значение > 0.3)
            self.last_direction = current_direction
 
         if dx == 0 and dy == 0:

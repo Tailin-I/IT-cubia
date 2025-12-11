@@ -301,3 +301,1335 @@ AttributeError: 'GamePanel' object has no attribute 'should_close'
 2025-12-11 19:32:35 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
 2025-12-11 19:32:36 - __main__ - INFO - Игра завершена
 
+2025-12-11 19:41:41 - __main__ - INFO - Запуск игры...
+2025-12-11 19:41:41 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:41:41 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:41:50 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:41:50 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:41:50 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:41:50 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:41:50 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:41:50 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:41:50 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:42:04 - __main__ - INFO - Запуск игры...
+2025-12-11 19:42:04 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:42:04 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:42:17 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:42:17 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:42:17 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:42:17 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:42:17 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:42:17 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:42:17 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:42:57 - __main__ - INFO - Запуск игры...
+2025-12-11 19:42:57 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:42:57 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:43:05 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:43:05 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:43:05 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:43:05 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:43:05 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:43:05 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:43:05 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:43:17 - __main__ - INFO - Запуск игры...
+2025-12-11 19:43:17 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:43:17 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:43:29 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:43:29 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:43:29 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:43:29 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:43:29 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:43:29 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:43:29 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:43:40 - __main__ - INFO - Запуск игры...
+2025-12-11 19:43:40 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:43:40 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:43:52 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:43:52 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:43:52 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:43:52 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:43:52 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:43:52 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:43:52 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:44:41 - __main__ - INFO - Запуск игры...
+2025-12-11 19:44:41 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:44:41 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:45:05 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:45:05 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:45:05 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:45:05 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:45:05 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:45:05 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:45:05 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:45:15 - __main__ - INFO - Запуск игры...
+2025-12-11 19:45:15 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:45:15 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:45:46 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:45:46 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:45:46 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:45:46 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:45:46 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:45:47 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:45:47 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:46:14 - __main__ - INFO - Запуск игры...
+2025-12-11 19:46:14 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:46:15 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:46:27 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:46:27 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:46:27 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:46:27 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:46:27 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:46:27 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:46:27 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:46:44 - __main__ - INFO - Запуск игры...
+2025-12-11 19:46:44 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:46:45 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:46:56 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:46:56 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:46:56 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:46:56 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:46:56 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:46:57 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:46:57 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:47:26 - __main__ - INFO - Запуск игры...
+2025-12-11 19:47:26 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:47:27 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:48:01 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:48:01 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:48:01 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:48:01 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:48:01 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:48:01 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:48:01 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:48:53 - __main__ - INFO - Запуск игры...
+2025-12-11 19:48:53 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:48:53 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 19:49:28 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:49:32 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:49:33 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:49:35 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:49:39 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:49:39 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:49:44 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:49:46 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:49:47 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:50:05 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:50:14 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 19:50:22 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 19:50:27 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 19:50:27 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 19:50:27 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 19:50:27 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 19:50:27 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 19:50:27 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 19:50:27 - __main__ - INFO - Игра завершена
+
+2025-12-11 19:56:36 - __main__ - INFO - Запуск игры...
+2025-12-11 19:56:36 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 19:56:36 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:00:14 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:00:14 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:00:14 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:00:14 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:00:14 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:00:14 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:00:14 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:04:17 - __main__ - INFO - Запуск игры...
+2025-12-11 20:04:17 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:04:18 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:04:25 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:04:25 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:04:25 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:04:25 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:04:25 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:04:25 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:04:25 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:04:50 - __main__ - INFO - Запуск игры...
+2025-12-11 20:04:50 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:04:51 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:05:14 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:05:14 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:05:14 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:05:14 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:05:14 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:05:14 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:05:14 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:19:47 - __main__ - INFO - Запуск игры...
+2025-12-11 20:19:47 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:19:48 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:20:11 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:20:11 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:20:11 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:20:11 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:20:11 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:20:11 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:20:11 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:24:13 - __main__ - INFO - Запуск игры...
+2025-12-11 20:24:13 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:24:13 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:24:18 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:24:18 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:24:18 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:24:18 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:24:18 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:24:18 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:24:18 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:27:39 - __main__ - INFO - Запуск игры...
+2025-12-11 20:27:39 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:27:40 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 20:28:20 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 20:28:20 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 20:28:20 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 20:28:20 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 20:28:20 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 20:28:20 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 20:28:20 - __main__ - INFO - Игра завершена
+
+2025-12-11 20:47:27 - __main__ - INFO - Запуск игры...
+2025-12-11 20:47:27 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 20:47:28 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:44:43 - __main__ - INFO - Запуск игры...
+2025-12-11 22:44:43 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:44:43 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:44:51 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:44:51 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:44:51 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:44:51 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:44:51 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:44:51 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:44:51 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:44:57 - __main__ - INFO - Запуск игры...
+2025-12-11 22:44:57 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:44:57 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:45:05 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:45:05 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:45:05 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:45:05 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:45:05 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:45:05 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:45:05 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:45:44 - __main__ - INFO - Запуск игры...
+2025-12-11 22:45:44 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:45:44 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:45:52 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:45:52 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:45:52 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:45:52 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:45:52 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:45:52 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:45:52 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:46:04 - __main__ - INFO - Запуск игры...
+2025-12-11 22:46:04 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:46:04 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:46:29 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:46:29 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:46:29 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:46:29 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:46:29 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:46:29 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:46:29 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:46:59 - __main__ - INFO - Запуск игры...
+2025-12-11 22:46:59 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:46:59 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:47:11 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:47:11 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:47:11 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:47:11 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:47:11 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:47:11 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:47:11 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:48:41 - __main__ - INFO - Запуск игры...
+2025-12-11 22:48:41 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:48:41 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:48:43 - entity.player.Player - INFO - right -|- None
+2025-12-11 22:48:43 - entity.player.Player - INFO - None -|- right
+2025-12-11 22:48:43 - entity.player.Player - INFO - up -|- None
+2025-12-11 22:48:44 - entity.player.Player - INFO - None -|- up
+2025-12-11 22:48:45 - entity.player.Player - INFO - right -|- None
+2025-12-11 22:48:47 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:48:48 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:48:48 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:48:49 - entity.player.Player - INFO - left -|- up
+2025-12-11 22:48:50 - entity.player.Player - INFO - down -|- left
+2025-12-11 22:48:50 - entity.player.Player - INFO - None -|- down
+2025-12-11 22:48:50 - entity.player.Player - INFO - right -|- None
+2025-12-11 22:48:53 - entity.player.Player - INFO - left -|- right
+2025-12-11 22:48:55 - entity.player.Player - INFO - right -|- left
+2025-12-11 22:48:58 - entity.player.Player - INFO - left -|- right
+2025-12-11 22:49:00 - entity.player.Player - INFO - right -|- left
+2025-12-11 22:49:02 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:49:03 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:49:03 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:03 - entity.player.Player - INFO - right -|- up
+2025-12-11 22:49:03 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:49:04 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:49:04 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:04 - entity.player.Player - INFO - right -|- up
+2025-12-11 22:49:04 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:49:04 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:49:04 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:05 - entity.player.Player - INFO - right -|- up
+2025-12-11 22:49:05 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:49:05 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:49:05 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:05 - entity.player.Player - INFO - right -|- up
+2025-12-11 22:49:06 - entity.player.Player - INFO - down -|- right
+2025-12-11 22:49:06 - entity.player.Player - INFO - left -|- down
+2025-12-11 22:49:06 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:06 - entity.player.Player - INFO - left -|- up
+2025-12-11 22:49:06 - entity.player.Player - INFO - up -|- left
+2025-12-11 22:49:06 - entity.player.Player - INFO - left -|- up
+2025-12-11 22:49:08 - entity.player.Player - INFO - right -|- left
+2025-12-11 22:49:12 - entity.player.Player - INFO - left -|- right
+2025-12-11 22:49:12 - entity.player.Player - INFO - None -|- left
+2025-12-11 22:49:14 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:49:14 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:49:14 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:49:14 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:49:14 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:49:14 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:49:14 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:49:32 - __main__ - INFO - Запуск игры...
+2025-12-11 22:49:32 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:49:32 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:49:33 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:36 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:37 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:37 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:37 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:37 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:37 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:37 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:37 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:37 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:38 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:38 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:38 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:38 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:38 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:38 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:38 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:38 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:38 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:38 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:40 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:49:40 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:40 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:40 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:49:40 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:49:40 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:40 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:41 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:41 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:41 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:41 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:42 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:42 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:49:42 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:42 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:42 - entity.player.Player - INFO - up-|-down
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - up-|-down
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:42 - entity.player.Player - INFO - up-|-down
+2025-12-11 22:49:42 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:42 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:43 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:43 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:43 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:49:43 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:43 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:43 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:43 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:43 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:43 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:43 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:43 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:44 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:44 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:44 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:44 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:45 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:45 - entity.player.Player - INFO - up-|-down
+2025-12-11 22:49:45 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:49:46 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:46 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:47 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:49:47 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:49:47 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:47 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:47 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:49:47 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:49:47 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:49:47 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:49:48 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:48 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:48 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:48 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:48 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:49:48 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:48 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:49:48 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:48 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:49 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:49:49 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:49:49 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:50 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:50 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:50 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:50 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:50 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:50 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:50 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:50 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:50 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:50 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:52 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:52 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:53 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:53 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:53 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:53 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:53 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:53 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:49:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:49:57 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:58 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:58 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:49:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:49:59 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:07 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:07 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:07 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:07 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:07 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:07 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:07 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:07 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:07 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:08 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:08 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:08 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:08 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:08 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:08 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:50:08 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:50:09 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:50:09 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:50:09 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:50:09 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:09 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:10 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:10 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:10 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:10 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:10 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:10 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:10 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:11 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:11 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:11 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:11 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:11 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:50:11 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:50:13 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:50:13 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:50:13 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:50:13 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:50:13 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:50:13 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:50:13 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:51:10 - __main__ - INFO - Запуск игры...
+2025-12-11 22:51:10 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:51:10 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:51:10 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:11 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:51:12 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:51:12 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:51:13 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:51:13 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:51:13 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:51:14 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:51:14 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:51:14 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:51:14 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:51:15 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:51:16 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:51:17 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:51:18 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:18 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:18 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:18 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:18 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:18 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:18 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:18 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:18 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:18 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:19 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:19 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:19 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:19 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:19 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:19 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:21 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:51:21 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:51:21 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:51:21 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:51:21 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:51:21 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:51:21 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:51:29 - __main__ - INFO - Запуск игры...
+2025-12-11 22:51:29 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:51:29 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:51:30 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:32 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:51:33 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:51:33 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:34 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:34 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:34 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:34 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:34 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:34 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:34 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:34 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:34 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:34 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:35 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:35 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:35 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:35 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:35 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:36 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:36 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:36 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:36 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:36 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:36 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:37 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:37 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:37 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:37 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:37 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:37 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:38 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:38 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:39 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:39 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:40 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:43 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:51:43 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:51:43 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:45 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:51:45 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:51:45 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:51:45 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:51:45 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:51:45 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:51:45 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:51:49 - __main__ - INFO - Запуск игры...
+2025-12-11 22:51:49 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:51:49 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:51:50 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:51:53 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:51:53 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:51:54 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:51:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:54 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:54 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:55 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:55 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:56 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:56 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:56 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:56 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:56 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:56 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:57 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:57 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:57 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:57 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:51:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:58 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:58 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:51:59 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:51:59 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:52:00 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:52:00 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:52:00 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:52:00 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:52:01 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:52:01 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:52:01 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:52:01 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:52:01 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:52:01 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:01 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:02 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:02 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:02 - entity.player.Player - INFO - up-|-None
+2025-12-11 22:52:02 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:52:02 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:52:02 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:02 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:52:02 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:52:02 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:03 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:03 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:03 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:03 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:04 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:04 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:52:04 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:52:04 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:52:04 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:04 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:52:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:41 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:41 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:42 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:42 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:43 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:43 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:43 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:43 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:43 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:43 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:43 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:43 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:43 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:43 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:52:44 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:52:44 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:44 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:44 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:45 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:45 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:45 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:46 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:46 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:52:46 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:52:46 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:52:46 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:52:47 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:52:47 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:52:47 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:47 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:47 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:48 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:48 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:48 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:52:48 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:52:49 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:52:49 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:52:49 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:52:49 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:52:49 - entity.player.Player - INFO - None-|-up
+2025-12-11 22:52:51 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:52:51 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:52:51 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:52:51 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:52:51 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:52:51 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:52:51 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:53:56 - __main__ - INFO - Запуск игры...
+2025-12-11 22:53:56 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:53:56 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:53:57 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:53:57 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:53:57 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:53:57 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:53:58 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:53:59 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:53:59 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:53:59 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:54:00 - entity.player.Player - INFO - right-|-left
+2025-12-11 22:54:00 - entity.player.Player - INFO - down-|-right
+2025-12-11 22:54:01 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:54:01 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:54:02 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:54:02 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:54:03 - entity.player.Player - INFO - left-|-right
+2025-12-11 22:54:04 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:54:04 - entity.player.Player - INFO - down-|-up
+2025-12-11 22:54:05 - entity.player.Player - INFO - up-|-down
+2025-12-11 22:54:05 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:54:05 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:55:53 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:55:53 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:55:54 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:55:54 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:55:54 - entity.player.Player - INFO - up-|-left
+2025-12-11 22:55:55 - entity.player.Player - INFO - right-|-up
+2025-12-11 22:55:56 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:55:56 - entity.player.Player - INFO - left-|-None
+2025-12-11 22:55:57 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:55:57 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:55:57 - entity.player.Player - INFO - left-|-down
+2025-12-11 22:55:58 - entity.player.Player - INFO - down-|-left
+2025-12-11 22:55:58 - entity.player.Player - INFO - right-|-down
+2025-12-11 22:55:58 - entity.player.Player - INFO - up-|-right
+2025-12-11 22:55:59 - entity.player.Player - INFO - left-|-up
+2025-12-11 22:55:59 - entity.player.Player - INFO - None-|-left
+2025-12-11 22:56:01 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:01 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:01 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:01 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:02 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:02 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:02 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:02 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:02 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:02 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:02 - entity.player.Player - INFO - down-|-None
+2025-12-11 22:56:02 - entity.player.Player - INFO - None-|-down
+2025-12-11 22:56:02 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:02 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:03 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:03 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:04 - entity.player.Player - INFO - right-|-None
+2025-12-11 22:56:04 - entity.player.Player - INFO - None-|-right
+2025-12-11 22:56:07 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:56:07 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:56:07 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:56:07 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:56:07 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:56:07 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:56:07 - __main__ - INFO - Игра завершена
+
+2025-12-11 22:59:51 - Test - DEBUG - DEBUG - серый
+2025-12-11 22:59:51 - Test - INFO - INFO - белый
+2025-12-11 22:59:51 - Test - WARNING - WARNING - желтый
+2025-12-11 22:59:51 - Test - ERROR - ERROR - красный
+2025-12-11 22:59:51 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 22:59:51 - __main__ - INFO - Запуск игры...
+2025-12-11 22:59:51 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 22:59:51 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 22:59:53 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 22:59:53 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 22:59:53 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 22:59:53 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 22:59:53 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 22:59:53 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 22:59:53 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:01:58 - Test - WARNING - WARNING - желтый
+2025-12-11 23:01:58 - Test - ERROR - ERROR - красный
+2025-12-11 23:01:58 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:02:48 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:02:48 - Test - INFO - INFO - белый
+2025-12-11 23:02:48 - Test - WARNING - WARNING - желтый
+2025-12-11 23:02:48 - Test - ERROR - ERROR - красный
+2025-12-11 23:02:48 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:02:48 - __main__ - INFO - Запуск игры...
+2025-12-11 23:02:48 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:02:48 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:02:57 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:02:57 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:02:57 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:02:57 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:02:57 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:02:57 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:02:57 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:04:10 - Test - WARNING - WARNING - желтый
+2025-12-11 23:04:10 - Test - ERROR - ERROR - красный
+2025-12-11 23:04:10 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:16:38 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:16:38 - Test - INFO - INFO - белый
+2025-12-11 23:16:38 - Test - WARNING - WARNING - желтый
+2025-12-11 23:16:38 - Test - ERROR - ERROR - красный
+2025-12-11 23:16:38 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:16:38 - __main__ - INFO - Запуск игры...
+2025-12-11 23:16:38 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:16:38 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:16:40 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:16:40 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:16:40 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:16:40 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:16:40 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:16:40 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:16:40 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:17:56 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:17:56 - Test - INFO - INFO - белый
+2025-12-11 23:17:56 - Test - WARNING - WARNING - желтый
+2025-12-11 23:17:56 - Test - ERROR - ERROR - красный
+2025-12-11 23:17:56 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:17:56 - __main__ - INFO - Запуск игры...
+2025-12-11 23:17:56 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:17:56 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:17:58 - entity.player.Player - INFO - up-|-None
+2025-12-11 23:17:58 - entity.player.Player - INFO - right-|-up
+2025-12-11 23:17:58 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:17:58 - entity.player.Player - INFO - left-|-down
+2025-12-11 23:17:59 - entity.player.Player - INFO - down-|-left
+2025-12-11 23:17:59 - entity.player.Player - INFO - None-|-down
+2025-12-11 23:17:59 - entity.player.Player - INFO - right-|-None
+2025-12-11 23:18:00 - entity.player.Player - INFO - None-|-right
+2025-12-11 23:18:00 - entity.player.Player - INFO - left-|-None
+2025-12-11 23:18:00 - entity.player.Player - INFO - None-|-left
+2025-12-11 23:18:00 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:18:00 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:18:00 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:18:00 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:18:00 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:18:00 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:18:00 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:18:47 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:18:47 - Test - INFO - INFO - белый
+2025-12-11 23:18:47 - Test - WARNING - WARNING - желтый
+2025-12-11 23:18:47 - Test - ERROR - ERROR - красный
+2025-12-11 23:18:47 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:18:47 - __main__ - INFO - Запуск игры...
+2025-12-11 23:18:47 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:18:47 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:18:49 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:18:49 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:18:49 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:18:49 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:18:49 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:18:49 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:18:49 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:19:34 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:19:34 - Test - INFO - INFO - белый
+2025-12-11 23:19:34 - Test - WARNING - WARNING - желтый
+2025-12-11 23:19:34 - Test - ERROR - ERROR - красный
+2025-12-11 23:19:34 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:19:34 - __main__ - INFO - Запуск игры...
+2025-12-11 23:19:34 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:19:34 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:20:54 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:20:54 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:20:54 - Test - INFO - INFO - белый
+2025-12-11 23:20:54 - Test - WARNING - WARNING - желтый
+2025-12-11 23:20:54 - Test - ERROR - ERROR - красный
+2025-12-11 23:20:54 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:20:54 - __main__ - INFO - Запуск игры...
+2025-12-11 23:20:54 - src.core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:20:55 - src.core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:20:56 - src.core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:20:56 - src.core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:20:56 - src.core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:20:56 - src.core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:20:56 - src.core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:20:56 - src.core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:20:56 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:23:15 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:23:15 - Test - INFO - INFO - белый
+2025-12-11 23:23:15 - Test - WARNING - WARNING - желтый
+2025-12-11 23:23:15 - Test - ERROR - ERROR - красный
+2025-12-11 23:23:15 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:23:15 - __main__ - INFO - Запуск игры...
+2025-12-11 23:23:15 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:23:15 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:23:17 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:23:17 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:23:17 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:23:17 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:23:17 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:23:17 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:23:17 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:34:10 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:34:10 - Test - INFO - INFO - белый
+2025-12-11 23:34:10 - Test - WARNING - WARNING - желтый
+2025-12-11 23:34:10 - Test - ERROR - ERROR - красный
+2025-12-11 23:34:10 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:34:10 - __main__ - INFO - Запуск игры...
+2025-12-11 23:34:10 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:34:10 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:34:10 - __main__ - CRITICAL - Критическая ошибка: [Errno 2] No such file or directory: '/home/Tailin/PycharmProjects/ITCUBIA/res/backgrounds'
+Traceback (most recent call last):
+  File "/home/Tailin/PycharmProjects/ITCUBIA/src/main.py", line 49, in main
+    game.setup()
+  File "/home/Tailin/PycharmProjects/ITCUBIA/src/core/gamepanel.py", line 67, in setup
+    self.background = resource_manager.load_texture("backgrounds/forest.png")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/Tailin/PycharmProjects/ITCUBIA/src/core/resource_manager.py", line 33, in load_texture
+    texture = arcade.load_texture(path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/arcade/texture/loading.py", line 51, in load_texture
+    file_path = resolve(file_path)
+                ^^^^^^^^^^^^^^^^^^
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/arcade/resources/__init__.py", line 107, in resolve
+    path = Path(path.resolve(strict=True))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/pathlib.py", line 993, in resolve
+    s = os.path.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen posixpath>", line 416, in realpath
+  File "<frozen posixpath>", line 460, in _joinrealpath
+FileNotFoundError: [Errno 2] No such file or directory: '/home/Tailin/PycharmProjects/ITCUBIA/res/backgrounds'
+2025-12-11 23:34:10 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:34:34 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:34:34 - Test - INFO - INFO - белый
+2025-12-11 23:34:34 - Test - WARNING - WARNING - желтый
+2025-12-11 23:34:34 - Test - ERROR - ERROR - красный
+2025-12-11 23:34:34 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:34:34 - __main__ - INFO - Запуск игры...
+2025-12-11 23:34:34 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:34:34 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:34:35 - __main__ - CRITICAL - Критическая ошибка: 'GamePanel' object has no attribute 'player'
+Traceback (most recent call last):
+  File "/home/Tailin/PycharmProjects/ITCUBIA/src/main.py", line 50, in main
+    arcade.run()
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/arcade/window_commands.py", line 152, in run
+    pyglet.app.run(None)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/app/__init__.py", line 79, in run
+    event_loop.run(interval)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/app/base.py", line 164, in run
+    timeout = self.idle()
+              ^^^^^^^^^^^
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/app/base.py", line 232, in idle
+    self.clock.call_scheduled_functions(dt)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/clock.py", line 217, in call_scheduled_functions
+    item.func(now - item.last_ts, *item.args, **item.kwargs)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/arcade/application.py", line 545, in _dispatch_frame
+    self._dispatch_updates(delta_time)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/arcade/application.py", line 579, in _dispatch_updates
+    self.dispatch_event("on_update", GLOBAL_CLOCK.delta_time)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/window/__init__.py", line 685, in dispatch_event
+    super().dispatch_event(*args)
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/event.py", line 376, in dispatch_event
+    raise e
+  File "/home/Tailin/PycharmProjects/ITCUBIA/.venv/lib/python3.11/site-packages/pyglet/event.py", line 371, in dispatch_event
+    if getattr(self, event_type)(*args):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/Tailin/PycharmProjects/ITCUBIA/src/core/gamepanel.py", line 83, in on_update
+    self.player.move()
+    ^^^^^^^^^^^
+AttributeError: 'GamePanel' object has no attribute 'player'
+2025-12-11 23:34:35 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:36:20 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:36:20 - Test - INFO - INFO - белый
+2025-12-11 23:36:20 - Test - WARNING - WARNING - желтый
+2025-12-11 23:36:20 - Test - ERROR - ERROR - красный
+2025-12-11 23:36:20 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:36:20 - __main__ - INFO - Запуск игры...
+2025-12-11 23:36:20 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:36:20 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:36:21 - entity.player.Player - INFO - up-|-None
+2025-12-11 23:36:21 - entity.player.Player - INFO - right-|-up
+2025-12-11 23:36:22 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:36:22 - entity.player.Player - INFO - left-|-down
+2025-12-11 23:36:22 - entity.player.Player - INFO - up-|-left
+2025-12-11 23:36:23 - entity.player.Player - INFO - right-|-up
+2025-12-11 23:36:24 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:36:24 - entity.player.Player - INFO - left-|-down
+2025-12-11 23:36:24 - entity.player.Player - INFO - None-|-left
+2025-12-11 23:36:24 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:36:24 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:36:24 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:36:24 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:36:24 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:36:24 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:36:24 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:37:32 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:37:32 - Test - INFO - INFO - белый
+2025-12-11 23:37:32 - Test - WARNING - WARNING - желтый
+2025-12-11 23:37:32 - Test - ERROR - ERROR - красный
+2025-12-11 23:37:32 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:37:32 - __main__ - INFO - Запуск игры...
+2025-12-11 23:37:32 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:37:32 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:37:34 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:37:34 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:37:34 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:37:34 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:37:34 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:37:34 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:37:34 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:39:11 - Test - DEBUG - DEBUG - серый
+2025-12-11 23:39:11 - Test - INFO - INFO - белый
+2025-12-11 23:39:11 - Test - WARNING - WARNING - желтый
+2025-12-11 23:39:11 - Test - ERROR - ERROR - красный
+2025-12-11 23:39:11 - Test - CRITICAL - CRITICAL - красный жирный
+2025-12-11 23:39:11 - __main__ - INFO - Запуск игры...
+2025-12-11 23:39:11 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:39:12 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:39:14 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 23:39:18 - core.gamepanel.GamePanel - INFO - Включен оконный режим
+2025-12-11 23:39:22 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:39:22 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:39:22 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:39:22 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:39:22 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:39:22 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:39:22 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:40:23 - __main__ - INFO - Запуск игры...
+2025-12-11 23:40:23 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:40:23 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:40:29 - entity.player.Player - INFO - right-|-None
+2025-12-11 23:40:29 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:40:29 - entity.player.Player - INFO - left-|-down
+2025-12-11 23:40:29 - entity.player.Player - INFO - up-|-left
+2025-12-11 23:40:30 - entity.player.Player - INFO - right-|-up
+2025-12-11 23:40:30 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:40:30 - entity.player.Player - INFO - None-|-down
+2025-12-11 23:40:30 - entity.player.Player - INFO - right-|-None
+2025-12-11 23:40:30 - entity.player.Player - INFO - None-|-right
+2025-12-11 23:40:30 - entity.player.Player - INFO - left-|-None
+2025-12-11 23:40:31 - entity.player.Player - INFO - up-|-left
+2025-12-11 23:40:31 - entity.player.Player - INFO - None-|-up
+2025-12-11 23:40:31 - entity.player.Player - INFO - right-|-None
+2025-12-11 23:40:31 - entity.player.Player - INFO - down-|-right
+2025-12-11 23:40:31 - entity.player.Player - INFO - left-|-down
+2025-12-11 23:40:31 - entity.player.Player - INFO - None-|-left
+2025-12-11 23:40:33 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:40:33 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:40:33 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:40:33 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:40:33 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:40:33 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:40:33 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:42:10 - __main__ - INFO - Запуск игры...
+2025-12-11 23:42:10 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:42:10 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:42:16 - core.gamepanel.GamePanel - INFO - Включен полноэкранный режим
+2025-12-11 23:42:18 - core.gamepanel.GamePanel - INFO - Инициировано завершение работы
+2025-12-11 23:42:18 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:42:18 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:42:18 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:42:18 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:42:18 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:47:44 - __main__ - INFO - Запуск игры...
+2025-12-11 23:47:44 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:47:44 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:47:46 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:47:46 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:47:46 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:47:46 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:47:46 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:47:46 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:47:46 - __main__ - INFO - Игра завершена
+
+2025-12-11 23:55:55 - __main__ - INFO - Запуск игры...
+2025-12-11 23:55:55 - core.gamepanel.GamePanel - INFO - Инициализация игры: 960x576
+2025-12-11 23:55:55 - core.keyhandler.KeyHandler - INFO - Настройки успешно загружены из settings/key_bindings.json
+2025-12-11 23:56:04 - core.gamepanel.GamePanel - INFO - Событие on_close вызвано
+2025-12-11 23:56:04 - core.gamepanel.GamePanel - INFO - Выполнение очистки ресурсов...
+2025-12-11 23:56:04 - core.keyhandler.KeyHandler - INFO - ✓ Настройки сохранены в settings/key_bindings.json
+2025-12-11 23:56:04 - core.gamepanel.GamePanel - INFO - Настройки клавиш сохранены
+2025-12-11 23:56:04 - core.gamepanel.GamePanel - INFO - Очистка завершена успешно
+2025-12-11 23:56:04 - core.gamepanel.GamePanel - INFO - Окно закрыто
+2025-12-11 23:56:04 - __main__ - INFO - Игра завершена
+

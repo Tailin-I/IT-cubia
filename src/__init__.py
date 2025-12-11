@@ -1,1 +1,1 @@
-from core import GamePanel
+from .core.gamepanel import GamePanel

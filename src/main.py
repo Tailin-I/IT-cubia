@@ -2,8 +2,8 @@ import logging
 import os
 
 import arcade
-from src import GamePanel
 
+from core.gamepanel import GamePanel
 
 def setup_logging():
     """Настройка логирования для всего приложения"""

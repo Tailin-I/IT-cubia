@@ -275,13 +275,47 @@ class KeyHandler:
             self.logger.info(info)
         return info
 
-    def on_key_press(self, key, modifiers):
-        """Обработка нажатия клавиши"""
-        self.keys_pressed.add(key)
-        self.update_actions()
+    def on_key_release(self, key: int, modifiers: int) -> None:
+        """Обработка отпускания клавиши (только одно направление за раз)"""
+        # Удаляем клавишу из нажатых
+        self.keys_pressed.discard(key)
 
-        # если нужно логировать нажатые клавиши
-        # self.logger.info(self.get_key_string_for_code(key))
+        # Определяем, какое направление было отпущено
+        released_direction = None
+        if key in self.key_codes.get('move_up', []):
+            released_direction = 'move_up'
+        elif key in self.key_codes.get('move_down', []):
+            released_direction = 'move_down'
+        elif key in self.key_codes.get('move_left', []):
+            released_direction = 'move_left'
+        elif key in self.key_codes.get('move_right', []):
+            released_direction = 'move_right'
+
+        # Если отпущено активное направление
+        if released_direction and self.actions.get(released_direction, False):
+            # Сбрасываем это направление
+            self.actions[released_direction] = False
+
+            # Ищем другую нажатую клавишу направления
+            new_direction = None
+            for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
+                if direction != released_direction:
+                    # Проверяем, нажата ли какая-то из клавиш этого направления
+                    keys = self.key_codes.get(direction, [])
+                    if any(k in self.keys_pressed for k in keys):
+                        new_direction = direction
+                        break
+
+            # Если найдена другая нажатая клавиша направления, активируем её
+            if new_direction:
+                self.actions[new_direction] = True
+
+        # Обновляем last_valid_direction
+        self._update_last_direction()
+
+    def on_key_press(self, key: int, modifiers: int) -> None:
+        """Обработка нажатия клавиши (только одно направление за раз)"""
+        self.keys_pressed.add(key)
 
         # Определяем, какая клавиша направления была нажата
         new_direction = None
@@ -296,69 +330,37 @@ class KeyHandler:
 
         # Если нажата клавиша направления
         if new_direction:
-            # Отключаем все направления
+            # Отключаем ВСЕ направления
             for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-                if direction in self.actions:
-                    self.actions[direction] = False
+                self.actions[direction] = False
 
             # Включаем только новое направление
-            if new_direction in self.actions:
-                self.actions[new_direction] = True
-                self.last_valid_direction = new_direction
+            self.actions[new_direction] = True
 
-    def on_key_release(self, key, modifiers):
-        """Обработка отпускания клавиши"""
-        if key in self.keys_pressed:
-            self.keys_pressed.discard(key) # если ключа в множестве нет, не будет ошибки как в remove()
-
-        # Определяем, была ли отпущена клавиша направления
-        released_direction = None
-        if key in self.key_codes.get('move_up', []):
-            released_direction = 'move_up'
-        elif key in self.key_codes.get('move_down', []):
-            released_direction = 'move_down'
-        elif key in self.key_codes.get('move_left', []):
-            released_direction = 'move_left'
-        elif key in self.key_codes.get('move_right', []):
-            released_direction = 'move_right'
-
-        # Если отпущено текущее активное направление
-        if released_direction and released_direction == self.last_valid_direction:
-            self.last_valid_direction = None
-
-            # Ищем следующее активное направление среди нажатых клавиш
-            next_direction = None
-
-            # Проверяем в порядке приоритета
-            for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-                if direction != released_direction and direction in self.key_codes:
-                    # Проверяем, нажата ли какая-то из клавиш этого направления
-                    keys = self.key_codes[direction]
-                    if any(k in self.keys_pressed for k in keys):
-                        next_direction = direction
-                        break
-
-            # Отключаем все направления
-            for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-                if direction in self.actions:
-                    self.actions[direction] = False
-
-            # Если найдено следующее направление, включаем его
-            if next_direction:
-                self.actions[next_direction] = True
-                self.last_valid_direction = next_direction
-            else:
-                # Обновляем состояния для всех действий
-                self.update_actions()
+        # Для остальных действий (interact, fullscreen) обновляем как обычно
         else:
-            # Просто обновляем состояния
-            self.update_actions()
+            for action, codes in self.key_codes.items():
+                if action not in ['move_up', 'move_down', 'move_left', 'move_right']:
+                    self.actions[action] = any(key in codes for key in self.keys_pressed)
 
-    def update_actions(self):
-        """Обновление состояний действий на основе нажатых клавиш"""
-        # Для всех действий обновляем состояние
+        # Обновляем last_valid_direction
+        self._update_last_direction()
+
+    def _update_last_direction(self) -> None:
+        """Обновляет last_valid_direction на основе активного направления"""
+        self.last_valid_direction = None
+        for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
+            if self.actions.get(direction, False):
+                self.last_valid_direction = direction
+                break
+
+    def update_actions(self) -> None:
+        """Обновление состояний не-направленных действий"""
+        # Для направлений НЕ используем этот метод - они управляются вручную
+        # Обновляем только остальные действия
         for action, codes in self.key_codes.items():
-            self.actions[action] = any(key in self.keys_pressed for key in codes)
+            if action not in ['move_up', 'move_down', 'move_left', 'move_right']:
+                self.actions[action] = any(key in codes for key in self.keys_pressed)
 
     def get_action(self, action_name):
         """Проверяет, активно ли действие"""

@@ -2,8 +2,8 @@ import logging
 
 import arcade
 from typing import Final
-
-from core.keyhandler import KeyHandler
+from .resource_manager import resource_manager
+from .keyhandler import KeyHandler
 from entity.player import Player
 
 # ===== НАСТРОЙКИ ЭКРАНА =====
@@ -45,6 +45,7 @@ class GamePanel(arcade.Window):
         arcade.set_background_color(arcade.color.ASH_GREY)
 
         # Флаги состояния
+        self.should_close = False
         self._is_closing = False
         self._cleanup_performed = False
 
@@ -57,22 +58,26 @@ class GamePanel(arcade.Window):
     def setup(self):
         """Инициализация игры"""
         self.accumulated_time = 0
-        if self.player_textures is None:
-            player_grid = arcade.load_spritesheet("res/player/player.png")
-            self.player_textures = player_grid.get_texture_grid(size=(16, 16), columns=8, count=8)
+
+        # создание игрока
+        self.player_textures = resource_manager.load_spritesheet(
+            "player/player.png",
+            size=(16, 16),
+            columns=8,
+            count=8
+        )
         self.player = Player(self.player_textures, self.key_handler)
         self.player_list.append(self.player)
+
+        # Загрузка других ресурсов (пример)
+        # self.background = resource_manager.load_texture("backgrounds/forest.png")
+        # self.jump_sound = resource_manager.load_sound("sounds/jump.wav")
 
     def on_draw(self):
         self.clear()
         self.player_list.draw()
 
-        # arcade.draw_rect_filled(arcade.rect.XYWH(self.player_x, self.player_y, self.tile_size, self.tile_size),
-        #                         arcade.color.PINK)
-
     def on_update(self, delta_time):
-        """Game loop с фиксированным шагом времени"""
-        """это треш, хз как это работает, но дип сик меня убедил что для оптимизации это необходимо"""
 
         # Проверяем флаг закрытия
         if hasattr(self, 'should_close') and self.should_close:
@@ -81,31 +86,6 @@ class GamePanel(arcade.Window):
             self.close()
             return
 
-        # Защита от больших дельт (при замирании окна и т.д.)
-        delta_time = min(delta_time, 0.25)  # Максимум 250 мс
-
-        # Накапливаем время
-        self.accumulated_time += delta_time
-
-        # Выполняем фиксированные обновления
-        frames_processed = 0
-        max_frames_per_update = 5  # Защита от "спирали смерти"
-
-        while (self.accumulated_time >= self.fixed_delta_time and
-               frames_processed < max_frames_per_update):
-            self.fixed_update()  # <- вход нового on_update
-            self.accumulated_time -= self.fixed_delta_time
-            frames_processed += 1
-
-        # Если накопилось слишком много обновлений, сбрасываем
-        if self.accumulated_time >= self.fixed_delta_time * max_frames_per_update:
-            self.accumulated_time = 0  # Пропускаем старые обновления
-
-        # Необязательно: интерполяция для плавной графики
-        # alpha = self.accumulated_time / self.fixed_delta_time
-        # self.render_interpolated(alpha)
-
-    def fixed_update(self):
         self.player.move()
         self.player.update()
 

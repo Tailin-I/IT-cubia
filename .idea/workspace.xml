@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="сохранение клавиш в json">
+      <change afterPath="$PROJECT_DIR$/src/core/resource_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings/key_bindings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/game.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/game.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/keyhandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/keyhandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/player.py" afterDir="false" />
