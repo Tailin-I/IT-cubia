@@ -6,7 +6,8 @@ class Entity(arcade.Sprite):
 
     def __init__(self, texture_list: list[arcade.Texture], scale):
         super().__init__(texture_list[0], scale)
-        self.time_elapsed = 0
+
+        self.time_elapsed = 0 # задержка времени для анимации
 
         # Базовые параметры
 

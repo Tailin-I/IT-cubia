@@ -1,12 +1,13 @@
-import arcade
-
 from entity.entity import Entity
 
 
 class Player(Entity):
     def __init__(self, texture_list, key_h):
         # Вызываем конструктор Entity
-        super().__init__(texture_list, 5)
+        super().__init__(texture_list, 3)
+
+        # Для отслеживания смены направления
+        self.last_direction = None
 
         self.textures = texture_list
 
@@ -14,11 +15,7 @@ class Player(Entity):
 
         self.setdefault()
 
-
-
-
     def setdefault(self):
-
 
         # Позиция
         self.center_x = 120
@@ -30,17 +27,10 @@ class Player(Entity):
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
         self.time_elapsed += delta_time
 
-        if self.time_elapsed > 0.1:
-
+        if self.time_elapsed > 0.18:
             if self.cur_texture_index < len(self.textures):
                 self.set_texture(self.cur_texture_index)
-                self.cur_texture_index += 1 # !!!
             self.time_elapsed = 0
-
-        if self.cur_texture_index == 7:
-            self.cur_texture_index = 0
-
-    # def draw(self):
 
     def get_movement(self):
         """Возвращает нормализованный вектор движения"""
@@ -48,18 +38,45 @@ class Player(Entity):
 
         if self.key_h.actions['move_up']:
             dy += self.speed
+            if self.cur_texture_index == 0:
+                self.cur_texture_index = 1
+            else:
+                self.cur_texture_index = 0
         if self.key_h.actions['move_down']:
             dy -= self.speed
+            if self.cur_texture_index == 2:
+                self.cur_texture_index = 3
+            else:
+                self.cur_texture_index = 2
         if self.key_h.actions['move_left']:
             dx -= self.speed
+            if self.cur_texture_index == 4:
+                self.cur_texture_index = 5
+            else:
+                self.cur_texture_index = 4
         if self.key_h.actions['move_right']:
             dx += self.speed
+            if self.cur_texture_index == 6:
+                self.cur_texture_index = 7
+            else:
+                self.cur_texture_index = 6
 
-        # Нормализация
-        if dx != 0 and dy != 0:
-            factor = 0.7071
-            dx *= factor
-            dy *= factor
+        # # Проверяем, сменилось ли направление
+        # if current_direction != self.last_direction:
+        #    self.time_elapsed = 0  # Сбрасываем таймер анимации
+        #    print(self.last_direction)
+        #    self.last_direction = current_direction
+
+        if dx == 0 and dy == 0:
+            self.last_direction = None
+            if self.cur_texture_index == 1:
+                self.cur_texture_index = 0
+            if self.cur_texture_index == 3:
+                self.cur_texture_index = 2
+            if self.cur_texture_index == 5:
+                self.cur_texture_index = 4
+            if self.cur_texture_index == 7:
+                self.cur_texture_index = 6
 
         return dx, dy
 

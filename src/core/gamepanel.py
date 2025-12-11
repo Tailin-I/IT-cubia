@@ -36,7 +36,7 @@ class GamePanel(arcade.Window):
         self.screen_width = SCREEN_WIDTH
         self.screen_height = SCREEN_HEIGHT
 
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.ASH_GREY)
 
         # инициализация классов
         self.key_handler = KeyHandler()  # обработчик ввода

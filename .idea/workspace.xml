@@ -6,6 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="герой крутится (задержка)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/first_village.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/forest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/house_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/new_map.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/player_axe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/player_guarding.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/player_pickaxe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/player_sword.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/keyhandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/keyhandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/boy_down_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +59,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Slava",
     "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/src/entity",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -174,5 +187,15 @@
     <MESSAGE value="working on sprite sheet separating" />
     <MESSAGE value="герой крутится (задержка)" />
     <option name="LAST_COMMIT_MESSAGE" value="герой крутится (задержка)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/core/gamepanel.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
