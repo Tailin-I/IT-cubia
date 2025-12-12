@@ -1,1 +1,1 @@
-from .gamepanel import GamePanel
+# from .gamepanel import GamePanel

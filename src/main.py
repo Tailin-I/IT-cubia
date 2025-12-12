@@ -1,12 +1,9 @@
 import logging
-import os
 import sys
-from logging.handlers import RotatingFileHandler
 
 import arcade
 
-from core import resource_manager
-from core.gamepanel import GamePanel
+from src.core.gamepanel import GamePanel
 
 
 def setup_logging():
@@ -87,6 +84,7 @@ def main():
     logger = logging.getLogger(__name__)
     logger.info("Начало игровой сессии...")
     logger.debug("Параметры запуска: %s", sys.argv)
+    logger.info(f"версия аркейда {arcade.__version__}")
 
     try:
         game = GamePanel()

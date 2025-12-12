@@ -5,23 +5,34 @@ import arcade
 from typing import Final
 from .resource_manager import resource_manager
 from .keyhandler import KeyHandler
-from entity.player import Player
+from src.entity.player import Player
 
-# ===== НАСТРОЙКИ ЭКРАНА =====
+# ===== НАСТРОЙКИ ЭКРАНА И МАСШТАБИРОВАНИЕ =====
+# Размеры в исходных файлах
 ORIGINAL_TILE_SIZE: Final[int] = 16  # Размер тайла в оригинальной графике
-SCALE: Final[int] = 3  # Масштаб увеличения
+PLAYER_TEXTURE_SIZE: Final[int] = 16  # Размер спрайта игрока в файле
 
-TILE_SIZE: Final[int] = ORIGINAL_TILE_SIZE * SCALE  # 48 px
+# Масштабы (можно менять отдельно)
+TILE_SCALE: Final[int] = 4  # Масштаб тайлов (16*4=64)
+PLAYER_SCALE: Final[int] = 4  # Масштаб игрока (16*4=64)
+
+# Итоговые размеры после масштабирования
+TILE_SIZE: Final[int] = ORIGINAL_TILE_SIZE * TILE_SCALE  # 64 px
+PLAYER_SIZE: Final[int] = PLAYER_TEXTURE_SIZE * PLAYER_SCALE  # 64 px
+
+# Настройки экрана
 MAX_SCREEN_COL: Final[int] = 20  # Количество тайлов по горизонтали
 MAX_SCREEN_ROW: Final[int] = 12  # Количество тайлов по вертикали
 
-SCREEN_WIDTH: Final[int] = TILE_SIZE * MAX_SCREEN_COL  # 960 px
-SCREEN_HEIGHT: Final[int] = TILE_SIZE * MAX_SCREEN_ROW  # 576 px
+SCREEN_WIDTH: Final[int] = TILE_SIZE * MAX_SCREEN_COL  # 1280 px
+SCREEN_HEIGHT: Final[int] = TILE_SIZE * MAX_SCREEN_ROW  # 768 px
 
 # Дополнительные настройки
 FPS_LIMIT: Final[int] = 60
 SCREEN_TITLE: Final[str] = "ITCUBIA"
-
+CAMERA_MIN_ZOOM: Final[float] = 0.5  # Минимальное приближение
+CAMERA_MAX_ZOOM: Final[float] = 2.0  # Максимальное отдаление
+CAMERA_ZOOM_SPEED: Final[float] = 0.1  # Скорость изменения зума
 
 class GamePanel(arcade.Window):
     """Оптимизированный основной класс игры"""
@@ -58,16 +69,22 @@ class GamePanel(arcade.Window):
 
     def setup(self):
         """Инициализация игры"""
-        self.accumulated_time = 0
-
-        # создание игрока
+        # создание игрока (БЕЗ вызова setup_hitbox)
         self.player_textures = resource_manager.load_spritesheet(
             "player/player.png",
             size=(16, 16),
             columns=8,
             count=8
         )
-        self.player = Player(self.player_textures, self.key_handler)
+
+        # Передаем PLAYER_SCALE из констант
+        self.player = Player(
+            self.player_textures,
+            self.key_handler,
+            scale=PLAYER_SCALE
+        )
+
+        # НЕ вызываем setup_hitbox
         self.player_list.append(self.player)
 
         # Загрузка других ресурсов (пример)
@@ -79,9 +96,6 @@ class GamePanel(arcade.Window):
         self.player_list.draw()
 
     def on_update(self, delta_time):
-
-        for i in range(15):
-            self.logger.debug(f'{round((int(self.get_file_size_stat("logs/game.log"))/1024/1024),3)} мб')
 
         # Проверяем флаг закрытия
         if hasattr(self, 'should_close') and self.should_close:

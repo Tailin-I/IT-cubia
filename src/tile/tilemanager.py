@@ -1,112 +1,206 @@
 import os
+import logging
+from typing import Dict, Optional, List
 
 import arcade
 
-from core import SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE
-from tile.tile import Tile
+from src.core.resource_manager import resource_manager
 
 
 class TileManager:
+    """
+    Менеджер для загрузки и управления тайлами.
+    Использует ResourceManager для загрузки текстур.
+    """
 
-    def __init__(self):
+    def __init__(self, original_tile_size: int = 16, tile_scale: int = 4):
+        """
+        Инициализация менеджера тайлов.
 
-    def update_visible_tiles(self):
-        """Обновляем список видимых тайлов для оптимизации"""
-        # Очищаем список спрайтов тайлов
-        self.tile_sprites.clear()
+        Args:
+            original_tile_size: Исходный размер тайлов в пикселях
+            tile_scale: Масштаб для увеличения тайлов
+        """
+        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
+        self.logger.info("Инициализация TileManager...")
 
-        # Вычисляем видимую область в тайлах
-        tiles_x = SCREEN_WIDTH // TILE_SIZE + 2
-        tiles_y = SCREEN_HEIGHT // TILE_SIZE + 2
+        # Параметры масштабирования
+        self.original_tile_size = original_tile_size
+        self.tile_scale = tile_scale
+        self.tile_size = original_tile_size * tile_scale  # Итоговый размер
 
-        start_x = self.player.map_x - tiles_x // 2
-        start_y = self.player.map_y - tiles_y // 2
+        # Используем ResourceManager
+        self.resource_manager = resource_manager
 
-        # Ограничиваем границы карты
-        start_x = max(0, start_x)
-        start_y = max(0, start_y)
-        end_x = min(self.map_width, start_x + tiles_x)
-        end_y = min(self.map_height, start_y + tiles_y)
+        # Словари для хранения данных
+        self.textures: Dict[int, arcade.Texture] = {}  # номер -> текстура
+        self.collisions: Dict[int, bool] = {}  # номер -> есть коллизия?
+        self.tile_names: Dict[int, str] = {}  # номер -> имя файла
 
-        # Создаем спрайты для видимых тайлов
-        for y in range(start_y, end_y):
-            for x in range(start_x, end_x):
-                tile_id = self.tile_map[y][x]
-                tile = self.tiles.get(tile_id)
-                if tile:
-                    # Вычисляем экранные координаты
-                    screen_x = (x - self.player.map_x) * TILE_SIZE + SCREEN_WIDTH // 2
-                    screen_y = (y - self.player.map_y) * TILE_SIZE + SCREEN_HEIGHT // 2
+        # Счетчики
+        self.loaded_count = 0
+        self.collision_count = 0
 
-                    # Создаем спрайт для тайла
-                    sprite = arcade.Sprite()
-                    sprite.texture = tile.texture
-                    sprite.center_x = screen_x
-                    sprite.center_y = screen_y
-                    sprite.width = TILE_SIZE
-                    sprite.height = TILE_SIZE
+        # Загружаем тайлы и данные о коллизии
+        self._load_tiles_from_folder()
+        self._load_collision_data()
 
-                    # Добавляем в список для отрисовки
-                    self.tile_sprites.append(sprite)
+        self.logger.info(f"TileManager готов. Загружено тайлов: {self.loaded_count}")
 
+    def _load_tiles_from_folder(self):
+        """Загружает все тайлы из папки res/tiles/ используя ResourceManager"""
+        tiles_dir = "tiles"
 
-    def load_tiles(self):
-        """Загружаем тайлы из папки и их свойства"""
-        # Сначала загружаем информацию о тайлах
-        tile_data = {}
-        try:
-            with open("../../res/maps/tiledata.txt", "r") as f:
-                lines = f.readlines()
-                # Читаем попарно: имя файла и свойство blocked
-                for i in range(0, len(lines), 2):
-                    if i + 1 < len(lines):
-                        filename = lines[i].strip()
-                        is_blocked = lines[i + 1].strip().lower() == "true"
-                        # Извлекаем номер из имени файла (убираем .png)
-                        tile_id = int(filename.replace(".png", ""))
-                        tile_data[tile_id] = is_blocked
-        except FileNotFoundError:
-            print("Файл tiledata.txt не найден. Используем стандартные тайлы.")
-            # Создаем тестовые данные
-            for i in range(65):  # от 000 до 064
-                tile_data[i] = i % 10 == 0  # Каждый 10-й тайл - блокируемый
+        # Получаем список всех возможных тайлов (от 000 до 999)
+        # Сначала попробуем загрузить существующие
 
-        # Теперь загружаем текстуры
-        for tile_id, is_blocked in tile_data.items():
-            filename = f"../../res/tiles/{tile_id:03d}.png"
+        for tile_num in range(1000):  # До 999
+            # Форматируем номер с ведущими нулями
+            filename = f"{tile_num:03d}.png"
+            relative_path = os.path.join(tiles_dir, filename)
+
+            # Пытаемся загрузить через ResourceManager
             try:
-                # Пробуем загрузить из файла
-                if os.path.exists(filename):
-                    texture = arcade.load_texture(filename)
-                else:
-                    # Если файла нет
-                    print(f"Файл {filename} не найден.")
+                # Проверяем существует ли файл через ResourceManager
+                full_path = self.resource_manager.get_resource_path(relative_path)
 
-                self.tile_textures[tile_id] = texture
-                self.tiles[tile_id] = Tile(texture, is_blocked)
+                if os.path.exists(full_path):
+                    # Загружаем текстуру
+                    texture = self.resource_manager.load_texture(relative_path)
+
+                    # Сохраняем данные
+                    self.textures[tile_num] = texture
+                    self.tile_names[tile_num] = filename
+                    self.loaded_count += 1
+
+                    self.logger.debug(f"Загружен тайл: #{tile_num:03d} ({filename})")
+                else:
+                    # Файл не существует, пропускаем
+                    continue
 
             except Exception as e:
-                print(f"Ошибка загрузки тайла {filename}: {e}")
+                self.logger.warning(f"Ошибка загрузки тайла {filename}: {e}")
+                continue
 
+        self.logger.info(f"Успешно загружено тайлов: {self.loaded_count}")
 
-    def load_map(self, filename):
-        """Загружаем карту из файла"""
+    def _load_collision_data(self):
+        """Загружает данные о коллизии из tiledata.txt"""
+        tiledata_path = "maps/tiledata.txt"
+
         try:
-            with open(filename, "r") as f:
-                lines = f.readlines()
+            # Получаем полный путь через ResourceManager
+            full_path = self.resource_manager.get_resource_path(tiledata_path)
 
-            self.tile_map = []
-            for line in lines:
-                row = [int(num) for num in line.strip().split()]
-                self.tile_map.append(row)
+            if not os.path.exists(full_path):
+                self.logger.warning(f"Файл с данными о коллизии не найден: {full_path}")
+                self.logger.info("Будут использованы значения по умолчанию (все тайлы без коллизии)")
+                return
 
-            self.map_height = len(self.tile_map)
-            self.map_width = len(self.tile_map[0]) if self.map_height > 0 else 0
+            self.logger.info(f"Загрузка данных о коллизии из: {tiledata_path}")
 
-            # Устанавливаем игрока в начальную позицию
-            self.find_player_start_position()
+            with open(full_path, 'r', encoding='utf-8') as f:
+                lines = [line.strip() for line in f if line.strip()]
 
-            print(f"Карта загружена: {self.map_width}x{self.map_height} тайлов")
+            # Проверяем четность количества строк
+            if len(lines) % 2 != 0:
+                self.logger.warning(f"Нечетное количество строк в {tiledata_path}")
 
-        except FileNotFoundError:
-            print(f"Файл {filename} не найден. Создаем тестовую карту.")
+            # Обрабатываем строки попарно: имя файла -> true/false
+            for i in range(0, len(lines), 2):
+                if i + 1 >= len(lines):
+                    break
+
+                filename = lines[i]
+                collision_str = lines[i + 1]
+
+                # Извлекаем номер тайла из имени файла
+                try:
+                    # Удаляем .png и преобразуем в число
+                    tile_number = int(filename.replace('.png', ''))
+                except ValueError:
+                    self.logger.warning(f"Неверный формат имени файла в tiledata.txt: {filename}")
+                    continue
+
+                # Преобразуем строку в булево значение
+                has_collision = False
+                if collision_str.lower() == "true":
+                    has_collision = True
+                    self.collision_count += 1
+                elif collision_str.lower() == "false":
+                    has_collision = False
+                else:
+                    self.logger.warning(f"Неверное значение коллизии для {filename}: {collision_str}")
+                    continue
+
+                # Сохраняем
+                self.collisions[tile_number] = has_collision
+
+                # Проверяем, загружен ли тайл
+                if tile_number not in self.textures:
+                    self.logger.debug(f"Тайл #{tile_number} упомянут в tiledata.txt, но не загружен")
+
+            self.logger.info(f"Загружено данных о коллизии для {len(self.collisions)} тайлов")
+            self.logger.info(f"Тайлов с коллизией: {self.collision_count}")
+
+        except Exception as e:
+            self.logger.error(f"Ошибка при загрузке данных о коллизии: {e}")
+
+    # Остальные методы остаются без изменений...
+    def get_tile_texture(self, tile_number: int) -> Optional[arcade.Texture]:
+        """Возвращает текстуру тайла по номеру."""
+        return self.textures.get(tile_number)
+
+    def has_collision(self, tile_number: int) -> bool:
+        """Проверяет, имеет ли тайл коллизию."""
+        return self.collisions.get(tile_number, False)
+
+    def get_tile_info(self, tile_number: int) -> Dict:
+        """Возвращает полную информацию о тайле."""
+        return {
+            'number': tile_number,
+            'name': self.tile_names.get(tile_number, 'Unknown'),
+            'has_texture': tile_number in self.textures,
+            'has_collision': self.has_collision(tile_number),
+            'original_size': self.original_tile_size,
+            'scaled_size': self.tile_size
+        }
+
+    def get_all_tile_numbers(self) -> List[int]:
+        """Возвращает список всех загруженных номеров тайлов."""
+        return sorted(list(self.textures.keys()))
+
+    def get_tile_count(self) -> int:
+        """Возвращает количество загруженных тайлов."""
+        return self.loaded_count
+
+    def debug_info(self) -> str:
+        """Возвращает отладочную информацию о менеджере."""
+        return (
+            f"TileManager Debug Info:\n"
+            f"  Загружено тайлов: {self.loaded_count}\n"
+            f"  Размер тайла: {self.original_tile_size} -> {self.tile_size}px\n"
+            f"  Масштаб: {self.tile_scale}\n"
+            f"  Тайлов с коллизией: {self.collision_count}\n"
+            f"  Диапазон номеров: {min(self.textures.keys()) if self.textures else 0} "
+            f"- {max(self.textures.keys()) if self.textures else 0}"
+        )
+
+
+# Глобальный экземпляр для удобного доступа
+tile_manager: Optional[TileManager] = None
+
+
+def init_tile_manager(original_tile_size: int = 16, tile_scale: int = 4) -> TileManager:
+    """Инициализирует глобальный TileManager."""
+    global tile_manager
+    tile_manager = TileManager(original_tile_size, tile_scale)
+    return tile_manager
+
+
+def get_tile_manager() -> TileManager:
+    """Возвращает глобальный TileManager (инициализирует если нужно)."""
+    global tile_manager
+    if tile_manager is None:
+        tile_manager = TileManager()
+    return tile_manager
