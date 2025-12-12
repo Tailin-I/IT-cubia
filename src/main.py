@@ -1,51 +1,102 @@
 import logging
 import os
+import sys
+from logging.handlers import RotatingFileHandler
 
 import arcade
 
+from core import resource_manager
 from core.gamepanel import GamePanel
 
+
 def setup_logging():
-    """Настройка логирования для всего приложения"""
-    # Создаем папку для логов
+    """Минимальная настройка с понятными backup именами"""
+    import os
+    import sys
+    import logging
+    from logging.handlers import RotatingFileHandler
+
     log_dir = "logs"
     os.makedirs(log_dir, exist_ok=True)
 
-    logging.basicConfig(
-        level=logging.DEBUG,  # DEBUG для файла, INFO для консоли
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
-        handlers=[
-            # В консоль - только INFO и выше
-            logging.StreamHandler(),
-            # В файл - всё (DEBUG и выше)
-            logging.FileHandler(
-                os.path.join(log_dir, 'game.log'),
-                encoding='utf-8',
-                mode='a'  # 'a' для добавления, 'w' для перезаписи
-            )
-        ]
+    log_file = os.path.join(log_dir, 'game.log')
+
+    # Просто переопределяем метод создания backup
+    class PrettyRotatingHandler(RotatingFileHandler):
+        def doRollover(self):
+            # Закрываем текущий файл
+            if self.stream:
+                self.stream.close()
+                self.stream = None
+
+            # Создаем backup с понятным именем
+            backup_num = 1
+            while True:
+                backup_name = f"{self.baseFilename}.backup{backup_num}"
+                if not os.path.exists(backup_name):
+                    break
+                backup_num += 1
+
+            # Переименовываем
+            os.rename(self.baseFilename, backup_name)
+
+            # Удаляем лишние backup
+            if self.backupCount > 0:
+                for i in range(backup_num - self.backupCount, 0, -1):
+                    old_backup = f"{self.baseFilename}.backup{i}"
+                    if os.path.exists(old_backup):
+                        os.remove(old_backup)
+
+            # Открываем новый файл
+            if not self.delay:
+                self.stream = self._open()
+
+    # Используем наш хендлер
+    file_handler = PrettyRotatingHandler(
+        filename=log_file,
+        maxBytes=5 * 1024 * 1024,
+        backupCount=3,
+        encoding='utf-8'
     )
 
-    # Настройка уровня для консоли отдельно
-    for handler in logging.getLogger().handlers:
-        if isinstance(handler, logging.StreamHandler):
-            handler.setLevel(logging.INFO)
+    # Остальная настройка без изменений...
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    file_handler.setFormatter(formatter)
+
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    console_handler.setLevel(logging.INFO)
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    root_logger.handlers.clear()
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(console_handler)
+
+    # Отключаем логи сторонних библиотек
+    for lib in ["PIL", "arcade", "pyglet"]:
+        logging.getLogger(lib).setLevel(logging.WARNING)
+
+    return file_handler
 
 
 def main():
     logger = logging.getLogger(__name__)
-    logger.info("Запуск игры...")
+    logger.info("Начало игровой сессии...")
+    logger.debug("Параметры запуска: %s", sys.argv)
 
     try:
         game = GamePanel()
         game.setup()
         arcade.run()
     except Exception as e:
-        logger.critical(f"Критическая ошибка: {e}", exc_info=True)
+        logger.critical("Критическая ошибка: %s", e, exc_info=True)
         raise
     finally:
-        logger.info("Игра завершена\n")
+        logger.info("Конец игровой сессии\n")
 
 
 if __name__ == "__main__":

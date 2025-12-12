@@ -1,4 +1,5 @@
 import logging
+import os
 
 import arcade
 from typing import Final
@@ -79,6 +80,9 @@ class GamePanel(arcade.Window):
 
     def on_update(self, delta_time):
 
+        for i in range(15):
+            self.logger.debug(f'{round((int(self.get_file_size_stat("logs/game.log"))/1024/1024),3)} мб')
+
         # Проверяем флаг закрытия
         if hasattr(self, 'should_close') and self.should_close:
             self._perform_cleanup()
@@ -88,6 +92,14 @@ class GamePanel(arcade.Window):
 
         self.player.move()
         self.player.update()
+
+    def get_file_size_stat(self, filepath):
+        try:
+            stat_info = os.stat(filepath)
+            return stat_info.st_size
+        except FileNotFoundError:
+            return None
+
 
     def on_key_press(self, key, modifiers):
         self.key_handler.on_key_press(key, modifiers)
@@ -167,14 +179,3 @@ class GamePanel(arcade.Window):
 
         self.logger.info("Окно закрыто")
 
-        # Закрываем файловые обработчики логов (опционально)
-        self._close_log_handlers()
-
-    def _close_log_handlers(self):
-        """Закрыть файловые обработчики логов"""
-        for handler in self.logger.handlers:
-            if hasattr(handler, 'close'):
-                try:
-                    handler.close()
-                except Exception as e:
-                    print(f"Не удалось закрыть обработчик логов: {e}")
