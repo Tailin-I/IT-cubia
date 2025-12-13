@@ -3,7 +3,7 @@ import sys
 
 import arcade
 
-from src.core.gamepanel import GamePanel
+from frame.main_window import MainWindow
 
 
 def setup_logging():
@@ -87,8 +87,7 @@ def main():
     logger.info(f"версия аркейда {arcade.__version__}")
 
     try:
-        game = GamePanel()
-        game.setup()
+        window = MainWindow()
         arcade.run()
     except Exception as e:
         logger.critical("Критическая ошибка: %s", e, exc_info=True)

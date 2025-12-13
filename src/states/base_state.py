@@ -1,0 +1,53 @@
+# src/states/base_state.py
+from abc import ABC, abstractmethod
+
+
+class BaseState(ABC):
+    """
+    Базовый класс для всех состояний.
+    Только ОСНОВНЫЕ методы обязательны.
+    """
+
+    def __init__(self, state_id: str, gsm, asset_loader=None):
+        self.state_id = state_id
+        self.gsm = gsm
+        self.asset_loader = asset_loader
+        self.is_active = False
+
+    # ТОЛЬКО ЭТИ методы обязательны для всех состояний
+    @abstractmethod
+    def on_enter(self, **kwargs):
+        """Вход в состояние - ОБЯЗАТЕЛЬНО"""
+        pass
+
+    @abstractmethod
+    def on_exit(self):
+        """Выход из состояния - ОБЯЗАТЕЛЬНО"""
+        pass
+
+    @abstractmethod
+    def update(self, delta_time: float):
+        """Обновление - ОБЯЗАТЕЛЬНО"""
+        pass
+
+    @abstractmethod
+    def draw(self):
+        """Отрисовка - ОБЯЗАТЕЛЬНО"""
+        pass
+
+    # Эти методы НЕ обязательны (убираем @abstractmethod)
+    def on_pause(self):
+        """Пауза - НЕ обязательно для всех"""
+        pass
+
+    def on_resume(self):
+        """Возобновление - НЕ обязательно для всех"""
+        pass
+
+    def handle_key_press(self, key: int, modifiers: int):
+        """Обработка клавиш - НЕ обязательно"""
+        pass
+
+    def handle_key_release(self, key: int, modifiers: int):
+        """Обработка отпускания - НЕ обязательно"""
+        pass

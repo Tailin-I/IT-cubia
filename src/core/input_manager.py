@@ -1,467 +1,180 @@
-import logging
-
-import arcade
+# src/core/input_manager.py
 import json
 import os
+import arcade
+from typing import Dict, List, Set
 
 
-class KeyHandler:
-    """Класс для обработки ввода с настройкой клавиш"""
+class InputManager:
+    """
+    Управление вводом с профилями для разных состояний.
+    Все клавиши в одном файле настроек.
+    """
 
-    def __init__(self, config_file="settings/key_bindings.json"):
-        """
-        Инициализация обработчика клавиш
-        config_file: имя файла для сохранения/загрузки настроек
-        """
-        # Получаем логгер для этого класса
-        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
-        self.logger.debug(f"Инициализация KeyHandler с config_file={config_file}")
+    def __init__(self, config_path: str = "settings/key_bindings.json"):
+        # Активные нажатые клавиши
+        self.pressed_keys: Set[int] = set()
 
-        self.keys_pressed = set()
-        self.config_file = config_file
+        # Текущий профиль (соответствует state_id)
+        self.current_profile = "game"
 
-        # Конфигурация клавиш по умолчанию (в виде строк)
-        self.default_key_bindings = {
-            'move_up': ["W", "UP"],
-            'move_down': ["S", "DOWN"],
-            'move_left': ["A", "LEFT"],
-            'move_right': ["D", "RIGHT"],
-            'interact': ["E"],
-            'fullscreen': ["F11"]
+        # Все профили клавиш
+        self.profiles: Dict[str, Dict[str, List[int]]] = {}
+
+        # Загружаем или создаем настройки
+        self.config_path = config_path
+        self._load_or_create_config()
+
+    def _load_or_create_config(self):
+        """Загружает настройки или создает стандартные"""
+        default_profiles = {
+            "global": {
+                "fullscreen": [arcade.key.F11],
+                "screenshot": [arcade.key.F12],
+                "console": [arcade.key.GRAVE]
+            },
+            "lobby": {
+                "menu_up": [arcade.key.UP, arcade.key.W],
+                "menu_down": [arcade.key.DOWN, arcade.key.S],
+                "select": [arcade.key.ENTER, arcade.key.SPACE, arcade.key.E],
+                "back": [arcade.key.ESCAPE]
+            },
+            "game": {
+                "move_up": [arcade.key.W, arcade.key.UP],
+                "move_down": [arcade.key.S, arcade.key.DOWN],
+                "move_left": [arcade.key.A, arcade.key.LEFT],
+                "move_right": [arcade.key.D, arcade.key.RIGHT],
+                "inventory": [arcade.key.I, arcade.key.TAB],
+                "interact": [arcade.key.E],
+                "pause": [arcade.key.ESCAPE, arcade.key.P],
+                "run": [arcade.key.LSHIFT]
+            },
+            "inventory": {
+                "move_up": [arcade.key.UP, arcade.key.W],
+                "move_down": [arcade.key.DOWN, arcade.key.S],
+                "move_left": [arcade.key.LEFT, arcade.key.A],
+                "move_right": [arcade.key.RIGHT, arcade.key.D],
+                "use_item": [arcade.key.ENTER, arcade.key.E],
+                "drop_item": [arcade.key.Q],
+                "close": [arcade.key.ESCAPE, arcade.key.I, arcade.key.TAB]
+            }
         }
 
-        # Инициализация преобразования клавиш ДО загрузки настроек
-        self._init_key_mapping()
-
-        # Загружаем настройки или используем значения по умолчанию
-        self.key_bindings = self.load_key_bindings()
-
-        # Конвертируем строки в коды клавиш для внутреннего использования
-        self.key_codes = self._convert_strings_to_codes(self.key_bindings)
-
-        # Состояние действий
-        self.actions = {}
-        self._init_actions()
-
-        # Для отслеживания "полезного" нажатия
-        self.last_valid_direction = None
-
-    # работа с JSON
-    def load_key_bindings(self):
-        """
-        Загружает привязки клавиш из JSON файла.
-        Если файл не существует, создает его с настройками по умолчанию.
-        """
-        self.logger.debug(f"Попытка загрузки настроек из {self.config_file}")
-
-        # Проверка, существует ли файл
-        if os.path.exists(self.config_file):
+        # Пробуем загрузить из файла
+        if os.path.exists(self.config_path):
             try:
-                # Открываем файл для чтения
-                with open(self.config_file, 'r', encoding='utf-8') as f:
-                    # Загружаем данные из JSON
-                    saved_data = json.load(f)
-                    self.logger.debug(f"Загруженные данные: {saved_data}")
-
-                # Проверяем структуру загруженных данных
-                if not isinstance(saved_data, dict):
-                    self.logger.error("✗ Ошибка: загруженные данные не являются словарем")
-                    return self.default_key_bindings.copy()
-
-                # Убеждаемся, что у нас есть все необходимые действия
-                result_bindings = {}
-                for action, default_keys in self.default_key_bindings.items():
-                    if action in saved_data:
-                        # Проверяем, что сохраненные ключи являются списком строк
-                        saved_keys = saved_data[action]
-                        if isinstance(saved_keys, list):
-                            # Проверяем, что все элементы - строки
-                            if all(isinstance(key, str) for key in saved_keys):
-                                result_bindings[action] = saved_keys
-                                self.logger.debug(f"Действие '{action}': {saved_keys}")
-                            else:
-                                self.logger.warning(f"⚠ Внимание: не все ключи для '{action}' являются строками")
-                                result_bindings[action] = default_keys.copy()
-                        else:
-                            self.logger.error(f"✗ Неверный формат ключей для действия '{action}'")
-                            result_bindings[action] = default_keys.copy()
-                    else:
-                        # Если действия нет в сохраненных данных, используем значения по умолчанию
-                        result_bindings[action] = default_keys.copy()
-                        self.logger.warning(f"Действие '{action}' не найдено в сохраненных данных")
-
-                self.logger.info(f"Настройки успешно загружены из {self.config_file}")
-
-                return result_bindings
-
-            except json.JSONDecodeError:
-                self.logger.error(f"✗ Ошибка чтения файла {self.config_file}.\nКлавиши установлены по умолчанию.")
-                return self.default_key_bindings.copy()
+                with open(self.config_path, 'r', encoding='utf-8') as f:
+                    self.profiles = json.load(f)
+                # Конвертируем строки в коды клавиш
+                self._convert_strings_to_codes()
             except Exception as e:
-                self.logger.exception(f"✗ Ошибка при загрузке настроек: {e}.\nКлавиши установлены по умолчанию.")
-                return self.default_key_bindings.copy()
+                print(f"Ошибка загрузки настроек: {e}. Используем стандартные.")
+                self.profiles = default_profiles
+                self._save_config()
         else:
-            self.logger.warning(f"Файл настроек не найден. Создаем новый...")
+            # Создаем файл с настройками по умолчанию
+            os.makedirs(os.path.dirname(self.config_path), exist_ok=True)
+            self.profiles = default_profiles
+            self._save_config()
 
-            # Создаем директорию если нужно
-            directory = os.path.dirname(self.config_file)
-            if directory:
-                os.makedirs(directory, exist_ok=True)
-
-            # Используем значения по умолчанию
-            result_bindings = self.default_key_bindings.copy()
-
-            # Сохраняем настройки по умолчанию
-            try:
-                with open(self.config_file, 'w', encoding='utf-8') as f:
-                    json.dump(result_bindings, f, indent=4, ensure_ascii=False)
-                self.logger.info(f"Создан новый файл настроек: {self.config_file}")
-            except Exception as e:
-                self.logger.error(f"Ошибка при создании файла настроек: {e}")
-
-            return result_bindings
-
-    def save_key_bindings(self) :
-        """
-        Сохраняет текущие привязки клавиш в JSON файл.
-        """
+    def _save_config(self):
+        """Сохраняет текущие настройки в файл"""
         try:
-            # Создаем директорию если нужно
-            directory = os.path.dirname(self.config_file)
-            if directory:
-                os.makedirs(directory, exist_ok=True)
-
-            self.key_bindings = self._convert_codes_to_strings(self.key_codes)
-
-            # Открываем файл для записи
-            with open(self.config_file, 'w', encoding='utf-8') as f:
-                # Сохраняем данные в JSON с красивым форматированием
-                json.dump(self.key_bindings, f, indent=4, ensure_ascii=False)
-
-            self.logger.info(f"✓ Настройки сохранены в {self.config_file}")
-            return True
-
+            # Конвертируем коды в строки для сохранения
+            save_data = self._convert_codes_to_strings()
+            with open(self.config_path, 'w', encoding='utf-8') as f:
+                json.dump(save_data, f, indent=4, ensure_ascii=False)
         except Exception as e:
-            self.logger.error(f"✗ Ошибка при сохранении настроек: {e}")
-            return False
+            print(f"Ошибка сохранения настроек: {e}")
 
-    def reset_to_defaults(self):
-        """
-        Сбрасывает все привязки к значениям по умолчанию.
-        """
-        self.key_bindings = self.default_key_bindings.copy()
-        self.key_codes = self._convert_strings_to_codes(self.key_bindings)
-        self._init_actions()
-        self.save_key_bindings()
-        self.logger.info("✓ Настройки сброшены к значениям по умолчанию")
-
-    def rebind_action(self, action_name, new_key):
-        """
-        Переназначает клавишу для указанного действия.
-
-        Args:
-            action_name (str): Название действия ('move_up', 'interact' и т.д.)
-            new_key (int): Код новой клавиши из arcade.key.*
-
-        Returns:
-            bool: True если переназначение успешно, False в противном случае
-        """
-        if action_name not in self.key_codes:
-            self.logger.error(f"Действие '{action_name}' не найдено")
-            return False
-
-        # Получаем строковое представление клавиши
-        new_key_string = self.code_to_string.get(new_key)
-        if new_key_string is None:
-            self.logger.error(f"Неизвестный код клавиши {new_key}")
-            return False
-
-        # Проверяем, не используется ли клавиша для другого действия
-        conflict_action = None
-        for action, codes in self.key_codes.items():
-            if new_key in codes and action != action_name:
-                conflict_action = action
-                break
-
-        if conflict_action:
-            self.logger.warning(f"Клавиша уже используется для '{conflict_action}'")
-            # Удаляем клавишу из старого действия
-            if new_key_string in self.key_bindings[conflict_action]:
-                self.key_bindings[conflict_action].remove(new_key_string)
-                self.key_codes[conflict_action].remove(new_key)
-
-        # Добавляем новую клавишу к действию (если её ещё нет)
-        if new_key_string not in self.key_bindings[action_name]:
-            self.key_bindings[action_name].append(new_key_string)
-            self.key_codes[action_name].append(new_key)
-
-        # Сохраняем изменения
-        self.save_key_bindings()
-        self.logger.info(f"Клавиша '{new_key_string}' переназначена для '{action_name}'")
-
-        if not self.save_key_bindings():
-            return False
-        return True
-
-    def remove_key_binding(self, action_name, key_to_remove):
-        """
-        Удаляет привязку клавиши для указанного действия.
-        key_to_remove: может быть либо кодом клавиши (int), либо строкой (str)
-        """
-        if action_name not in self.key_bindings:
-            self.logger.error(f"Действие '{action_name}' не найдено")
-            return False
-
-        # Определяем, что передано: код или строка
-        if isinstance(key_to_remove, int):
-            # Преобразуем код в строку
-            key_string = self.code_to_string.get(key_to_remove)
-            if key_string is None:
-                self.logger.error(f"Неизвестный код клавиши {key_to_remove}")
-                return False
+    def set_current_profile(self, profile_name: str):
+        """Устанавливает активный профиль ввода"""
+        if profile_name in self.profiles or profile_name == "global":
+            self.current_profile = profile_name
+            print(f"Установлен профиль ввода: {profile_name}")
         else:
-            # Уже строка
-            key_string = key_to_remove
-            # Преобразуем строку в код для удаления из key_codes
-            key_to_remove = self.string_to_code.get(key_string)
+            print(f"Профиль '{profile_name}' не найден, используем 'game'")
+            self.current_profile = "game"
 
-        # Удаляем из строковых привязок
-        if key_string in self.key_bindings[action_name]:
-            self.key_bindings[action_name].remove(key_string)
+    def is_action_pressed(self, action_name: str) -> bool:
+        """
+        Проверяет, нажато ли указанное действие.
+        Сначала проверяет текущий профиль, потом глобальный.
+        """
+        # Проверяем в текущем профиле
+        if self.current_profile in self.profiles:
+            if action_name in self.profiles[self.current_profile]:
+                for key in self.profiles[self.current_profile][action_name]:
+                    if key in self.pressed_keys:
+                        return True
 
-            # Удаляем из кодовых привязок
-            if key_to_remove in self.key_codes[action_name]:
-                self.key_codes[action_name].remove(key_to_remove)
+        # Проверяем в глобальных (работают всегда)
+        if "global" in self.profiles:
+            if action_name in self.profiles["global"]:
+                for key in self.profiles["global"][action_name]:
+                    if key in self.pressed_keys:
+                        return True
 
-            self.save_key_bindings()
-            self.logger.info(f"✓ Привязка '{key_string}' удалена для действия '{action_name}'")
-            return True
-
-        self.logger.warning(f"⚠ Клавиша '{key_string}' не найдена для действия '{action_name}'")
         return False
 
-    def get_key_names(self, key_codes):
-        """
-        Преобразует коды клавиш в читаемые имена.
+    def on_key_press(self, key: int, modifiers: int):
+        """Обработка нажатия клавиши"""
+        self.pressed_keys.add(key)
 
-        Args:
-            key_codes (list): Список кодов клавиш
+    def on_key_release(self, key: int, modifiers: int):
+        """Обработка отпускания клавиши"""
+        self.pressed_keys.discard(key)
 
-        Returns:
-            list: Список имен клавиш
-        """
-        names = []
-        for key_code in key_codes:
-            name = self.code_to_string.get(key_code)
-            if name is not None:
-                names.append(name)
-            else:
-                names.append(f"Key_{key_code}")
-        return names
-
-    def get_action_info(self):
-        """
-        Возвращает информацию о всех действиях и их привязках.
-        Полезно для отображения в меню настроек.
-        """
-        info = {}
-        for action, key_strings in self.key_bindings.items():
-            # Получаем коды для этого действия
-            codes = self.key_codes.get(action, [])
-            info[action] = {
-                'keys': codes,
-                'key_names': key_strings  # Уже строки, готовы для отображения
-            }
-            self.logger.info(info)
-        return info
-
-    def on_key_release(self, key: int, modifiers: int) -> None:
-        """Обработка отпускания клавиши (только одно направление за раз)"""
-        # Удаляем клавишу из нажатых
-        self.keys_pressed.discard(key)
-
-        # Определяем, какое направление было отпущено
-        released_direction = None
-        if key in self.key_codes.get('move_up', []):
-            released_direction = 'move_up'
-        elif key in self.key_codes.get('move_down', []):
-            released_direction = 'move_down'
-        elif key in self.key_codes.get('move_left', []):
-            released_direction = 'move_left'
-        elif key in self.key_codes.get('move_right', []):
-            released_direction = 'move_right'
-
-        # Если отпущено активное направление
-        if released_direction and self.actions.get(released_direction, False):
-            # Сбрасываем это направление
-            self.actions[released_direction] = False
-
-            # Ищем другую нажатую клавишу направления
-            new_direction = None
-            for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-                if direction != released_direction:
-                    # Проверяем, нажата ли какая-то из клавиш этого направления
-                    keys = self.key_codes.get(direction, [])
-                    if any(k in self.keys_pressed for k in keys):
-                        new_direction = direction
-                        break
-
-            # Если найдена другая нажатая клавиша направления, активируем её
-            if new_direction:
-                self.actions[new_direction] = True
-
-        # Обновляем last_valid_direction
-        self._update_last_direction()
-
-    def on_key_press(self, key: int, modifiers: int) -> None:
-        """Обработка нажатия клавиши (только одно направление за раз)"""
-        self.keys_pressed.add(key)
-
-        # Определяем, какая клавиша направления была нажата
-        new_direction = None
-        if key in self.key_codes.get('move_up', []):
-            new_direction = 'move_up'
-        elif key in self.key_codes.get('move_down', []):
-            new_direction = 'move_down'
-        elif key in self.key_codes.get('move_left', []):
-            new_direction = 'move_left'
-        elif key in self.key_codes.get('move_right', []):
-            new_direction = 'move_right'
-
-        # Если нажата клавиша направления
-        if new_direction:
-            # Отключаем ВСЕ направления
-            for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-                self.actions[direction] = False
-
-            # Включаем только новое направление
-            self.actions[new_direction] = True
-
-        # Для остальных действий (interact, fullscreen) обновляем как обычно
-        else:
-            for action, codes in self.key_codes.items():
-                if action not in ['move_up', 'move_down', 'move_left', 'move_right']:
-                    self.actions[action] = any(key in codes for key in self.keys_pressed)
-
-        # Обновляем last_valid_direction
-        self._update_last_direction()
-
-    def _update_last_direction(self) -> None:
-        """Обновляет last_valid_direction на основе активного направления"""
-        self.last_valid_direction = None
-        for direction in ['move_up', 'move_down', 'move_left', 'move_right']:
-            if self.actions.get(direction, False):
-                self.last_valid_direction = direction
-                break
-
-    def update_actions(self) -> None:
-        """Обновление состояний не-направленных действий"""
-        # Для направлений НЕ используем этот метод - они управляются вручную
-        # Обновляем только остальные действия
-        for action, codes in self.key_codes.items():
-            if action not in ['move_up', 'move_down', 'move_left', 'move_right']:
-                self.actions[action] = any(key in codes for key in self.keys_pressed)
-
-    def get_action(self, action_name):
-        """Проверяет, активно ли действие"""
-        return self.actions.get(action_name, False)
-
-    def get_key_string_for_code(self, key_code):
-        """Возвращает строковое представление клавиши по коду"""
-        return self.code_to_string.get(key_code, f"Key_{key_code}")
-
-    def get_key_code_for_string(self, key_string):
-        """Возвращает код клавиши по строковому представлению"""
-        return self.string_to_code.get(key_string)
-
-    def _init_actions(self):
-        """Инициализирует состояния всех действий как False"""
-        for action in self.key_bindings:
-            self.actions[action] = False
-
-    def _init_key_mapping(self):
-        """Инициализирует словари для преобразования кодов клавиш"""
-        # Словарь для преобразования строк в коды клавиш
-        self.string_to_code = {
-            # Буквы
-            "A": arcade.key.A, "B": arcade.key.B, "C": arcade.key.C,
-            "D": arcade.key.D, "E": arcade.key.E, "F": arcade.key.F,
-            "G": arcade.key.G, "H": arcade.key.H, "I": arcade.key.I,
-            "J": arcade.key.J, "K": arcade.key.K, "L": arcade.key.L,
-            "M": arcade.key.M, "N": arcade.key.N, "O": arcade.key.O,
-            "P": arcade.key.P, "Q": arcade.key.Q, "R": arcade.key.R,
-            "S": arcade.key.S, "T": arcade.key.T, "U": arcade.key.U,
-            "V": arcade.key.V, "W": arcade.key.W, "X": arcade.key.X,
-            "Y": arcade.key.Y, "Z": arcade.key.Z,
-
-            # Цифры
-            "0": arcade.key.KEY_0, "1": arcade.key.KEY_1, "2": arcade.key.KEY_2,
-            "3": arcade.key.KEY_3, "4": arcade.key.KEY_4, "5": arcade.key.KEY_5,
-            "6": arcade.key.KEY_6, "7": arcade.key.KEY_7, "8": arcade.key.KEY_8,
-            "9": arcade.key.KEY_9,
-
-            # Функциональные клавиши
-            "F1": arcade.key.F1, "F2": arcade.key.F2, "F3": arcade.key.F3,
-            "F4": arcade.key.F4, "F5": arcade.key.F5, "F6": arcade.key.F6,
-            "F7": arcade.key.F7, "F8": arcade.key.F8, "F9": arcade.key.F9,
-            "F10": arcade.key.F10, "F11": arcade.key.F11, "F12": arcade.key.F12,
-
-            # Специальные клавиши
-            "SPACE": arcade.key.SPACE, "ENTER": arcade.key.ENTER,
-            "ESCAPE": arcade.key.ESCAPE, "TAB": arcade.key.TAB,
-            "BACKSPACE": arcade.key.BACKSPACE, "DELETE": arcade.key.DELETE,
-            "INSERT": arcade.key.INSERT, "HOME": arcade.key.HOME,
-            "END": arcade.key.END, "PAGEUP": arcade.key.PAGEUP,
-            "PAGEDOWN": arcade.key.PAGEDOWN,
-
-            # Стрелки
+    # Вспомогательные методы для конвертации (упрощенные)
+    def _convert_strings_to_codes(self):
+        """Конвертирует строки в коды клавиш (для загрузки)"""
+        # Простая реализация - можно расширить
+        string_to_code = {
             "UP": arcade.key.UP, "DOWN": arcade.key.DOWN,
             "LEFT": arcade.key.LEFT, "RIGHT": arcade.key.RIGHT,
-
-            # Модификаторы
-            "LSHIFT": arcade.key.LSHIFT, "RSHIFT": arcade.key.RSHIFT,
-            "LCTRL": arcade.key.LCTRL, "RCTRL": arcade.key.RCTRL,
-            "LALT": arcade.key.LALT, "RALT": arcade.key.RALT,
-
-            # Дополнительные
-            "CAPSLOCK": arcade.key.CAPSLOCK, "NUMLOCK": arcade.key.NUMLOCK,
-            "SCROLLLOCK": arcade.key.SCROLLLOCK,
-
-            # Символьные клавиши
-            "`": arcade.key.GRAVE, "-": arcade.key.MINUS, "=": arcade.key.EQUAL,
-            "[": arcade.key.BRACKETLEFT, "]": arcade.key.BRACKETRIGHT,
-            "\\": arcade.key.BACKSLASH, ";": arcade.key.SEMICOLON,
-            "'": arcade.key.APOSTROPHE, ",": arcade.key.COMMA,
-            ".": arcade.key.PERIOD, "/": arcade.key.SLASH,
+            "W": arcade.key.W, "A": arcade.key.A,
+            "S": arcade.key.S, "D": arcade.key.D,
+            "E": arcade.key.E, "Q": arcade.key.Q,
+            "I": arcade.key.I, "TAB": arcade.key.TAB,
+            "ENTER": arcade.key.ENTER, "SPACE": arcade.key.SPACE,
+            "ESCAPE": arcade.key.ESCAPE, "F11": arcade.key.F11,
+            "F12": arcade.key.F12, "P": arcade.key.P,
+            "LSHIFT": arcade.key.LSHIFT, "GRAVE": arcade.key.GRAVE
         }
 
-        # Обратный словарь (код -> строка)
-        self.code_to_string = {v: k for k, v in self.string_to_code.items()}
+        # Конвертируем все профили
+        for profile_name, actions in self.profiles.items():
+            for action_name, key_strings in actions.items():
+                codes = []
+                for key_str in key_strings:
+                    if key_str in string_to_code:
+                        codes.append(string_to_code[key_str])
+                self.profiles[profile_name][action_name] = codes
 
-    def _convert_strings_to_codes(self, string_bindings):
-        """Конвертирует строковые привязки в коды клавиш"""
-        code_bindings = {}
-        for action, key_strings in string_bindings.items():
-            codes = []
-            for key_string in key_strings:
-                code = self.string_to_code.get(key_string)
-                if code is not None:
-                    codes.append(code)
-                else:
-                    self.logger.warning(f"⚠ Внимание: неизвестная клавиша '{key_string}' для действия '{action}'")
-            code_bindings[action] = codes
-        return code_bindings
+    def _convert_codes_to_strings(self) -> Dict:
+        """Конвертирует коды клавиш в строки (для сохранения)"""
+        # Обратная конвертация (упрощенная)
+        code_to_string = {v: k for k, v in {
+            "UP": arcade.key.UP, "DOWN": arcade.key.DOWN,
+            "LEFT": arcade.key.LEFT, "RIGHT": arcade.key.RIGHT,
+            "W": arcade.key.W, "A": arcade.key.A,
+            "S": arcade.key.S, "D": arcade.key.D,
+            "E": arcade.key.E, "Q": arcade.key.Q,
+            "I": arcade.key.I, "TAB": arcade.key.TAB,
+            "ENTER": arcade.key.ENTER, "SPACE": arcade.key.SPACE,
+            "ESCAPE": arcade.key.ESCAPE, "F11": arcade.key.F11,
+            "F12": arcade.key.F12, "P": arcade.key.P,
+            "LSHIFT": arcade.key.LSHIFT, "GRAVE": arcade.key.GRAVE
+        }.items()}
 
-    def _convert_codes_to_strings(self, code_bindings):
-        """Конвертирует коды клавиш в строковые привязки"""
-        string_bindings = {}
-        for action, key_codes in code_bindings.items():
-            strings = []
-            for key_code in key_codes:
-                key_string = self.code_to_string.get(key_code)
-                if key_string is not None:
-                    strings.append(key_string)
-                else:
-                    self.logger.warning(f"⚠ Внимание: неизвестный код клавиши {key_code} для действия '{action}'")
-            string_bindings[action] = strings
-        return string_bindings
+        save_data = {}
+        for profile_name, actions in self.profiles.items():
+            save_data[profile_name] = {}
+            for action_name, key_codes in actions.items():
+                strings = []
+                for code in key_codes:
+                    if code in code_to_string:
+                        strings.append(code_to_string[code])
+                save_data[profile_name][action_name] = strings
+
+        return save_data
