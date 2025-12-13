@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="новая структура">
-      <change afterPath="$PROJECT_DIR$/frame/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/TODELkeyhandler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="работа над структурой, перед упрознененте gamestate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/game_state.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/trigger_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/trigger_manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +31,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Tailin-I"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Tailin-I/IT-cubia.git",
+    "accountId": "d2dfd492-f406-4a8b-b96d-0533637bfc51"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -215,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765610372477</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="работа над структурой, перед упрознененте gamestate">
+      <option name="closed" value="true" />
+      <created>1765618397568</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765618397568</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +292,8 @@
     <MESSAGE value="requirements.txt" />
     <MESSAGE value="перед сменой структуры" />
     <MESSAGE value="новая структура" />
-    <option name="LAST_COMMIT_MESSAGE" value="новая структура" />
+    <MESSAGE value="работа над структурой, перед упрознененте gamestate" />
+    <option name="LAST_COMMIT_MESSAGE" value="работа над структурой, перед упрознененте gamestate" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

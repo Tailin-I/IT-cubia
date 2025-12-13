@@ -1,6 +1,8 @@
 # src/states/base_state.py
 from abc import ABC, abstractmethod
 
+from src.core.resource_manager import ResourceManager
+
 
 class BaseState(ABC):
     """
@@ -9,9 +11,11 @@ class BaseState(ABC):
     """
 
     def __init__(self, state_id: str, gsm, asset_loader=None):
+        self.rm = ResourceManager()
+        self.asset_loader = asset_loader
+
         self.state_id = state_id
         self.gsm = gsm
-        self.asset_loader = asset_loader
         self.is_active = False
 
     # ТОЛЬКО ЭТИ методы обязательны для всех состояний

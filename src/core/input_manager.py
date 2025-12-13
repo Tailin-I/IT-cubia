@@ -36,7 +36,7 @@ class InputManager:
             "lobby": {
                 "menu_up": [arcade.key.UP, arcade.key.W],
                 "menu_down": [arcade.key.DOWN, arcade.key.S],
-                "select": [arcade.key.ENTER, arcade.key.SPACE, arcade.key.E],
+                "select": [arcade.key.ENTER, arcade.key.E],
                 "back": [arcade.key.ESCAPE]
             },
             "game": {

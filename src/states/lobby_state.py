@@ -16,6 +16,7 @@ class LobbyState(BaseState):
         self.menu_items = [
             {"text": "▶ НОВАЯ ИГРА", "action": "new_game"},
             {"text": "📂 ЗАГРУЗИТЬ", "action": "load_game"},
+            {"text": "ХУЕСОСАНИЕ", "action": "123"},
             {"text": "⚙ НАСТРОЙКИ", "action": "settings"},
             {"text": "🚪 ВЫХОД", "action": "exit"}
         ]
@@ -83,19 +84,20 @@ class LobbyState(BaseState):
         """Отрисовка лобби"""
         # Очищаем экран красивым градиентом
         arcade.draw_texture_rect(
-            arcade.load_texture(":resources:images/backgrounds/abstract_1.jpg")
+            self.rm.load_texture("backgrounds/lobby_background.png")
             , arcade.rect.XYWH(
-            0, 0,
+            self.gsm.window.width // 2,
+            self.gsm.window.height // 2,
             self.gsm.window.width,
             self.gsm.window.height,
         ))
 
-        arcade.draw_rect_filled(
-            center_x=self.gsm.window.width // 2,
-            center_y=self.gsm.window.height // 2,
-            width=600,
-            height=400,
-            color=(0, 0, 0, 200)  # Чёрный с прозрачностью
+        arcade.draw_rect_filled(arcade.rect.XYWH(
+            x=self.gsm.window.width//2,
+            y=self.gsm.window.height//2,
+            width=self.gsm.window.width,
+            height=self.gsm.window.height),
+            color=(0, 0, 0, 200))
 
         # Заголовок игры (с тенью)
         title_x = self.gsm.window.width // 2
@@ -201,7 +203,7 @@ class LobbyState(BaseState):
         for i, hint in enumerate(hints):
             arcade.Text(
                 hint,
-                self.gsm.window.width // 2,
+                self.gsm.window.width // 8,
                 hint_y + i * hint_spacing,
                 arcade.color.LIGHT_GRAY,
                 font_size=18,
@@ -231,7 +233,7 @@ class LobbyState(BaseState):
             self._play_menu_sound("select")
             self.last_key_time = current_time
 
-        # Выбор пункта (ENTER/E/SPACE)
+        # Выбор пункта (ENTER/E)
         elif self.gsm.input_manager.is_action_pressed("select"):
             self._select_menu_item()
             self.last_key_time = current_time
@@ -256,10 +258,10 @@ class LobbyState(BaseState):
             print("🚀 Начинаем новую игру...")
             self.gsm.switch_to("game")
 
-        elif selected["action"] == "load_game":
-            print("📂 Загрузка игры...")
+        elif selected["action"] == "123":
+            print("СОСИ ХУЙ")
             # Пока просто переходим в игру
-            self.gsm.switch_to("game")
+            # self.gsm.switch_to("game")
 
         elif selected["action"] == "settings":
             print("⚙ Открываем настройки...")
