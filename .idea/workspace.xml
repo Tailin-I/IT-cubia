@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="оптимизация логов">
-      <change afterPath="$PROJECT_DIR$/src/core/camera_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/events/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/events/triggers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/map.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/mapmanager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tile/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tile/tilemanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/tilemanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
