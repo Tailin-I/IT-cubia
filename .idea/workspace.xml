@@ -4,8 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="оптимизация логов">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед сменой структуры">
+      <change afterPath="$PROJECT_DIR$/src/core/game_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/enemy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/npc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/dialogue_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/inventory_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/loading_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/quest_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/stats_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/systems/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/systems/animation_system.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/systems/collision_system.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/systems/dialogue_system.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/systems/quest_system.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/button.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/dialogue_box.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/health_bar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/inventory_grid.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/world/map.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/world/trigger_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/gamepanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/gamepanel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/keyhandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/mapmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/config_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/tile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/tilemanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/tilemanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ui_component.py.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765536581324</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="перед сменой структуры">
+      <option name="closed" value="true" />
+      <created>1765609338379</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765609338380</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,7 +296,8 @@
     <MESSAGE value="сохранение клавиш в json" />
     <MESSAGE value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
     <MESSAGE value="requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements.txt" />
+    <MESSAGE value="перед сменой структуры" />
+    <option name="LAST_COMMIT_MESSAGE" value="перед сменой структуры" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

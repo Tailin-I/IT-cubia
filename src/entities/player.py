@@ -1,5 +1,5 @@
 import logging
-from .entity import Entity
+from .base_entity import Entity
 
 
 class Player(Entity):

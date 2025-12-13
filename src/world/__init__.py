@@ -1,4 +1,4 @@
-# Инициализация модуля tile
+# Инициализация модуля world
 from .tilemanager import TileManager, init_tile_manager, get_tile_manager, tile_manager
 
 __all__ = [

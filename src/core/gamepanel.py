@@ -4,8 +4,8 @@ import os
 import arcade
 from typing import Final
 from .resource_manager import resource_manager
-from .keyhandler import KeyHandler
-from src.entity.player import Player
+from .input_manager import KeyHandler
+from src.entities.player import Player
 
 # ===== НАСТРОЙКИ ЭКРАНА И МАСШТАБИРОВАНИЕ =====
 # Размеры в исходных файлах
