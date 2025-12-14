@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="работа над структурой, добавлен примитивный прототип лобби и игры">
-      <change afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед обновлением overlay">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/pause_menu_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/settings_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -237,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765628440219</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="перед обновлением overlay">
+      <option name="closed" value="true" />
+      <created>1765691389679</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1765691389679</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -306,7 +312,8 @@
     <MESSAGE value="новая структура" />
     <MESSAGE value="работа над структурой, перед упрознененте gamestate" />
     <MESSAGE value="работа над структурой, добавлен примитивный прототип лобби и игры" />
-    <option name="LAST_COMMIT_MESSAGE" value="работа над структурой, добавлен примитивный прототип лобби и игры" />
+    <MESSAGE value="перед обновлением overlay" />
+    <option name="LAST_COMMIT_MESSAGE" value="перед обновлением overlay" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -328,6 +335,11 @@
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
           <line>249</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/frame/main_window.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

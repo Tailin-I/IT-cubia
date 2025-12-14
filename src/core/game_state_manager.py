@@ -1,14 +1,13 @@
 import logging
-from typing import Dict, Optional
-
+from typing import Dict, Optional, List
 
 
 class GameStateManager:
     """
     Управляет всеми состояниями игры.
     Центральный мозг - решает, какое состояние активно.
+    Теперь с поддержкой СТЕКА overlay'ев.
     """
-    # from src.states.base_state import BaseState
 
     def __init__(self, window):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
@@ -18,19 +17,18 @@ class GameStateManager:
         self.states: Dict[str, 'BaseState'] = {}
 
         # Текущее основное состояние (игра, лобби)
+        # Это "дно" нашего стека
         self.current_state: Optional['BaseState'] = None
 
-        # Overlay состояния (инвентарь поверх игры)
-        self.overlay_state: Optional['BaseState'] = None
-
-        # Стек состояний для возврата назад
-        self.state_stack = []
+        # СТЕК overlay состояний (пауза поверх игры, настройки поверх паузы)
+        # Последний элемент в списке - самый верхний (активный) overlay
+        self.overlay_stack: List['BaseState'] = []
 
         # Внешние менеджеры (будут установлены позже)
         self.input_manager = None
         self.asset_loader = None
 
-        self.logger.info("GameStateManager создан")
+        self.logger.info("GameStateManager создан (с поддержкой стека overlay'ев)")
 
     def register_state(self, state_id: str, state_instance: 'BaseState'):
         """Регистрирует состояние в менеджере"""
@@ -42,30 +40,29 @@ class GameStateManager:
         """
         Полностью переключает на новое состояние.
         Старое состояние завершается.
+        Используется для кардинальной смены состояния (лобби → игра).
         """
         self.logger.info(f"Переключение на состояние: {state_id}")
 
-        # Выходим из текущего состояния
+        # Выходим из текущего основного состояния
         if self.current_state:
             self.current_state.on_exit()
 
-        # Очищаем overlay (при полном переключении)
-        if self.overlay_state:
-            self.overlay_state.on_exit()
-            self.overlay_state = None
+        # Очищаем ВЕСЬ стек overlay'ов (при полном переключении)
+        while self.overlay_stack:
+            overlay = self.overlay_stack.pop()
+            overlay.on_exit()
 
         # Входим в новое состояние
         self.current_state = self.states[state_id]
         self.current_state.on_enter(**kwargs)
 
-        # Меняем профиль ввода
-        if self.input_manager:
-            self.input_manager.set_current_profile(state_id)
+        self.logger.info(f"Стек overlay'ов очищен. Новое состояние: {state_id}")
 
     def push_overlay(self, overlay_id: str, **kwargs):
         """
         Открывает состояние ПОВЕРХ текущего.
-        Основное состояние ставится на паузу.
+        Основное состояние или предыдущий overlay ставится на паузу.
         """
         if overlay_id not in self.states:
             self.logger.error(f"Overlay состояние не найдено: {overlay_id}")
@@ -73,68 +70,92 @@ class GameStateManager:
 
         self.logger.info(f"Открываем overlay: {overlay_id}")
 
-        # Закрываем предыдущий overlay
-        if self.overlay_state:
-            self.overlay_state.on_exit()
+        # Ставим на паузу текущий активный overlay (или основное состояние)
+        active_state = self.get_active_state()
+        if active_state:
+            active_state.on_pause()
 
-        # Ставим основное состояние на паузу
-        if self.current_state:
-            self.current_state.on_pause()
+        # Создаем новый overlay
+        new_overlay = self.states[overlay_id]
 
-        # Открываем новый overlay
-        self.overlay_state = self.states[overlay_id]
-        self.overlay_state.on_enter(**kwargs)
+        # Добавляем его в конец стека (верх стека)
+        self.overlay_stack.append(new_overlay)
 
-        # Меняем профиль ввода
-        if self.input_manager:
-            self.input_manager.set_current_profile(overlay_id)
+        # Входим в новый overlay
+        new_overlay.on_enter(**kwargs)
+        self.logger.info(f"Overlay добавлен в стек. Всего overlay'ов: {len(self.overlay_stack)}")
 
     def pop_overlay(self):
-        """Закрывает текущий overlay, возобновляет основное состояние"""
-        if not self.overlay_state:
+        """
+        Закрывает САМЫЙ ВЕРХНИЙ overlay из стека.
+        Возобновляет предыдущий overlay или основное состояние.
+        """
+        if not self.overlay_stack:
+            self.logger.warning("Попытка закрыть overlay, но стек пуст")
             return
 
-        self.logger.info(f"Закрываем overlay: {self.overlay_state.state_id}")
+        # 1. Получаем текущий активный overlay (верх стека)
+        current_overlay = self.overlay_stack[-1]
+        self.logger.info(f"Закрываем overlay: {current_overlay.state_id}")
 
-        # Закрываем overlay
-        self.overlay_state.on_exit()
-        self.overlay_state = None
+        # 2. Выходим из него
+        current_overlay.on_exit()
 
-        # Возобновляем основное состояние
-        if self.current_state:
-            self.current_state.on_resume()
+        # 3. Удаляем его из стека
+        self.overlay_stack.pop()
 
-        # Возвращаем профиль ввода
-        if self.input_manager:
-            self.input_manager.set_current_profile(self.current_state.state_id)
+        # 4. Определяем, какое состояние теперь активно
+        if self.overlay_stack:
+            # Есть еще overlay'ы в стеке
+            new_active = self.overlay_stack[-1]
+            new_active.on_resume()
+            self.logger.info(
+                f"Возобновлен overlay: {new_active.state_id}. Осталось overlay'ов: {len(self.overlay_stack)}")
+        else:
+            # Стек overlay'ов пуст - возвращаемся к основному состоянию
+            if self.current_state:
+                self.current_state.on_resume()
+
+                # Меняем профиль ввода
+                if self.input_manager:
+                    self.input_manager.set_current_profile(self.current_state.state_id)
+
+            self.logger.info("Стек overlay'ов опустошен. Возврат к основному состоянию")
+
+    def get_active_state(self) -> Optional['BaseState']:
+        """
+        Возвращает текущее активное состояние:
+        - Самый верхний overlay из стека, если он есть
+        - Иначе основное состояние
+        """
+        if self.overlay_stack:
+            return self.overlay_stack[-1]
+        return self.current_state
 
     def update(self, delta_time: float):
         """Обновляет активное состояние"""
-        # Сначала overlay (если есть)
-        if self.overlay_state:
-            self.overlay_state.update(delta_time)
-        # Затем основное состояние
-        elif self.current_state:
-            self.current_state.update(delta_time)
+        active_state = self.get_active_state()
+        if active_state:
+            active_state.update(delta_time)
 
     def draw(self):
-        """Отрисовывает состояния (сначала основное, потом overlay)"""
+        """Отрисовывает состояния в правильном порядке"""
+        # 1. Рисуем основное состояние
         if self.current_state:
             self.current_state.draw()
 
-        if self.overlay_state:
-            self.overlay_state.draw()
+        # 2. Рисуем ВСЕ overlay'ы по порядку (от нижнего к верхнему)
+        for overlay in self.overlay_stack:
+            overlay.draw()
 
     def handle_key_press(self, key: int, modifiers: int):
         """Передает нажатие клавиши активному состоянию"""
-        if self.overlay_state:
-            self.overlay_state.handle_key_press(key, modifiers)
-        elif self.current_state:
-            self.current_state.handle_key_press(key, modifiers)
+        active_state = self.get_active_state()
+        if active_state:
+            active_state.handle_key_press(key, modifiers)
 
     def handle_key_release(self, key: int, modifiers: int):
         """Передает отпускание клавиши активному состоянию"""
-        if self.overlay_state:
-            self.overlay_state.handle_key_release(key, modifiers)
-        elif self.current_state:
-            self.current_state.handle_key_release(key, modifiers)
+        active_state = self.get_active_state()
+        if active_state:
+            active_state.handle_key_release(key, modifiers)

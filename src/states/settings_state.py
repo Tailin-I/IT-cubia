@@ -16,10 +16,10 @@ class SettingsState(BaseState):
 
         # Пункты меню настроек
         self.menu_items = [
-            {"text": "🔊 ГРОМКОСТЬ", "action": "volume", "value": 70},
-            {"text": "🎮 УПРАВЛЕНИЕ", "action": "controls"},
-            {"text": "🖥️ ГРАФИКА", "action": "graphics"},
-            {"text": "🔙 НАЗАД", "action": "back"}
+            {"text": "ГРОМКОСТЬ", "action": "volume", "value": 70},
+            {"text": "УПРАВЛЕНИЕ", "action": "controls"},
+            {"text": "ГРАФИКА", "action": "graphics"},
+            {"text": "НАЗАД", "action": "back"}
         ]
 
         self.selected_index = 0
@@ -39,23 +39,20 @@ class SettingsState(BaseState):
 
     def on_enter(self, **kwargs):
         """Вход в настройки с учётом режима"""
-        print("⚙ ВХОД В НАСТРОЙКИ")
-
         # Определяем режим работы
         self.is_overlay = kwargs.get("is_overlay", False)
         self.parent_state = kwargs.get("parent_state", None)
 
         # Устанавливаем профиль ввода
         if self.gsm.input_manager:
-            self.gsm.input_manager.set_current_profile("lobby")
+            self.gsm.input_manager.set_current_profile("settings")
 
         # Если передали индекс для возврата
         if 'return_to_index' in kwargs:
             self.selected_index = kwargs['return_to_index']
 
-    def on_exit(self):  # ⬅️ ЭТОГО НЕ БЫЛО!
+    def on_exit(self):
         """Выход из настроек"""
-        print("🔙 ВЫХОД ИЗ НАСТРОЕК")
 
     def update(self, delta_time):  # ⬅️ И ЭТОГО!
         """Обновление анимации настроек"""
@@ -100,7 +97,7 @@ class SettingsState(BaseState):
         )
 
         # Заголовок
-        arcade.draw_text(
+        arcade.Text(
             "⚙ НАСТРОЙКИ",
             window_x, window_y + 180,
             arcade.color.CYAN,
@@ -115,7 +112,7 @@ class SettingsState(BaseState):
         self._draw_menu_in_window(window_x, window_y)
 
         # Подсказки
-        arcade.draw_text(
+        arcade.Text(
             "← → — Изменить  |  ESC — Назад",
             window_x, window_y - 190,
             arcade.color.LIGHT_GRAY,
@@ -144,8 +141,8 @@ class SettingsState(BaseState):
             color=(0, 0, 0, 200))
 
         # Заголовок
-        arcade.draw_text(
-            "⚙ НАСТРОЙКИ",
+        arcade.Text(
+            "НАСТРОЙКИ",
             self.gsm.window.width // 2,
             self.gsm.window.height * 0.75,
             arcade.color.CYAN,
@@ -154,7 +151,7 @@ class SettingsState(BaseState):
             anchor_x="center",
             anchor_y="center",
             bold=True
-        )
+        ).draw()
 
         # Рисуем меню (полноэкранная версия)
         start_x = self.gsm.window.width // 2
@@ -175,7 +172,7 @@ class SettingsState(BaseState):
             # Текст пункта
             if "value" in item:
                 # Пункт со значением
-                arcade.draw_text(
+                arcade.Text(
                     item["text"] + ": ",
                     start_x - 100,
                     start_y - i * spacing,
@@ -184,10 +181,10 @@ class SettingsState(BaseState):
                     anchor_x="right",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
 
                 value_color = self.value_color if i == self.selected_index else arcade.color.LIGHT_BLUE
-                arcade.draw_text(
+                arcade.Text(
                     f"{item['value']}%",
                     start_x - 80,
                     start_y - i * spacing,
@@ -196,10 +193,10 @@ class SettingsState(BaseState):
                     anchor_x="left",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
             else:
                 # Обычный пункт
-                arcade.draw_text(
+                arcade.Text(
                     item["text"],
                     start_x,
                     start_y - i * spacing,
@@ -209,7 +206,7 @@ class SettingsState(BaseState):
                     anchor_x="center",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
 
             # Курсор
             if i == self.selected_index and self.cursor_visible:
@@ -235,7 +232,7 @@ class SettingsState(BaseState):
 
         hint_y = 80
         for i, hint in enumerate(hints):
-            arcade.draw_text(
+            arcade.Text(
                 hint,
                 self.gsm.window.width // 2,
                 hint_y + i * 25,
@@ -244,7 +241,7 @@ class SettingsState(BaseState):
                 align="center",
                 anchor_x="center",
                 anchor_y="center"
-            )
+            ).draw()
 
     def _draw_menu_in_window(self, center_x, center_y):
         """Рисует меню в рамках окна overlay"""
@@ -266,7 +263,7 @@ class SettingsState(BaseState):
             if "value" in item:
                 value_color = self.value_color if i == self.selected_index else arcade.color.LIGHT_BLUE
 
-                arcade.draw_text(
+                arcade.Text(
                     item["text"] + ": ",
                     center_x - 80,
                     start_y - i * spacing,
@@ -275,9 +272,9 @@ class SettingsState(BaseState):
                     anchor_x="right",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
 
-                arcade.draw_text(
+                arcade.Text(
                     f"{item['value']}%",
                     center_x - 60,
                     start_y - i * spacing,
@@ -286,9 +283,9 @@ class SettingsState(BaseState):
                     anchor_x="left",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
             else:
-                arcade.draw_text(
+                arcade.Text(
                     item["text"],
                     center_x,
                     start_y - i * spacing,
@@ -298,7 +295,7 @@ class SettingsState(BaseState):
                     anchor_x="center",
                     anchor_y="center",
                     bold=is_bold
-                )
+                ).draw()
 
             # Курсор
             if i == self.selected_index and self.cursor_visible:
@@ -380,12 +377,7 @@ class SettingsState(BaseState):
     def _go_back(self):
         """Возврат с учётом режима"""
         if self.is_overlay:
-            # Overlay режим: просто закрываем overlay
-
-            if self.parent_state == "pause_menu":
-                self.gsm.pop_overlay()
-            # else:
-            #     self.gsm.pop_overlay()
+            self.gsm.pop_overlay()
         else:
             # Самостоятельный режим: возвращаемся в лобби
             print("🔙 Возвращаемся в лобби...")

@@ -92,6 +92,8 @@ class InputManager:
 
     def set_current_profile(self, profile_name: str):
         """Устанавливает активный профиль ввода"""
+        self.pressed_keys.clear()
+
         if profile_name in self.profiles or profile_name == "global":
             self.current_profile = profile_name
             print(f"Установлен профиль ввода: {profile_name}")

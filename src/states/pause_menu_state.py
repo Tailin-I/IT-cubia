@@ -85,8 +85,8 @@ class PauseMenuState(BaseState):
         )
 
         # Заголовок
-        arcade.draw_text(
-            "⏸️ ПАУЗА",
+        arcade.Text(
+            "ПАУЗА",
             window_x, window_y + 150,
             arcade.color.GOLD,
             36,
@@ -94,13 +94,13 @@ class PauseMenuState(BaseState):
             anchor_x="center",
             anchor_y="center",
             bold=True
-        )
+        ).draw()
 
         # Рисуем пункты меню
         self._draw_menu(window_x, window_y)
 
         # Подсказки
-        arcade.draw_text(
+        arcade.Text(
             "↑ ↓ — Выбор  |  ENTER — Подтвердить  |  ESC — Назад",
             window_x, window_y - 180,
             arcade.color.LIGHT_GRAY,
@@ -108,7 +108,7 @@ class PauseMenuState(BaseState):
             align="center",
             anchor_x="center",
             anchor_y="center"
-        )
+        ).draw()
 
     def _draw_menu(self, center_x, center_y):
         """Рисует пункты меню паузы"""
@@ -127,7 +127,7 @@ class PauseMenuState(BaseState):
                 is_bold = False
 
             # Текст пункта
-            arcade.draw_text(
+            arcade.Text(
                 item["text"],
                 center_x, start_y - i * spacing,
                 color,
@@ -136,7 +136,7 @@ class PauseMenuState(BaseState):
                 anchor_x="center",
                 anchor_y="center",
                 bold=is_bold
-            )
+            ).draw()
 
             # Курсор для выбранного пункта
             if i == self.selected_index and self.cursor_visible:
@@ -191,14 +191,13 @@ class PauseMenuState(BaseState):
             self._close_pause_menu()
 
         elif selected["action"] == "settings":
-            # Открываем настройки как overlay поверх меню паузы
+            # Открываем настройки как overlay поверх паузы
             print("Открываем настройки из паузы...")
             self.gsm.push_overlay("settings", is_overlay=True, parent_state="pause_menu")
 
         elif selected["action"] == "main_menu":
             # Подтверждение выхода в главное меню
             print("Возврат в главное меню...")
-            # Можно добавить диалог подтверждения
             self.gsm.switch_to("lobby")
 
         elif selected["action"] == "exit_game":
@@ -206,4 +205,4 @@ class PauseMenuState(BaseState):
 
     def _close_pause_menu(self):
         """Закрывает меню паузы (возврат в игру)"""
-        self.gsm.pop_overlay()  # Закрываем этот overlay
+        self.gsm.pop_overlay()
