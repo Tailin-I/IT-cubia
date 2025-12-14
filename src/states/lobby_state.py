@@ -14,11 +14,10 @@ class LobbyState(BaseState):
 
         # Пункты меню
         self.menu_items = [
-            {"text": "▶ НОВАЯ ИГРА", "action": "new_game"},
-            {"text": "📂 ЗАГРУЗИТЬ", "action": "load_game"},
-            {"text": "ХУЕСОСАНИЕ", "action": "123"},
-            {"text": "⚙ НАСТРОЙКИ", "action": "settings"},
-            {"text": "🚪 ВЫХОД", "action": "exit"}
+            {"text": "НОВАЯ ИГРА", "action": "new_game"},
+            {"text": "ЗАГРУЗИТЬ", "action": "load_game"},
+            {"text": "НАСТРОЙКИ", "action": "settings"},
+            {"text": "ВЫХОД", "action": "exit"}
         ]
 
         # Выбранный пункт
@@ -43,7 +42,7 @@ class LobbyState(BaseState):
 
     def on_enter(self, **kwargs):
         """Вход в лобби"""
-        print("🎮 ВХОД В ЛОББИ")
+        print("ВХОД В ЛОББИ")
 
         # Устанавливаем профиль ввода
         if self.gsm.input_manager:
@@ -59,7 +58,7 @@ class LobbyState(BaseState):
 
     def on_exit(self):
         """Выход из лобби"""
-        print("🚪 ВЫХОД ИЗ ЛОББИ")
+        print("ВЫХОД ИЗ ЛОББИ")
 
     def on_pause(self):
         """Пауза (не используется в лобби)"""
@@ -105,8 +104,8 @@ class LobbyState(BaseState):
 
         # Тень
         arcade.Text(
-            "ITCUBIA",
-            title_x + 3, title_y - 3,
+            "IT-Кубия",
+            title_x + 5, title_y - 5,
             arcade.color.BLACK,
             font_size=72,
             anchor_x="center",
@@ -116,7 +115,7 @@ class LobbyState(BaseState):
 
         # Основной текст
         arcade.Text(
-            "ITCUBIA",
+            "IT-Кубия",
             title_x, title_y,
             self.title_color,
             font_size=72,
@@ -128,7 +127,7 @@ class LobbyState(BaseState):
         # Подзаголовок
         arcade.Text(
             "Pixel Adventure",
-            title_x, title_y - 60,
+            title_x, title_y - 80,
             arcade.color.LIGHT_BLUE,
             font_size=24,
             anchor_x="center",
@@ -243,30 +242,20 @@ class LobbyState(BaseState):
             self._confirm_exit()
             self.last_key_time = current_time
 
-        # Глобальные клавиши (работают всегда)
-        elif self.gsm.input_manager.is_action_pressed("fullscreen"):
-            self.gsm.window.set_fullscreen(not self.gsm.window.fullscreen)
-
     def _select_menu_item(self):
         """Обрабатывает выбор пункта меню"""
         selected = self.menu_items[self.selected_index]
-        print(f"✅ Выбрано: {selected['text']}")
-
         self._play_menu_sound("confirm")
 
         if selected["action"] == "new_game":
             print("🚀 Начинаем новую игру...")
             self.gsm.switch_to("game")
-
-        elif selected["action"] == "123":
-            print("СОСИ ХУЙ")
             # Пока просто переходим в игру
             # self.gsm.switch_to("game")
 
         elif selected["action"] == "settings":
             print("⚙ Открываем настройки...")
-            # Можно сделать: self.gsm.push_overlay("settings")
-            # Или: self.gsm.switch_to("settings")
+            self.gsm.switch_to("settings")
 
         elif selected["action"] == "exit":
             self._confirm_exit()

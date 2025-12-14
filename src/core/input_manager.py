@@ -39,6 +39,18 @@ class InputManager:
                 "select": [arcade.key.ENTER, arcade.key.E],
                 "back": [arcade.key.ESCAPE]
             },
+            "pause_menu": {
+                "menu_up": [arcade.key.UP, arcade.key.W],
+                "menu_down": [arcade.key.DOWN, arcade.key.S],
+                "select": [arcade.key.ENTER, arcade.key.SPACE, arcade.key.E],
+                "back": [arcade.key.ESCAPE]
+            },
+            "settings": {
+                "menu_up": [arcade.key.UP, arcade.key.W],
+                "menu_down": [arcade.key.DOWN, arcade.key.S],
+                "select": [arcade.key.ENTER, arcade.key.E],
+                "back": [arcade.key.ESCAPE]
+            },
             "game": {
                 "move_up": [arcade.key.W, arcade.key.UP],
                 "move_down": [arcade.key.S, arcade.key.DOWN],
@@ -48,15 +60,6 @@ class InputManager:
                 "interact": [arcade.key.E],
                 "pause": [arcade.key.ESCAPE, arcade.key.P],
                 "run": [arcade.key.LSHIFT]
-            },
-            "inventory": {
-                "move_up": [arcade.key.UP, arcade.key.W],
-                "move_down": [arcade.key.DOWN, arcade.key.S],
-                "move_left": [arcade.key.LEFT, arcade.key.A],
-                "move_right": [arcade.key.RIGHT, arcade.key.D],
-                "use_item": [arcade.key.ENTER, arcade.key.E],
-                "drop_item": [arcade.key.Q],
-                "close": [arcade.key.ESCAPE, arcade.key.I, arcade.key.TAB]
             }
         }
 

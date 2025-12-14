@@ -7,6 +7,10 @@ from src.core.resource_manager import resource_manager
 from src.core.asset_loader import AssetLoader
 from src.states.lobby_state import LobbyState
 from src.states.game_state import GameplayState
+from src.states.pause_menu_state import PauseMenuState
+from src.states.settings_state import SettingsState
+
+
 # from src.states.inventory_state import InventoryState
 
 
@@ -20,7 +24,7 @@ class MainWindow(arcade.Window):
         # Константы из вашего GamePanel
         SCREEN_WIDTH = 1280
         SCREEN_HEIGHT = 768
-        SCREEN_TITLE = "ITCUBIA"
+        SCREEN_TITLE = "IT-Кубия"
 
         super().__init__(
             width=SCREEN_WIDTH,
@@ -59,12 +63,14 @@ class MainWindow(arcade.Window):
         # Создаем экземпляры состояний
         lobby_state = LobbyState(self.gsm, self.asset_loader)
         game_state = GameplayState(self.gsm, self.asset_loader)
-        # inventory_state = InventoryState(self.gsm, self.asset_loader)
+        pause_state = PauseMenuState(self.gsm, self.asset_loader)
+        settings_state = SettingsState(self.gsm, self.asset_loader)
 
-        # Регистрируем в менеджере
+        # Регистрация состояний
         self.gsm.register_state("lobby", lobby_state)
         self.gsm.register_state("game", game_state)
-        # self.gsm.register_state("inventory", inventory_state)
+        self.gsm.register_state("pause_menu", pause_state)
+        self.gsm.register_state("settings", settings_state)
 
         self.logger.info(f"Зарегистрировано состояний: {len(self.gsm.states)}")
 
@@ -82,6 +88,9 @@ class MainWindow(arcade.Window):
         self.input_manager.on_key_press(key, modifiers)
         self.gsm.handle_key_press(key, modifiers)
 
+        if self.gsm.input_manager.is_action_pressed("fullscreen"):
+            self.gsm.window.set_fullscreen(not self.gsm.window.fullscreen)
+
     def on_key_release(self, key: int, modifiers: int):
         """Отпускание клавиши - передаем InputManager и GSM"""
         self.input_manager.on_key_release(key, modifiers)
@@ -89,5 +98,4 @@ class MainWindow(arcade.Window):
 
     def on_close(self):
         """Закрытие окна"""
-        self.logger.info("Закрытие MainWindow")
         super().on_close()

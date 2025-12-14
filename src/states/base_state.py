@@ -1,4 +1,4 @@
-# src/states/base_state.py
+import logging
 from abc import ABC, abstractmethod
 
 from src.core.resource_manager import ResourceManager
@@ -11,6 +11,9 @@ class BaseState(ABC):
     """
 
     def __init__(self, state_id: str, gsm, asset_loader=None):
+        self.logger = logging.getLogger(self.__class__.__name__)
+
+
         self.rm = ResourceManager()
         self.asset_loader = asset_loader
 
@@ -32,7 +35,7 @@ class BaseState(ABC):
     @abstractmethod
     def update(self, delta_time: float):
         """Обновление - ОБЯЗАТЕЛЬНО"""
-        pass
+
 
     @abstractmethod
     def draw(self):
