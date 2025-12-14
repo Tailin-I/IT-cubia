@@ -98,7 +98,7 @@ class SettingsState(BaseState):
 
         # Заголовок
         arcade.Text(
-            "⚙ НАСТРОЙКИ",
+            "НАСТРОЙКИ",
             window_x, window_y + 180,
             arcade.color.CYAN,
             32,
@@ -106,7 +106,7 @@ class SettingsState(BaseState):
             anchor_x="center",
             anchor_y="center",
             bold=True
-        )
+        ).draw()
 
         # Рисуем пункты меню
         self._draw_menu_in_window(window_x, window_y)
@@ -120,7 +120,7 @@ class SettingsState(BaseState):
             align="center",
             anchor_x="center",
             anchor_y="center"
-        )
+        ).draw()
 
     def _draw_as_fullscreen(self):
         """Отрисовка настроек как отдельного состояния (полный экран)"""
@@ -265,7 +265,7 @@ class SettingsState(BaseState):
 
                 arcade.Text(
                     item["text"] + ": ",
-                    center_x - 80,
+                    center_x - 50,
                     start_y - i * spacing,
                     color,
                     font_size,
@@ -315,7 +315,6 @@ class SettingsState(BaseState):
         """Обработка клавиш в настройках"""
         if not self.gsm.input_manager:
             return
-
         current_time = time.time()
         if current_time - self.last_key_time < self.key_cooldown:
             return
@@ -330,11 +329,11 @@ class SettingsState(BaseState):
             self.last_key_time = current_time
 
         # Изменение значений
-        elif self.gsm.input_manager.is_action_pressed("move_left"):
+        elif self.gsm.input_manager.is_action_pressed("menu_left"):
             self._change_value(-10)
             self.last_key_time = current_time
 
-        elif self.gsm.input_manager.is_action_pressed("move_right"):
+        elif self.gsm.input_manager.is_action_pressed("menu_right"):
             self._change_value(+10)
             self.last_key_time = current_time
 
@@ -350,9 +349,9 @@ class SettingsState(BaseState):
 
     def _change_value(self, delta):
         """Изменяет значение выбранной настройки"""
+        print(self.selected_index, len(self.menu_items))
         if self.selected_index < len(self.menu_items):
             item = self.menu_items[self.selected_index]
-
             if "value" in item:
                 # Ограничиваем значение 0-100
                 new_value = max(0, min(100, item["value"] + delta))

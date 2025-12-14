@@ -48,6 +48,8 @@ class InputManager:
             "settings": {
                 "menu_up": [arcade.key.UP, arcade.key.W],
                 "menu_down": [arcade.key.DOWN, arcade.key.S],
+                "menu_left": [arcade.key.A, arcade.key.LEFT],
+                "menu_right": [arcade.key.D, arcade.key.RIGHT],
                 "select": [arcade.key.ENTER, arcade.key.E],
                 "back": [arcade.key.ESCAPE]
             },
