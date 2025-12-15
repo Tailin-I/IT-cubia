@@ -42,12 +42,6 @@ class LobbyState(BaseState):
 
     def on_enter(self, **kwargs):
         """Вход в лобби"""
-        print("ВХОД В ЛОББИ")
-
-        # Устанавливаем профиль ввода
-        if self.gsm.input_manager:
-            self.gsm.input_manager.set_current_profile("lobby")
-
         # Сбрасываем таймеры
         self.cursor_blink_timer = 0
         self.last_key_time = time.time()
@@ -221,24 +215,24 @@ class LobbyState(BaseState):
             return
 
         # Навигация ВВЕРХ
-        if self.gsm.input_manager.is_action_pressed("menu_up"):
+        if self.gsm.input_manager.get_action("up"):
             self.selected_index = max(0, self.selected_index - 1)
             self._play_menu_sound("select")
             self.last_key_time = current_time
 
         # Навигация ВНИЗ
-        elif self.gsm.input_manager.is_action_pressed("menu_down"):
+        elif self.gsm.input_manager.get_action("down"):
             self.selected_index = min(len(self.menu_items) - 1, self.selected_index + 1)
             self._play_menu_sound("select")
             self.last_key_time = current_time
 
         # Выбор пункта (ENTER/E)
-        elif self.gsm.input_manager.is_action_pressed("select"):
+        elif self.gsm.input_manager.get_action("select"):
             self._select_menu_item()
             self.last_key_time = current_time
 
         # Выход (ESC)
-        elif self.gsm.input_manager.is_action_pressed("back"):
+        elif self.gsm.input_manager.get_action("escape"):
             self._confirm_exit()
             self.last_key_time = current_time
 
@@ -262,7 +256,7 @@ class LobbyState(BaseState):
 
     def _confirm_exit(self):
         """Подтверждение выхода"""
-        print("🚪 Выход из игры")
+        print("Выход из игры")
         # Можно добавить диалог подтверждения
         # Пока просто закрываем
         self.gsm.window.close()

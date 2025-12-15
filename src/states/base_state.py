@@ -1,6 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 
+from src.core.game_data import game_data
 from src.core.resource_manager import ResourceManager
 
 
@@ -13,7 +14,7 @@ class BaseState(ABC):
     def __init__(self, state_id: str, gsm, asset_loader=None):
         self.logger = logging.getLogger(self.__class__.__name__)
 
-
+        self.game_data = game_data
         self.rm = ResourceManager()
         self.asset_loader = asset_loader
 

@@ -4,7 +4,7 @@ import arcade
 class Entity(arcade.Sprite):
     """Главный класс для всех сущностей"""
 
-    def __init__(self, texture_list: list[arcade.Texture], scale):
+    def __init__(self, texture_list, scale):
         super().__init__(texture_list[0], scale)
 
         self.time_elapsed = 0  # задержка времени для анимации

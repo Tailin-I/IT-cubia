@@ -1,32 +1,43 @@
 import logging
 from .base_entity import Entity
+from ..core.game_data import game_data
 
 
 class Player(Entity):
-    def __init__(self, texture_list, key_h, scale=1):
+    def __init__(self, texture_dict, input_manager, scale=1):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
+        self.data = game_data
 
+        # словарь -> список
+        all_textures = []
+        for direction in ["up", "down", "left", "right"]:
+            all_textures.extend(texture_dict[direction])
         # Вызываем конструктор Entity с масштабом
-        super().__init__(texture_list, scale)
+        super().__init__(all_textures, scale)
+
+        # Сохраняем словарь для удобного доступа
+        self.texture_dict = texture_dict
+        self.input_manager = input_manager
+
+        # Маппинг направлений на индексы текстур
+        self.texture_indexes = {
+            "up": 0,  # текстуры 0 и 1
+            "down": 2,  # текстуры 2 и 3
+            "left": 4,  # текстуры 4 и 5
+            "right": 6  # текстуры 6 и 7
+        }
 
         # Для отслеживания смены направления
         self.last_direction = None
-
-        self.textures = texture_list
-        self.key_h = key_h
-
-        # Параметры хитбокса (но пока не используем)
-        self.hitbox_width_ratio = 0.8  # 80% ширины (-0.1 с каждой стороны)
-        self.hitbox_height_ratio = 0.7  # 70% высоты (отступ снизу)
 
         self.setdefault()
         # ВРЕМЕННО ОТКЛЮЧАЕМ хитбокс
         # self.setup_hitbox()  # Настраиваем хитбокс
 
     def setdefault(self):
-        # Позиция
-        self.center_x = 120
-        self.center_y = 300
+        pos = self.data.get_player_position()
+        self.center_x = pos[0]
+        self.center_y = pos[1]
 
         # Скорость игрока
         self.speed = 4
@@ -47,70 +58,88 @@ class Player(Entity):
         super().update(delta_time)
         self.time_elapsed += delta_time
 
-        # Анимация при движении
-        if self.time_elapsed > 0.3:  # значение увеличено для отладки
-            # Обновляем анимацию только если игрок движется
-            # dx, dy = self.get_movement()
-            # if dx != 0 or dy != 0:
-            if self.cur_texture_index < len(self.textures):
-                self.set_texture(self.cur_texture_index)
-            self.time_elapsed = 0
-
-    def get_movement(self):
-        """Возвращает нормализованный вектор движения"""
         dx, dy = 0, 0
         current_direction = None
 
-        if self.key_h.actions['move_up']:
+        if self.input_manager.get_action('up'):
             current_direction = "up"
             dy += self.speed
-            if self.cur_texture_index == 0:
-                self.cur_texture_index = 1
-            else:
-                self.cur_texture_index = 0
-        if self.key_h.actions['move_down']:
+        if self.input_manager.get_action('down'):
             current_direction = "down"
             dy -= self.speed
-            if self.cur_texture_index == 2:
-                self.cur_texture_index = 3
-            else:
-                self.cur_texture_index = 2
-        if self.key_h.actions['move_left']:
+        if self.input_manager.get_action('left'):
             current_direction = "left"
             dx -= self.speed
-            if self.cur_texture_index == 4:
-                self.cur_texture_index = 5
-            else:
-                self.cur_texture_index = 4
-        if self.key_h.actions['move_right']:
+        if self.input_manager.get_action('right'):
             current_direction = "right"
             dx += self.speed
-            if self.cur_texture_index == 6:
-                self.cur_texture_index = 7
-            else:
-                self.cur_texture_index = 6
 
-        # Проверяем, сменилось ли направление
-        if current_direction != self.last_direction:
-            self.time_elapsed = 1  # Сбрасываем таймер анимации
+            # СРАЗУ меняем текстуру при смене направления
+        if current_direction and current_direction != self.last_direction:
+            self._set_direction_texture(current_direction)
+            self.time_elapsed = 0  # Сбрасываем таймер
+
+        # Анимация ТОЛЬКО если двигаемся и прошло время
+        if current_direction and self.time_elapsed > 0.2:
+            self._animate_direction(current_direction)
+            self.time_elapsed = 0
+
+        # Если стоим - статичная текстура
+        elif not current_direction:
+            self._set_idle_texture()
+
+        # Важно! Нужно обновить last_direction
+        if current_direction:
             self.last_direction = current_direction
 
-        if dx == 0 and dy == 0:
-            self.last_direction = None
-            # Возвращаем к первой текстуре в направлении
-            if self.cur_texture_index in [0, 1]:
-                self.cur_texture_index = 0
-            elif self.cur_texture_index in [2, 3]:
-                self.cur_texture_index = 2
-            elif self.cur_texture_index in [4, 5]:
-                self.cur_texture_index = 4
-            elif self.cur_texture_index in [6, 7]:
-                self.cur_texture_index = 6
-
-        return dx, dy
-
-    def move(self):
-        """Персонаж всегда двигается (пусть порой и на 0 px)"""
-        dx, dy = self.get_movement()
+        # И самое главное - двигать игрока!
         self.center_x += dx
         self.center_y += dy
+        # Синхронизируем с game_data
+        self.data.set_player_position(self.center_x, self.center_y)
+
+    def _set_direction_texture(self, direction):
+        """Сразу устанавливает первую текстуру направления"""
+        if direction == "up":
+            self.cur_texture_index = 0
+        elif direction == "down":
+            self.cur_texture_index = 2
+        elif direction == "left":
+            self.cur_texture_index = 4
+        elif direction == "right":
+            self.cur_texture_index = 6
+        self.set_texture(self.cur_texture_index)
+    def _animate_direction(self, direction):
+        """Анимирует движение в указанном направлении"""
+        direction_map = {
+            "up": (0, 1),  # текстуры 0 и 1
+            "down": (2, 3),  # текстуры 2 и 3
+            "left": (4, 5),  # текстуры 4 и 5
+            "right": (6, 7)  # текстуры 6 и 7
+        }
+
+        tex1, tex2 = direction_map[direction]
+
+        # Переключаем между двумя текстурами
+        if self.cur_texture_index == tex1:
+            self.cur_texture_index = tex2
+            self.set_texture(tex2)
+        else:
+            self.cur_texture_index = tex1
+            self.set_texture(tex1)
+
+    def _set_idle_texture(self):
+        """Устанавливает статичную текстуру для стояния"""
+        # Определяем последнее направление для idle-позы
+        if self.last_direction == "up":
+            self.cur_texture_index = 0
+            self.set_texture(0)
+        elif self.last_direction == "down":
+            self.cur_texture_index = 2
+            self.set_texture(2)
+        elif self.last_direction == "left":
+            self.cur_texture_index = 4
+            self.set_texture(4)
+        elif self.last_direction == "right":
+            self.cur_texture_index = 6
+            self.set_texture(6)

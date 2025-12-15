@@ -38,13 +38,9 @@ class PauseMenuState(BaseState):
 
     def on_enter(self, **kwargs):
         """Вход в меню паузы"""
-        # Устанавливаем профиль ввода
-        if self.gsm.input_manager:
-            self.gsm.input_manager.set_current_profile("pause_menu")
 
     def on_exit(self):
         """Выход из меню паузы"""
-        print("▶️ ВЫХОД ИЗ МЕНЮ ПАУЗЫ")
 
     def update(self, delta_time):
         """Обновление анимации"""
@@ -164,21 +160,21 @@ class PauseMenuState(BaseState):
             return
 
         # Навигация
-        if self.gsm.input_manager.is_action_pressed("menu_up"):
+        if self.gsm.input_manager.get_action("up"):
             self.selected_index = max(0, self.selected_index - 1)
             self.last_key_time = current_time
 
-        elif self.gsm.input_manager.is_action_pressed("menu_down"):
+        elif self.gsm.input_manager.get_action("down"):
             self.selected_index = min(len(self.menu_items) - 1, self.selected_index + 1)
             self.last_key_time = current_time
 
         # Выбор (ENTER)
-        elif self.gsm.input_manager.is_action_pressed("select"):
+        elif self.gsm.input_manager.get_action("select"):
             self._select_menu_item()
             self.last_key_time = current_time
 
         # Назад (ESC) - закрыть меню паузы
-        elif self.gsm.input_manager.is_action_pressed("back"):
+        elif self.gsm.input_manager.get_action("escape"):
             self._close_pause_menu()
             self.last_key_time = current_time
 

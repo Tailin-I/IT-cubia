@@ -116,10 +116,6 @@ class GameStateManager:
             if self.current_state:
                 self.current_state.on_resume()
 
-                # Меняем профиль ввода
-                if self.input_manager:
-                    self.input_manager.set_current_profile(self.current_state.state_id)
-
             self.logger.info("Стек overlay'ов опустошен. Возврат к основному состоянию")
 
     def get_active_state(self) -> Optional['BaseState']:

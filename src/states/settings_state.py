@@ -43,10 +43,6 @@ class SettingsState(BaseState):
         self.is_overlay = kwargs.get("is_overlay", False)
         self.parent_state = kwargs.get("parent_state", None)
 
-        # Устанавливаем профиль ввода
-        if self.gsm.input_manager:
-            self.gsm.input_manager.set_current_profile("settings")
-
         # Если передали индекс для возврата
         if 'return_to_index' in kwargs:
             self.selected_index = kwargs['return_to_index']
@@ -320,30 +316,30 @@ class SettingsState(BaseState):
             return
 
         # Навигация
-        if self.gsm.input_manager.is_action_pressed("menu_up"):
+        if self.gsm.input_manager.get_action("up"):
             self.selected_index = max(0, self.selected_index - 1)
             self.last_key_time = current_time
 
-        elif self.gsm.input_manager.is_action_pressed("menu_down"):
+        elif self.gsm.input_manager.get_action("down"):
             self.selected_index = min(len(self.menu_items) - 1, self.selected_index + 1)
             self.last_key_time = current_time
 
         # Изменение значений
-        elif self.gsm.input_manager.is_action_pressed("menu_left"):
+        elif self.gsm.input_manager.get_action("left"):
             self._change_value(-10)
             self.last_key_time = current_time
 
-        elif self.gsm.input_manager.is_action_pressed("menu_right"):
+        elif self.gsm.input_manager.get_action("right"):
             self._change_value(+10)
             self.last_key_time = current_time
 
         # Выбор
-        elif self.gsm.input_manager.is_action_pressed("select"):
+        elif self.gsm.input_manager.get_action("select"):
             self._select_menu_item()
             self.last_key_time = current_time
 
         # Назад
-        elif self.gsm.input_manager.is_action_pressed("back"):
+        elif self.gsm.input_manager.get_action("escape"):
             self._go_back()
             self.last_key_time = current_time
 

@@ -1,6 +1,9 @@
 import logging
 import arcade
+from arcade import SpriteList, camera
+
 from .base_state import BaseState
+from ..entities import Player
 
 
 class GameplayState(BaseState):
@@ -12,10 +15,27 @@ class GameplayState(BaseState):
     def __init__(self, gsm, asset_loader):
         super().__init__("game", gsm, asset_loader)
 
-        self.input_manager = None
-        self.player = None
+        self.input_manager = self.gsm.input_manager
+
+        # Загружаем текстуры (словарь)
+        player_textures = self.asset_loader.load_player_sprites(scale=1)
+
+        # Создаем игрока с словарем текстур
+        self.player = Player(player_textures, self.input_manager, scale=1)
+
+        self.player_list = SpriteList()
+        self.player_list.append(self.player)
+
+        # Камера
+        # self.camera = arcade.Camera(self.gsm.window.width, self.gsm.window.height)
+        self.camera = camera.Camera2D() # для игрока
+        self.camera.viewport = (arcade.rect.XYWH( self.gsm.window.width//2,
+                                                  self.gsm.window.height//2,
+                                                  self.gsm.window.width,
+                                                  self.gsm.window.height))
+
+
         self.game_map = None
-        self.camera = None
         self.ui_elements = arcade.SpriteList()
 
         # ИНИЦИАЛИЗИРУЕМ флаги в конструкторе
@@ -28,22 +48,11 @@ class GameplayState(BaseState):
         self.is_paused = False
         self.is_initialized = True
 
-        # Получаем InputManager из GameStateManager
-        self.input_manager = self.gsm.input_manager
-
-        # Устанавливаем профиль клавиш для игры
-        if self.input_manager:
-            self.input_manager.set_current_profile("game")
-
-        # Пока без игрока и карты - просто тестируем переход
-        print("Игра загружена (пока без контента)")
-
         # Инициализируем UI
         self._init_ui()
 
     def on_exit(self):
         """Вызывается при выходе из состояния"""
-        print("🚪 ВЫХОДИМ ИЗ ИГРЫ")
         # Сбрасываем флаги
         self.is_paused = False
         self.is_initialized = False
@@ -63,69 +72,73 @@ class GameplayState(BaseState):
     def update(self, delta_time: float):
         """Обновление игровой логики"""
         if self.is_paused:
-            return  # Не обновляем, если игра на паузе
+            return
 
         # 1. Обрабатываем ввод игрока
+        self.player.update()
         self._handle_input()
 
         # Пока нет игрока и карты - просто ждем
 
     def draw(self):
         """Отрисовка игры"""
-        # Очищаем экран
+        arcade.set_background_color(arcade.color.LIME)
+
+        arcade.draw_triangle_filled(200, 500, 900, 500, 500, 70, arcade.color.GRAY)
+
         # arcade.start_render()
-
-        # Фон (просто черный для теста)
-        arcade.set_background_color(arcade.color.BLACK)
-
-        # Сообщение для теста
         arcade.Text(
             "ИГРА АКТИВНА",
-            self.gsm.window.width // 2,
-            self.gsm.window.height // 2,
-            arcade.color.GREEN,
+            500,
+            600,
+            arcade.color.BLACK,
             48,
             anchor_x="center",
             anchor_y="center",
             bold=True
         ).draw()
 
-        # Если пауза - показываем сообщение
-        if self.is_paused:
-            arcade.Text(
-                "ПАУЗА (нажмите ESC для меню)",
-                self.gsm.window.width // 2,
-                self.gsm.window.height // 2 - 100,
-                arcade.color.YELLOW,
-                24,
-                anchor_x="center",
-                anchor_y="center"
-            ).draw()
+
+        self.camera.use()
+        self.player_list.draw()
+
+
+
+
+
+    def on_resize(self, width, height):
+        """При изменении размера окна обновляем камеру"""
+        # Обновляем viewport камеры
+        self.camera.viewport =self.camera.viewport = (arcade.rect.XYWH( self.gsm.window.width//2,
+                                                  self.gsm.window.height//2,
+                                                  self.gsm.window.width,
+                                                  self.gsm.window.height))
+
+        # Также можно обновить проекцию, если она используется
+        # self.camera.projection = (0, width, 0, height)
+
+        print(f"Размер окна изменен: {width}x{height}")
+
 
     def _handle_input(self):
         """Обработка ввода для игрового состояния"""
         if not self.input_manager:
             return
 
-        if self.input_manager.current_profile != "game":
-            print(f"⚠️ Внимание! Текущий профиль: {self.input_manager.current_profile}, должен быть 'game'")
-            return
-
-
         # ESC - открыть меню паузы
-        if self.input_manager.is_action_pressed("pause"):
+        if self.input_manager.get_action("escape"):
             print("🔼 Нажата пауза")
             self._open_pause_menu()
 
         # Для теста - выводим нажатые клавиши движения
-        if self.input_manager.is_action_pressed("move_up"):
-            print("↑ Движение вверх")
-        if self.input_manager.is_action_pressed("move_down"):
-            print("↓ Движение вниз")
-        if self.input_manager.is_action_pressed("move_left"):
-            print("← Движение влево")
-        if self.input_manager.is_action_pressed("move_right"):
-            print("→ Движение вправо")
+        # if self.input_manager.get_action("up"):
+        #     print("↑ Движение вверх")
+        # if self.input_manager.get_action("down"):
+        #     print("↓ Движение вниз")
+        # if self.input_manager.get_action("left"):
+        #     print("← Движение влево")
+        # if self.input_manager.get_action("right"):
+        #     print("→ Движение вправо")
 
     def _init_ui(self):
         """Инициализирует UI элементы"""
@@ -134,7 +147,4 @@ class GameplayState(BaseState):
 
     def _open_pause_menu(self):
         """Открывает меню паузы поверх игры"""
-        print("📋 Открываем меню паузы...")
-        self.gsm.push_overlay("pause_menu")
-
-    # УБИРАЕМ дублированные методы отсюда!
+        self.gsm.push_overlay("pause_menu", )

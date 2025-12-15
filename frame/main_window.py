@@ -84,17 +84,34 @@ class MainWindow(arcade.Window):
         self.gsm.update(delta_time)
 
     def on_key_press(self, key: int, modifiers: int):
-        """Нажатие клавиши - передаем InputManager и GSM"""
+        """Нажатие клавиши"""
+        # 1. F11 обрабатываем СРАЗУ и ВЫХОДИМ
+        if key == arcade.key.F11:
+            self.set_fullscreen(not self.fullscreen)
+            return  # ВАЖНО: не передаем дальше!
+
+        # 2. Остальные клавиши - в InputManager и GSM
         self.input_manager.on_key_press(key, modifiers)
         self.gsm.handle_key_press(key, modifiers)
 
-        if self.gsm.input_manager.is_action_pressed("fullscreen"):
-            self.gsm.window.set_fullscreen(not self.gsm.window.fullscreen)
-
     def on_key_release(self, key: int, modifiers: int):
-        """Отпускание клавиши - передаем InputManager и GSM"""
+        """Отпускание клавиши"""
+        # F11 игнорируем (мы уже обработали)
+        if key == arcade.key.F11:
+            return
+
         self.input_manager.on_key_release(key, modifiers)
         self.gsm.handle_key_release(key, modifiers)
+
+    def on_resize(self, width: int, height: int):
+        """Вызывается при изменении размера окна (включая переключение полноэкранного режима)"""
+        super().on_resize(width, height)
+
+        # Передаем информацию о новом размере в GSM
+        if hasattr(self.gsm, 'current_state') and self.gsm.current_state:
+            # Вызываем on_resize у активного состояния (если оно есть такой метод)
+            if hasattr(self.gsm.current_state, 'on_resize'):
+                self.gsm.current_state.on_resize(width, height)
 
     def on_close(self):
         """Закрытие окна"""

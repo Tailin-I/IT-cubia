@@ -12,14 +12,11 @@ class GameData:
     def __init__(self):
         # Данные игрока
         self.player = {
-            "name": "Герой",
             "health": 100,
-            "max_health": 100,
-            "mana": 50,
-            "max_mana": 50,
+            "position": {"x": 120, "y": 300},
             "level": 1,
-            "experience": 0,
-            "position": {"x": 120, "y": 300, "map": "dungeon_1"}
+            "experience": 0
+        # Методы: save_to_file(), load_from_file(), get_player_position()
         }
 
         # Инвентарь игрока (список предметов)
@@ -48,7 +45,6 @@ class GameData:
         self.settings = {
             "volume": 0.7,
             "fullscreen": False,
-            "language": "ru"
         }
 
     def save_to_file(self, filename="savegame.dat"):

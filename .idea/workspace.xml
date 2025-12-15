@@ -4,9 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед обновлением overlay">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед большим обновлением управления">
+      <change afterPath="$PROJECT_DIR$/res/player/player_move.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/player1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/TODELkeyhandler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/pause_menu_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/settings_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +74,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/Tailin/PycharmProjects/ITCUBIA/test.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -240,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765691389679</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="перед большим обновлением управления">
+      <option name="closed" value="true" />
+      <created>1765698478684</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1765698478684</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,7 +331,8 @@
     <MESSAGE value="работа над структурой, перед упрознененте gamestate" />
     <MESSAGE value="работа над структурой, добавлен примитивный прототип лобби и игры" />
     <MESSAGE value="перед обновлением overlay" />
-    <option name="LAST_COMMIT_MESSAGE" value="перед обновлением overlay" />
+    <MESSAGE value="перед большим обновлением управления" />
+    <option name="LAST_COMMIT_MESSAGE" value="перед большим обновлением управления" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -325,18 +347,29 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/core/TODELkeyhandler.py</url>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>249</line>
+          <line>243</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/frame/main_window.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/core/input_manager.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/states/game_state.py</url>
+          <line>125</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
+          <line>223</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
