@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед большим обновлением управления">
-      <change afterPath="$PROJECT_DIR$/res/player/player_move.png" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="исправлен esc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/player1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/TODELkeyhandler.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/game_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/camera_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/camera_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/pause_menu_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/settings_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/tilemanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/tilemanager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="977eabffe5f3b02f6456237df83f8eb5a4cb2e09" />
+        <entry key="$PROJECT_DIR$" value="1645dd4b692c39cb2914fc5fe513f1c500e1ff65" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -261,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765698478684</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="исправлен esc">
+      <option name="closed" value="true" />
+      <created>1765923427270</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1765923427271</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -332,7 +331,8 @@
     <MESSAGE value="работа над структурой, добавлен примитивный прототип лобби и игры" />
     <MESSAGE value="перед обновлением overlay" />
     <MESSAGE value="перед большим обновлением управления" />
-    <option name="LAST_COMMIT_MESSAGE" value="перед большим обновлением управления" />
+    <MESSAGE value="исправлен esc" />
+    <option name="LAST_COMMIT_MESSAGE" value="исправлен esc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -360,11 +360,6 @@
           <url>file://$PROJECT_DIR$/src/core/input_manager.py</url>
           <line>7</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/states/game_state.py</url>
-          <line>125</line>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>

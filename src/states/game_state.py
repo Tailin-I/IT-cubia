@@ -4,6 +4,8 @@ from arcade import SpriteList, camera
 
 from .base_state import BaseState
 from ..entities import Player
+from ..world.map import GameMap
+from ..world.tilemanager import TileManager
 
 
 class GameplayState(BaseState):
@@ -34,13 +36,33 @@ class GameplayState(BaseState):
                                                   self.gsm.window.width,
                                                   self.gsm.window.height))
 
-
-        self.game_map = None
-        self.ui_elements = arcade.SpriteList()
-
         # ИНИЦИАЛИЗИРУЕМ флаги в конструкторе
         self.is_paused = False
         self.is_initialized = False
+
+        # Создаем TileManager и загружаем тайлы
+        self.tile_manager = TileManager(self.gsm.window.resource_manager, tile_size=16)
+        self.tile_manager.load_tileset("tiles/")  # Путь к вашим тайлам
+
+        # Создаем карту
+        self.game_map = GameMap(self.tile_manager, "maps/forest.txt", tile_size=16)
+
+        # Обновляем камеру - используем нашу камеру
+        from src.world.camera import Camera
+        self.camera = Camera(self.gsm.window.width, self.gsm.window.height)
+
+        # Устанавливаем границы карты для камеры
+        bounds = self.game_map.get_bounds()
+        self.camera.set_map_bounds(
+            bounds['left'], bounds['bottom'],
+            bounds['width'], bounds['height']
+        )
+
+        # Позиционируем игрока в центре карты
+        player_start_x = bounds['width'] // 2
+        player_start_y = bounds['height'] // 2
+        self.player.center_x = player_start_x
+        self.player.center_y = player_start_y
 
     def on_enter(self, **kwargs):
         """Вызывается при входе в это состояние"""
@@ -69,38 +91,53 @@ class GameplayState(BaseState):
         print("▶️ ИГРА ВОЗОБНОВЛЕНА")
         self.is_paused = False
 
+    def _handle_camera_input(self):
+        """Обработка ввода для управления камерой"""
+        if not self.input_manager:
+            return
+
+        # Масштабирование (Ctrl + Plus/Minus)
+        # Нужно добавить соответствующие действия в InputManager
+        # Пока оставим как TODO
+
     def update(self, delta_time: float):
         """Обновление игровой логики"""
         if self.is_paused:
             return
 
-        # 1. Обрабатываем ввод игрока
-        self.player.update()
-        self._handle_input()
+            # Обновляем игрока
+        self.player.update(delta_time)
 
-        # Пока нет игрока и карты - просто ждем
+        # Камера следует за игроком
+        self.camera.follow_player(self.player.center_x, self.player.center_y)
+
+        # Обработка ввода для камеры (масштабирование)
+        self._handle_camera_input()
+
+        self._handle_input()
 
     def draw(self):
         """Отрисовка игры"""
-        arcade.set_background_color(arcade.color.LIME)
-
-        arcade.draw_triangle_filled(200, 500, 900, 500, 500, 70, arcade.color.GRAY)
-
-        # arcade.start_render()
-        arcade.Text(
-            "ИГРА АКТИВНА",
-            500,
-            600,
-            arcade.color.BLACK,
-            48,
-            anchor_x="center",
-            anchor_y="center",
-            bold=True
-        ).draw()
-
-
+        # Активируем камеру
         self.camera.use()
+
+        # Рисуем карту
+        self.game_map.draw()
+
+        # Рисуем игрока
         self.player_list.draw()
+
+        # Отключаем камеру для UI (если нужно)
+        # arcade.set_viewport(0, self.gsm.window.width, 0, self.gsm.window.height)
+
+        # Рисуем UI поверх
+        arcade.draw_text(
+            "ИГРА АКТИВНА",
+            self.gsm.window.width // 2,
+            self.gsm.window.height - 50,
+            arcade.color.BLACK, 36,
+            anchor_x="center"
+        )
 
 
 
