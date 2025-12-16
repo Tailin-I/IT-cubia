@@ -365,6 +365,15 @@ class InputManager:
             if action not in ['up', 'down', 'left', 'right']:
                 self.actions[action] = any(key in codes for key in self.keys_pressed)
 
+    def reset_action(self, action_name):
+        """Сбрасывает конкретное действие"""
+        if action_name in self.actions:
+            self.actions[action_name] = False
+            # Также удаляем все клавиши этого действия из keys_pressed
+            if action_name in self.key_codes:
+                for key_code in self.key_codes[action_name]:
+                    self.keys_pressed.discard(key_code)
+
     def get_action(self, action_name):
         """Проверяет, активно ли действие"""
         return self.actions.get(action_name, False)
