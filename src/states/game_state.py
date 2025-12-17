@@ -1,6 +1,6 @@
 import logging
 import arcade
-from arcade import SpriteList, camera
+from arcade import SpriteList, camera, Camera2D
 
 from .base_state import BaseState
 from ..entities import Player
@@ -18,51 +18,59 @@ class GameplayState(BaseState):
         super().__init__("game", gsm, asset_loader)
 
         self.input_manager = self.gsm.input_manager
+        # РАЗМЕРЫ:
+        ORIGINAL_TILE_SIZE = 16  # Оригинальный размер тайлов
+        TARGET_TILE_SIZE = 64  # Желаемый размер тайлов
+        SCALE_FACTOR = TARGET_TILE_SIZE / ORIGINAL_TILE_SIZE  # 4.0
 
-        # Загружаем текстуры (словарь)
-        player_textures = self.asset_loader.load_player_sprites(scale=1)
+        # 1. Игрок: масштабируем под новые тайлы
+        # Если оригинальный игрок 63px, а тайлы теперь 64px:
+        player_scale = TARGET_TILE_SIZE / 63  # ≈1.0159 (почти не меняем)
+        # Или если хотим, чтобы игрок был точно под тайл:
+        # player_scale = 64 / 63  # Делаем игрока 64px
 
-        # Создаем игрока с словарем текстур
-        self.player = Player(player_textures, self.input_manager, scale=1)
+        self.default_camera = Camera2D()
+        self.default_camera.viewport = (arcade.rect.XYWH(self.gsm.window.width//2, self.gsm.window.height//2, self.gsm.window.width, self.gsm.window.height))
 
+        player_textures = self.asset_loader.load_player_sprites(scale=player_scale)
+        self.player = Player(player_textures, self.input_manager, scale=player_scale)
         self.player_list = SpriteList()
         self.player_list.append(self.player)
 
-        # Камера
-        # self.camera = arcade.Camera(self.gsm.window.width, self.gsm.window.height)
-        self.camera = camera.Camera2D() # для игрока
-        self.camera.viewport = (arcade.rect.XYWH( self.gsm.window.width//2,
-                                                  self.gsm.window.height//2,
-                                                  self.gsm.window.width,
-                                                  self.gsm.window.height))
+        # 2. TileManager с увеличенными тайлами
+        self.tile_manager = TileManager(
+            self.gsm.window.resource_manager,
+            tile_size=TARGET_TILE_SIZE
+        )
+        self.tile_manager.load_tileset("tiles/")
 
-        # ИНИЦИАЛИЗИРУЕМ флаги в конструкторе
-        self.is_paused = False
-        self.is_initialized = False
 
-        # Создаем TileManager и загружаем тайлы
-        self.tile_manager = TileManager(self.gsm.window.resource_manager, tile_size=16)
-        self.tile_manager.load_tileset("tiles/")  # Путь к вашим тайлам
+        # 3. GameMap тоже с увеличенными тайлами
+        self.game_map = GameMap(
+            self.tile_manager,
+            "maps/dungeon_1.txt",
+            tile_size=TARGET_TILE_SIZE
+        )
 
-        # Создаем карту
-        self.game_map = GameMap(self.tile_manager, "maps/forest.txt", tile_size=16)
-
-        # Обновляем камеру - используем нашу камеру
+        # 4. Камера
         from src.world.camera import Camera
         self.camera = Camera(self.gsm.window.width, self.gsm.window.height)
 
-        # Устанавливаем границы карты для камеры
+        # 5. Устанавливаем границы карты (теперь они в 4 раза больше!)
         bounds = self.game_map.get_bounds()
         self.camera.set_map_bounds(
             bounds['left'], bounds['bottom'],
             bounds['width'], bounds['height']
         )
 
-        # Позиционируем игрока в центре карты
-        player_start_x = bounds['width'] // 2
-        player_start_y = bounds['height'] // 2
-        self.player.center_x = player_start_x
-        self.player.center_y = player_start_y
+        # 6. Настраиваем игрока
+        # Получаем позицию из game_data
+        pos = self.player.data.get_player_position()
+        self.player.center_x = pos[0] * SCALE_FACTOR  # Масштабируем позицию!
+        self.player.center_y = pos[1] * SCALE_FACTOR  # Масштабируем позицию!
+
+        # 7. Скорость игрока пропорциональна размеру тайлов
+        self.player.speed = TARGET_TILE_SIZE / 8  # 8 пикселей за кадр для 64px тайла
 
     def on_enter(self, **kwargs):
         """Вызывается при входе в это состояние"""
@@ -128,8 +136,7 @@ class GameplayState(BaseState):
         self.player_list.draw()
 
         # Отключаем камеру для UI (если нужно)
-        # arcade.set_viewport(0, self.gsm.window.width, 0, self.gsm.window.height)
-
+        self.default_camera.use()
         # Рисуем UI поверх
         arcade.draw_text(
             "ИГРА АКТИВНА",

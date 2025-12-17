@@ -38,6 +38,10 @@ class GameMap:
         # Загружаем карту
         self.load_map()
 
+        # СОЗДАЕМ SPRITELIST ДЛЯ ОПТИМИЗАЦИИ
+        self.tile_sprites = arcade.SpriteList()
+        self._create_tile_sprites()
+
     def load_map(self):
         """Загружает карту из файла"""
         self.logger.info(f"Загрузка карты из {self.map_file}...")
@@ -91,6 +95,28 @@ class GameMap:
         except Exception as e:
             self.logger.exception(f"Ошибка загрузки карты: {e}")
             self._create_test_map()
+
+    def _create_tile_sprites(self):
+        """Создает спрайты для всех тайлов карты (однократно)"""
+        for y in range(self.height):
+            for x in range(self.width):
+                tile_id = self.tile_grid[y][x]
+                tile_info = self.tile_manager.get_tile(tile_id)
+
+                if tile_info and tile_info['texture']:
+                    # Вычисляем пиксельные координаты
+                    pixel_x = x * self.tile_size + self.tile_size // 2
+                    pixel_y = (self.height - 1 - y) * self.tile_size + self.tile_size // 2
+
+                    # Создаем спрайт
+                    sprite = arcade.Sprite()
+                    sprite.texture = tile_info['texture']
+                    sprite.center_x = pixel_x
+                    sprite.center_y = pixel_y
+                    sprite.width = self.tile_size
+                    sprite.height = self.tile_size
+
+                    self.tile_sprites.append(sprite)
 
     def _create_test_map(self):
         """Создает простую тестовую карту при ошибке загрузки"""
@@ -152,17 +178,9 @@ class GameMap:
 
     def draw(self):
         """Отрисовывает всю карту"""
-        for y in range(self.height):
-            for x in range(self.width):
-                # Получаем ID тайла
-                tile_id = self.tile_grid[y][x]
 
-                # Вычисляем пиксельные координаты (центр тайла)
-                pixel_x = x * self.tile_size + self.tile_size // 2
-                pixel_y = (self.height - 1 - y) * self.tile_size + self.tile_size // 2
+        self.tile_sprites.draw()
 
-                # Рисуем тайл
-                self.tile_manager.draw_tile(tile_id, pixel_x, pixel_y)
 
     def get_bounds(self):
         """Возвращает границы карты в виде словаря"""
