@@ -1,40 +1,44 @@
+import arcade
+
 from src.core.resource_manager import ResourceManager
 
 
 class AssetLoader:
-    """
-    Знает КАК загружать разные типы ресурсов.
-    Использует ResourceManager для кэширования.
-    """
-
     def __init__(self, resource_manager: ResourceManager):
         self.rm = resource_manager
+        self._ui_textures = {}  # Кэш UI текстур
 
-    def load_player_sprites(self, scale: int = 1):
-        """Загружает ВСЕ спрайты игрока с правильной логикой"""
-        # 1. Загружаем основной spritesheet
+    def load_player_sprites(self, scale=1.0):
+        """Загружает спрайты игрока с возможностью масштабирования"""
         textures = self.rm.load_spritesheet(
             "player/player_move.png",
             size=(63, 63),
             columns=8,
             count=8
         )
-
-        # 2. Можем добавить дополнительную логику
-        # Например, разделить на направления
-        player_assets = {
+        return {
             "up": [textures[0], textures[1]],
             "down": [textures[2], textures[3]],
             "left": [textures[4], textures[5]],
             "right": [textures[6], textures[7]]
         }
-        return player_assets
 
-    def load_map_tiles(self):
-        """Загружает все тайлы для карты"""
-        # Специфичная логика загрузки тайлов
-        pass
+    def load_ui_texture(self, path: str):
+        """Загружает текстуру для UI с кэшированием"""
+        if path not in self._ui_textures:
+            self._ui_textures[path] = self.rm.load_texture(path)
+        return self._ui_textures[path]
 
-    def load_ui_assets(self):
-        """Загружает UI элементы"""
-        pass
+    def load_sound_effect(self, path: str):
+        """Загружает звуковой эффект"""
+        return self.rm.load_sound(path)
+
+    def load_background(self, path: str):
+        """Загружает фоновое изображение"""
+        return self.rm.load_texture(path)
+
+    def get_ui_assets(self):
+        """Возвращает все стандартные UI ассеты"""
+        return {
+            "button_normal": self.load_ui_texture("ui/button_normal.png"),
+        }

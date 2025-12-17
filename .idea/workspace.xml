@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="кринж версия камеры и тайл менеджера">
-      <change afterPath="$PROJECT_DIR$/res/maps/test.txt" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="норм версия камеры и тайлменеджера(но грязи в коде все равно навалом)">
+      <change afterPath="$PROJECT_DIR$/res/maps/forest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/hitbox_component.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/collision_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/systems/collision_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/ui_component.py.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ui_component.py.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765924444306</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="норм версия камеры и тайлменеджера(но грязи в коде все равно навалом)">
+      <option name="closed" value="true" />
+      <created>1765969387788</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1765969387788</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -339,7 +356,8 @@
     <MESSAGE value="перед большим обновлением управления" />
     <MESSAGE value="исправлен esc" />
     <MESSAGE value="кринж версия камеры и тайл менеджера" />
-    <option name="LAST_COMMIT_MESSAGE" value="кринж версия камеры и тайл менеджера" />
+    <MESSAGE value="норм версия камеры и тайлменеджера(но грязи в коде все равно навалом)" />
+    <option name="LAST_COMMIT_MESSAGE" value="норм версия камеры и тайлменеджера(но грязи в коде все равно навалом)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -350,7 +368,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/frame/main.py</url>
-          <line>7</line>
+          <line>6</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

@@ -1,12 +1,13 @@
 import logging
 from typing import Dict, Optional, List
 
+from src.states.base_state import BaseState
+
 
 class GameStateManager:
     """
     Управляет всеми состояниями игры.
     Центральный мозг - решает, какое состояние активно.
-    Теперь с поддержкой СТЕКА overlay'ев.
     """
 
     def __init__(self, window):
@@ -17,18 +18,16 @@ class GameStateManager:
         self.states: Dict[str, 'BaseState'] = {}
 
         # Текущее основное состояние (игра, лобби)
-        # Это "дно" нашего стека
         self.current_state: Optional['BaseState'] = None
 
-        # СТЕК overlay состояний (пауза поверх игры, настройки поверх паузы)
-        # Последний элемент в списке - самый верхний (активный) overlay
+        # СТЕК overlay состояний
         self.overlay_stack: List['BaseState'] = []
 
         # Внешние менеджеры (будут установлены позже)
         self.input_manager = None
         self.asset_loader = None
 
-        self.logger.info("GameStateManager создан (с поддержкой стека overlay'ев)")
+        self.logger.info("GameStateManager создан")
 
     def register_state(self, state_id: str, state_instance: 'BaseState'):
         """Регистрирует состояние в менеджере"""
@@ -94,17 +93,17 @@ class GameStateManager:
             self.logger.warning("Попытка закрыть overlay, но стек пуст")
             return
 
-        # 1. Получаем текущий активный overlay (верх стека)
+        # Получаем текущий активный overlay (верх стека)
         current_overlay = self.overlay_stack[-1]
         self.logger.info(f"Закрываем overlay: {current_overlay.state_id}")
 
-        # 2. Выходим из него
+        # Выходим из него
         current_overlay.on_exit()
 
-        # 3. Удаляем его из стека
+        # Удаляем его из стека
         self.overlay_stack.pop()
 
-        # 4. Определяем, какое состояние теперь активно
+        # Определяем, какое состояние теперь активно
         if self.overlay_stack:
             # Есть еще overlay'ы в стеке
             new_active = self.overlay_stack[-1]
@@ -136,11 +135,11 @@ class GameStateManager:
 
     def draw(self):
         """Отрисовывает состояния в правильном порядке"""
-        # 1. Рисуем основное состояние
+        # Рисуем основное состояние
         if self.current_state:
             self.current_state.draw()
 
-        # 2. Рисуем ВСЕ overlay'ы по порядку (от нижнего к верхнему)
+        # Рисуем ВСЕ overlay'ы по порядку (от нижнего к верхнему)
         for overlay in self.overlay_stack:
             overlay.draw()
 

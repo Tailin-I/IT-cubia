@@ -40,27 +40,26 @@ class MainWindow(arcade.Window):
         # Устанавливаем цвет фона
         arcade.set_background_color(arcade.color.ASH_GREY)
 
-        # 1. СОЗДАЕМ МЕНЕДЖЕРЫ
+        # СОЗДАЕМ МЕНЕДЖЕРЫ
         self.resource_manager = resource_manager
         self.asset_loader = AssetLoader(self.resource_manager)
         self.input_manager = InputManager()
 
-        # 2. СОЗДАЕМ ЦЕНТРАЛЬНЫЙ МЕНЕДЖЕР СОСТОЯНИЙ
+        # СОЗДАЕМ ЦЕНТРАЛЬНЫЙ МЕНЕДЖЕР СОСТОЯНИЙ
         self.gsm = GameStateManager(self)
         self.gsm.input_manager = self.input_manager
         self.gsm.asset_loader = self.asset_loader
 
-        # 3. РЕГИСТРИРУЕМ ВСЕ СОСТОЯНИЯ
+        # РЕГИСТРИРУЕМ ВСЕ СОСТОЯНИЯ
         self._register_states()
 
-        # 4. НАЧИНАЕМ С ЛОББИ
+        # НАЧИНАЕМ С ЛОББИ
         self.gsm.switch_to("lobby")
 
         self.logger.info("MainWindow инициализирован")
 
     def _register_states(self):
         """Регистрирует все состояния игры"""
-        # Создаем экземпляры состояний
         lobby_state = LobbyState(self.gsm, self.asset_loader)
         game_state = GameplayState(self.gsm, self.asset_loader)
         pause_state = PauseMenuState(self.gsm, self.asset_loader)

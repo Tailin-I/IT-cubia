@@ -1,6 +1,5 @@
 import logging
 import sys
-
 import arcade
 
 from frame.main_window import MainWindow
@@ -9,8 +8,6 @@ from frame.main_window import MainWindow
 def setup_logging():
     """Минимальная настройка с понятными backup именами"""
     import os
-    import sys
-    import logging
     from logging.handlers import RotatingFileHandler
 
     log_dir = "logs"
@@ -24,8 +21,6 @@ def setup_logging():
             # Закрываем текущий файл
             if self.stream:
                 self.stream.close()
-                self.stream = None
-
             # Создаем backup с понятным именем
             backup_num = 1
             while True:
@@ -56,7 +51,7 @@ def setup_logging():
         encoding='utf-8'
     )
 
-    # Остальная настройка без изменений...
+    # Настройка формата логирования
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
@@ -87,13 +82,13 @@ def main():
     logger.info(f"версия аркейда {arcade.__version__}")
 
     try:
-        window = MainWindow()
+        MainWindow()
         arcade.run()
     except Exception as e:
         logger.critical("Критическая ошибка: %s", e, exc_info=True)
         raise
     finally:
-        logger.info("Конец игровой сессии\n")
+        logger.info("Конец игровой сессии...\n")
 
 
 if __name__ == "__main__":

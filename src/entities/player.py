@@ -8,10 +8,11 @@ class Player(Entity):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.data = game_data
 
-        # словарь -> список
+        # словарь текстур -> список
         all_textures = []
         for direction in ["up", "down", "left", "right"]:
             all_textures.extend(texture_dict[direction])
+
         # Вызываем конструктор Entity с масштабом
         super().__init__(all_textures, scale)
 
@@ -31,8 +32,10 @@ class Player(Entity):
         self.last_direction = None
 
         self.setdefault()
-        # ВРЕМЕННО ОТКЛЮЧАЕМ хитбокс
-        # self.setup_hitbox()  # Настраиваем хитбокс
+        self.setup_hitbox({'left': 0.1, 'right': 0.1, 'top': 0.2, 'bottom': 0})
+
+        # Включаем отладку коллизий (потом можно отключить)
+        self.debug_collisions = False
 
     def setdefault(self):
         pos = self.data.get_player_position()
@@ -45,15 +48,6 @@ class Player(Entity):
         # Текущий индекс текстуры для анимации
         self.cur_texture_index = 0
 
-    def setup_hitbox(self):
-        """
-        Настраивает хитбокс для коллизий.
-        ВРЕМЕННО ОТКЛЮЧЕНО - будет реализовано позже с коллизиями тайлов.
-        """
-        # TODO: Реализовать позже с правильным Polygon из Arcade
-        self.logger.debug("Хитбокс временно отключен, используем стандартный")
-        pass
-
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
         super().update(delta_time)
         self.time_elapsed += delta_time
@@ -63,23 +57,23 @@ class Player(Entity):
 
         if self.input_manager.get_action('up'):
             current_direction = "up"
-            dy += self.speed
+            dy += self.speed * delta_time * 60  # Умножаем на delta_time для плавности
         if self.input_manager.get_action('down'):
             current_direction = "down"
-            dy -= self.speed
+            dy -= self.speed * delta_time * 60
         if self.input_manager.get_action('left'):
             current_direction = "left"
-            dx -= self.speed
+            dx -= self.speed * delta_time * 60
         if self.input_manager.get_action('right'):
             current_direction = "right"
-            dx += self.speed
+            dx += self.speed * delta_time * 60
 
-            # СРАЗУ меняем текстуру при смене направления
+        # СРАЗУ меняем текстуру при смене направления
         if current_direction and current_direction != self.last_direction:
             self._set_direction_texture(current_direction)
-            self.time_elapsed = 0  # Сбрасываем таймер
+            self.time_elapsed = 0
 
-        # Анимация ТОЛЬКО если двигаемся и прошло время
+        # Анимация
         if current_direction and self.time_elapsed > 0.2:
             self._animate_direction(current_direction)
             self.time_elapsed = 0
@@ -88,15 +82,29 @@ class Player(Entity):
         elif not current_direction:
             self._set_idle_texture()
 
-        # Важно! Нужно обновить last_direction
+        # Обновляем направление
         if current_direction:
             self.last_direction = current_direction
 
-        # И самое главное - двигать игрока!
-        self.center_x += dx
-        self.center_y += dy
+        # ВАЖНО: Двигаем с учетом коллизий!
+        # Нужно передать game_map в update или хранить его в Player
+        # Пока добавим через kwargs
+        game_map = kwargs.get('game_map')
+        if game_map:
+            actual_dx, actual_dy = self.move_with_collision(game_map, dx, dy)
+        else:
+            # Если карты нет - двигаем без коллизий
+            self.center_x += dx
+            self.center_y += dy
+            actual_dx, actual_dy = dx, dy
+
         # Синхронизируем с game_data
         self.data.set_player_position(self.center_x, self.center_y)
+
+        # Отладочная информация
+        if self.debug_collisions and (dx != 0 or dy != 0):
+            if actual_dx != dx or actual_dy != dy:
+                print(f"Коллизия! Запланировано: ({dx:.1f}, {dy:.1f}), Разрешено: ({actual_dx:.1f}, {actual_dy:.1f})")
 
     def _set_direction_texture(self, direction):
         """Сразу устанавливает первую текстуру направления"""
@@ -109,6 +117,7 @@ class Player(Entity):
         elif direction == "right":
             self.cur_texture_index = 6
         self.set_texture(self.cur_texture_index)
+
     def _animate_direction(self, direction):
         """Анимирует движение в указанном направлении"""
         direction_map = {

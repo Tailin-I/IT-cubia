@@ -32,7 +32,7 @@ class GameplayState(BaseState):
         self.default_camera = Camera2D()
         self.default_camera.viewport = (arcade.rect.XYWH(self.gsm.window.width//2, self.gsm.window.height//2, self.gsm.window.width, self.gsm.window.height))
 
-        player_textures = self.asset_loader.load_player_sprites(scale=player_scale)
+        player_textures = self.asset_loader.load_player_sprites()
         self.player = Player(player_textures, self.input_manager, scale=player_scale)
         self.player_list = SpriteList()
         self.player_list.append(self.player)
@@ -48,7 +48,7 @@ class GameplayState(BaseState):
         # 3. GameMap тоже с увеличенными тайлами
         self.game_map = GameMap(
             self.tile_manager,
-            "maps/dungeon_1.txt",
+            "maps/forest.txt",
             tile_size=TARGET_TILE_SIZE
         )
 
@@ -114,7 +114,7 @@ class GameplayState(BaseState):
             return
 
             # Обновляем игрока
-        self.player.update(delta_time)
+        self.player.update(delta_time, game_map=self.game_map)
 
         # Камера следует за игроком
         self.camera.follow_player(self.player.center_x, self.player.center_y)
@@ -134,6 +134,10 @@ class GameplayState(BaseState):
 
         # Рисуем игрока
         self.player_list.draw()
+
+        # Отрисовываем хитбокс для отладки
+        if hasattr(self.player, 'debug_collisions') and self.player.debug_collisions:
+            self.player.draw_debug()
 
         # Отключаем камеру для UI (если нужно)
         self.default_camera.use()

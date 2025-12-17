@@ -1,4 +1,3 @@
-# src/world/camera.py
 import arcade
 import logging
 
