@@ -92,6 +92,10 @@ class GameStateManager:
         if not self.overlay_stack:
             self.logger.warning("Попытка закрыть overlay, но стек пуст")
             return
+        # костыль - если не вписать сюда то состояние не исчезнет а откроется снова
+        self.input_manager.reset_action('cheat_console')
+        self.input_manager.reset_action('escape')
+        self.input_manager.reset_action('select')
 
         # Получаем текущий активный overlay (верх стека)
         current_overlay = self.overlay_stack[-1]

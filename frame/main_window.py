@@ -5,13 +5,11 @@ from src.core.game_state_manager import GameStateManager
 from src.core.input_manager import InputManager
 from src.core.resource_manager import resource_manager
 from src.core.asset_loader import AssetLoader
+from src.states.cheat_console_state import CheatConsoleState
 from src.states.lobby_state import LobbyState
 from src.states.game_state import GameplayState
 from src.states.pause_menu_state import PauseMenuState
 from src.states.settings_state import SettingsState
-
-
-# from src.states.inventory_state import InventoryState
 
 
 class MainWindow(arcade.Window):
@@ -21,6 +19,11 @@ class MainWindow(arcade.Window):
     """
 
     def __init__(self):
+        # РАЗМЕРЫ:
+        self.ORIGINAL_TILE_SIZE = 16  # Оригинальный размер тайлов
+        self.TARGET_TILE_SIZE = 64  # Желаемый размер тайлов
+        self.SCALE_FACTOR = self.TARGET_TILE_SIZE / self.ORIGINAL_TILE_SIZE  # 4.0
+
         # Константы из вашего GamePanel
         SCREEN_WIDTH = 1280
         SCREEN_HEIGHT = 768
@@ -64,12 +67,15 @@ class MainWindow(arcade.Window):
         game_state = GameplayState(self.gsm, self.asset_loader)
         pause_state = PauseMenuState(self.gsm, self.asset_loader)
         settings_state = SettingsState(self.gsm, self.asset_loader)
+        cheat_state = CheatConsoleState(self.gsm, self.asset_loader)
 
         # Регистрация состояний
         self.gsm.register_state("lobby", lobby_state)
         self.gsm.register_state("game", game_state)
         self.gsm.register_state("pause_menu", pause_state)
         self.gsm.register_state("settings", settings_state)
+        self.gsm.register_state("cheat_console", cheat_state)
+
 
         self.logger.info(f"Зарегистрировано состояний: {len(self.gsm.states)}")
 

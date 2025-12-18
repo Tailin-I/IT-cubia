@@ -77,7 +77,7 @@ class LobbyState(BaseState):
         """Отрисовка лобби"""
         # Очищаем экран красивым градиентом
         arcade.draw_texture_rect(
-            self.rm.load_texture("backgrounds/lobby_background.png")
+            self.asset_loader.load_background("lobby_background")
             , arcade.rect.XYWH(
             self.gsm.window.width // 2,
             self.gsm.window.height // 2,

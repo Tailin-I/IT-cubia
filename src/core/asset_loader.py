@@ -1,15 +1,12 @@
-import arcade
-
-from src.core.resource_manager import ResourceManager
-
-
 class AssetLoader:
-    def __init__(self, resource_manager: ResourceManager):
+    """Загружает игровые ресурсы (только файлы!)"""
+
+    def __init__(self, resource_manager):
         self.rm = resource_manager
-        self._ui_textures = {}  # Кэш UI текстур
+        self._texture_cache = {}  # Кэш ТОЛЬКО текстур
 
     def load_player_sprites(self, scale=1.0):
-        """Загружает спрайты игрока с возможностью масштабирования"""
+        """Загружает спрайты игрока"""
         textures = self.rm.load_spritesheet(
             "player/player_move.png",
             size=(63, 63),
@@ -23,22 +20,20 @@ class AssetLoader:
             "right": [textures[6], textures[7]]
         }
 
-    def load_ui_texture(self, path: str):
-        """Загружает текстуру для UI с кэшированием"""
-        if path not in self._ui_textures:
-            self._ui_textures[path] = self.rm.load_texture(path)
-        return self._ui_textures[path]
-
-    def load_sound_effect(self, path: str):
-        """Загружает звуковой эффект"""
-        return self.rm.load_sound(path)
-
-    def load_background(self, path: str):
-        """Загружает фоновое изображение"""
+    def load_background(self, name):
+        """Загружает фоновую текстуру"""
+        path = f"backgrounds/{name}.png"
         return self.rm.load_texture(path)
 
-    def get_ui_assets(self):
-        """Возвращает все стандартные UI ассеты"""
-        return {
-            "button_normal": self.load_ui_texture("ui/button_normal.png"),
-        }
+    def load_ui_texture(self, name):
+        """Загружает текстуру для UI (иконки и т.д.)"""
+        path = f"ui/{name}.png"
+        if path not in self._texture_cache:
+            self._texture_cache[path] = self.rm.load_texture(path)
+        return self._texture_cache[path]
+
+    def load_sound(self, name):
+        """Загружает звуковой файл"""
+        path = f"sounds/{name}.wav"
+        return self.rm.load_sound(path)
+

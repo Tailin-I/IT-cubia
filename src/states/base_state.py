@@ -14,6 +14,8 @@ class BaseState(ABC):
     def __init__(self, state_id: str, gsm, asset_loader=None):
         self.logger = logging.getLogger(self.__class__.__name__)
 
+
+
         self.game_data = game_data
         self.rm = ResourceManager()
         self.asset_loader = asset_loader
@@ -21,6 +23,11 @@ class BaseState(ABC):
         self.state_id = state_id
         self.gsm = gsm
         self.is_active = False
+
+        # РАЗМЕРЫ:
+        self.ORIGINAL_TILE_SIZE = self.gsm.window.ORIGINAL_TILE_SIZE
+        self.TILE_SIZE = self.gsm.window.TARGET_TILE_SIZE
+        self.SCALE_FACTOR = self.gsm.window.SCALE_FACTOR
 
     # ТОЛЬКО ЭТИ методы обязательны для всех состояний
     @abstractmethod

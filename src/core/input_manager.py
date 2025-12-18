@@ -26,9 +26,10 @@ class InputManager:
             'down': ["S", "DOWN"],
             'left': ["A", "LEFT"],
             'right': ["D", "RIGHT"],
-            'select': ["E", "ENTER"],
+            'select': ["ENTER"],
             'escape': ["ESCAPE"],
-            'fullscreen': ["F11"]
+            'fullscreen': ["F11"],
+            'cheat_console': ["F2"]
         }
 
         # Инициализация преобразования клавиш ДО загрузки настроек
@@ -477,3 +478,41 @@ class InputManager:
                     self.logger.warning(f"⚠ Внимание: неизвестный код клавиши {key_code} для действия '{action}'")
             string_bindings[action] = strings
         return string_bindings
+
+    def typing(self, key, first_part, second_part):
+        key_value = self.get_key_string_for_code(key)
+        if key_value in "QWERTYUIOPASDFGHJKLZXCVBNM1234567890":
+            if len(first_part + key_value + "|" + second_part) < 25:
+                return first_part + key_value + "|" + second_part
+            else:
+                return first_part + "|" + second_part
+        elif key_value == "SPACE":
+            return first_part + "_" + "|" + second_part
+        elif key_value == "BACKSPACE":
+            if len(first_part) != 0:
+                return first_part[:-1] + "|" + second_part
+            else:
+                return first_part + "|" + second_part
+        elif key_value == "DELETE":
+            if len(second_part) != 0:
+                return first_part + "|" + second_part[1:]
+            else:
+                return first_part + "|" + second_part
+
+        elif key_value == "UP":
+            return "|" + first_part + second_part
+        elif key_value == "DOWN":
+            return first_part + second_part + "|"
+        elif key_value == "LEFT":
+            if len(first_part) != 0:
+                return first_part[:-1] + "|" + first_part[-1] + second_part
+            else:
+                return first_part + "|" + second_part
+        elif key_value == "RIGHT":
+            if len(second_part) != 0:
+                return first_part + second_part[0] + "|" + second_part[1:]
+            else:
+                return first_part + "|" + second_part
+
+        else:
+            return first_part + "|" + second_part

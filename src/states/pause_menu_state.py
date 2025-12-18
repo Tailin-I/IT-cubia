@@ -201,7 +201,4 @@ class PauseMenuState(BaseState):
 
     def _close_pause_menu(self):
         """Закрывает меню паузы (возврат в игру)"""
-        if self.gsm.input_manager:
-            self.gsm.input_manager.reset_action('escape')
-            self.gsm.input_manager.reset_action('select')
         self.gsm.pop_overlay()

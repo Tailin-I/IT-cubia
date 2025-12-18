@@ -1,4 +1,3 @@
-# src/systems/collision_system.py
 import logging
 
 

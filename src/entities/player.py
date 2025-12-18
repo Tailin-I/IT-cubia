@@ -74,7 +74,7 @@ class Player(Entity):
             self.time_elapsed = 0
 
         # Анимация
-        if current_direction and self.time_elapsed > 0.2:
+        if current_direction and self.time_elapsed > 0.3:
             self._animate_direction(current_direction)
             self.time_elapsed = 0
 
