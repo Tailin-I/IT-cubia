@@ -123,7 +123,7 @@ class InputManager:
 
             return result_bindings
 
-    def save_key_bindings(self) :
+    def save_key_bindings(self):
         """
         Сохраняет текущие привязки клавиш в JSON файл.
         """
@@ -481,38 +481,23 @@ class InputManager:
 
     def typing(self, key, first_part, second_part):
         key_value = self.get_key_string_for_code(key)
-        if key_value in "QWERTYUIOPASDFGHJKLZXCVBNM1234567890":
-            if len(first_part + key_value + "|" + second_part) < 25:
-                return first_part + key_value + "|" + second_part
-            else:
-                return first_part + "|" + second_part
-        elif key_value == "SPACE":
-            return first_part + "_" + "|" + second_part
-        elif key_value == "BACKSPACE":
-            if len(first_part) != 0:
-                return first_part[:-1] + "|" + second_part
-            else:
-                return first_part + "|" + second_part
-        elif key_value == "DELETE":
-            if len(second_part) != 0:
-                return first_part + "|" + second_part[1:]
-            else:
-                return first_part + "|" + second_part
 
-        elif key_value == "UP":
-            return "|" + first_part + second_part
-        elif key_value == "DOWN":
-            return first_part + second_part + "|"
-        elif key_value == "LEFT":
-            if len(first_part) != 0:
-                return first_part[:-1] + "|" + first_part[-1] + second_part
-            else:
-                return first_part + "|" + second_part
-        elif key_value == "RIGHT":
-            if len(second_part) != 0:
-                return first_part + second_part[0] + "|" + second_part[1:]
-            else:
-                return first_part + "|" + second_part
+        # Обработка обычных букв
+        if (key_value.isalpha() or key_value.isnumeric()) and len(key_value) == 1:
+            return f"{first_part}{key_value}|{second_part}"
 
-        else:
-            return first_part + "|" + second_part
+        # Обработка специальных клавиш через словарь
+        handlers = {
+            "SPACE": lambda: f"{first_part}_|{second_part}",
+            "BACKSPACE": lambda: f"{first_part[:-1]}|{second_part}" if first_part else f"|{second_part}",
+            "DELETE": lambda: f"{first_part}|{second_part[1:]}" if second_part else f"{first_part}|{second_part}",
+            "UP": lambda: f"|{first_part}{second_part}",
+            "DOWN": lambda: f"{first_part}{second_part}|",
+            "LEFT": lambda: f"{first_part[:-1]}|{first_part[-1:]}{second_part}" if first_part else f"|{second_part}",
+            "RIGHT": lambda: f"{first_part}{second_part[:1]}|{second_part[1:]}" if second_part else f"{first_part}|"
+        }
+
+        if key_value in handlers:
+            return handlers[key_value]()
+
+        return f"{first_part}|{second_part}"

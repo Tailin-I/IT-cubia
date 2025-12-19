@@ -1,4 +1,5 @@
 import arcade
+from pipenv.cli.options import pass_state
 
 from src.states.base_state import BaseState
 
@@ -10,19 +11,52 @@ class CheatConsoleState(BaseState):
         super().__init__("cheat_console", gsm, asset_loader)
         self.input_buffer = "|"  # Введенный текст
         self.cursor_visible = True
+        self.can_close = False
         self.history = []  # История команд
 
+        self.count_to_text = 0
+
+        # речь дип сика
+        self.deep_seek_speech = ["Бог, слушает тебя..."]
+        self.text_to_draw = []
+        self.current_line = ""
+
+        # история команд
+        self.history_cursor = 0
+
     def handle_key_press(self, key, modifiers):
-        first_part, second_part = self.input_buffer.split("|")
+        if "|" in self.input_buffer:
+            first_part, second_part = self.input_buffer.split("|")
+            if self.gsm.input_manager.get_action("select"):
+                self._execute_command(first_part + second_part)
+                self._add_to_list(first_part + second_part)
+                self.input_buffer = "|"
+                self.can_close = True
+
+            elif self.gsm.input_manager.get_action("left") and self.input_buffer.startswith("|"):
+                self.input_buffer = self.input_buffer[1:]
+            else:
+                self.input_buffer = self.gsm.input_manager.typing(key, first_part, second_part)
+        else:
+            if self.gsm.input_manager.get_action("select"):
+                self.input_buffer = self.history[self.history_cursor] + "|"
+            elif self.gsm.input_manager.get_action("right"):
+                self.input_buffer = "|" + self.input_buffer
+            elif self.gsm.input_manager.get_action("up"):
+                if self.history_cursor > 0:
+                    self.history_cursor -= 1
+            elif self.gsm.input_manager.get_action("down"):
+                if self.history_cursor < len(self.history) - 1:
+                    self.history_cursor += 1
+
         if self.gsm.input_manager.get_action("cheat_console") or self.gsm.input_manager.get_action("escape"):
             self.gsm.pop_overlay()
-        elif self.gsm.input_manager.get_action("select"):
-            self._execute_command(first_part+second_part)
-            self.input_buffer = "|"
-            self.gsm.pop_overlay()
-        else:
 
-            self.input_buffer = self.gsm.input_manager.typing(key, first_part, second_part)
+    def _add_to_list(self, text):
+        """Добавляет в список и ограничивает его"""
+        self.history.insert(0, text)
+        if len(self.history) > 32:
+            self.history = self.history[:-1]
 
     def draw(self):
         """Отрисовка консоли в своем стиле"""
@@ -39,21 +73,24 @@ class CheatConsoleState(BaseState):
         panel_height = 2 * self.TILE_SIZE
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2, self.gsm.window.height - self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
                 panel_width, panel_height),
             (30, 30, 40, 100)  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2, self.gsm.window.height - self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
                 panel_width, panel_height),
             arcade.color.LIME, 2
         )
 
         # ---РЕЧЬ ДИП СИКА---
+        text = self.current_line
+        if not self.text_to_draw:
+            text = "Бог, слушает тебя..."
         arcade.draw_text(
-            "Бог, слушает тебя...",
-            self.gsm.window.width // 2, self.gsm.window.height - self.TILE_SIZE,
+            text,
+            self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
             arcade.color.LIME, 24,
             anchor_x="center"
         )
@@ -61,30 +98,78 @@ class CheatConsoleState(BaseState):
         # ---ПОЛЕ ДЛЯ ВВОДА---
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2,  self.gsm.window.height - 2 * self.TILE_SIZE,
-                self.gsm.window.width // 2- self.TILE_SIZE,  self.TILE_SIZE),
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.TILE_SIZE),
             (0, 0, 0)
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2, self.gsm.window.height - 2 * self.TILE_SIZE,
-                self.gsm.window.width // 2- self.TILE_SIZE,  self.TILE_SIZE),
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.TILE_SIZE, self.TILE_SIZE),
             arcade.color.LIME, 1
         )
 
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
-            5.6 * self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
+            int(4.6 * self.TILE_SIZE), self.gsm.window.height - 2 * self.TILE_SIZE,
             arcade.color.LIME, 20
         ).draw()
 
-        # История команд
-        arcade.Text(
-            "\n".join(self.history),
-            self.gsm.window.width // 2 - 260, self.gsm.window.height // 2 - 50,
-            arcade.color.LIGHT_GRAY, 16
-        ).draw()
+        # ---ИСТОРИЯ КОМАНД---
+        panel_width = self.TILE_SIZE * 3.2
+        panel_height = self.gsm.window.height - self.TILE_SIZE
+        arcade.draw_rect_filled(
+            arcade.rect.XYWH(
+                2.2 * self.TILE_SIZE, self.gsm.window.height // 2,
+                panel_width, panel_height),
+            (30, 30, 40, 100)  # Темно-синий
+        )
+        arcade.draw_rect_outline(
+            arcade.rect.XYWH(
+                2.2 * self.TILE_SIZE,
+                self.gsm.window.height // 2,
+                panel_width,
+                panel_height
+            ), arcade.color.LIME, 2
+        )
+
+        for i in range(len(self.history) - 1, -1, -1):
+            color = arcade.color.LIGHT_GRAY
+            if self.history_cursor == i and "|" not in self.input_buffer:
+                color = arcade.color.LIME
+            text = self.history[i]
+            if len(text) > 10:
+                text = text[:15] + "..."
+            arcade.Text(
+                text,
+                0.6 * self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
+                color, 9
+            ).draw()
+
+        # ---РЕЧЬ ДИП СИКА---
+        panel_width = self.TILE_SIZE * 5
+        panel_height = self.gsm.window.height - self.TILE_SIZE
+        arcade.draw_rect_filled(
+            arcade.rect.XYWH(
+                self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
+                panel_width, panel_height),
+            (30, 30, 40, 100)  # Темно-синий
+        )
+        arcade.draw_rect_outline(
+            arcade.rect.XYWH(
+                self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
+                panel_width, panel_height),
+            arcade.color.LIME, 2
+        )
+
+        for i in range(len(self.deep_seek_speech)):
+            arcade.Text(
+                self.deep_seek_speech[i],
+                self.gsm.window.width - 5.7 * self.TILE_SIZE,
+                self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
+                arcade.color.LIME, 14
+            ).draw()
 
     def on_enter(self, **kwargs):
         pass
@@ -93,28 +178,79 @@ class CheatConsoleState(BaseState):
         pass
 
     def update(self, delta_time: float):
-        pass
+        self.count_to_text += delta_time
+        if len(self.text_to_draw) == 0 and self.can_close:
+            self.deep_seek_speech.append(" ")
+            self.deep_seek_speech.append("Бог, слушает тебя...")
+            self.gsm.pop_overlay()
+            self.can_close = False
+
+        if self.count_to_text > 0.02:
+            # Если есть текст для отображения и мы еще не вывели все строки
+            if self.text_to_draw and len(self.current_line) < len(self.text_to_draw[0]):
+                # Добавляем следующий символ к текущей строке
+                self.current_line += self.text_to_draw[0][len(self.current_line)]
+                self.count_to_text = 0
+            elif self.text_to_draw and len(self.current_line) >= len(self.text_to_draw[0]):
+                # Если строка полностью выведена, добавляем ее в историю речи
+                self.deep_seek_speech.append(self.current_line)
+                self.text_to_draw.pop(0)  # Удаляем выведенную строку
+                self.current_line = ""  # Сбрасываем текущую строку
+
+                # Ограничиваем историю речи
+                if len(self.deep_seek_speech) > 26:
+                    self.deep_seek_speech = self.deep_seek_speech[10:]
 
     def _execute_command(self, command):
-        self.history.append(command)
         if command == "GODMOD":
-            self.gsm.current_state.player.health = 9999
-        if command.startswith("TP_"):
+            health_to_add = 9999
+            self.gsm.current_state.player.health = health_to_add
+            self.text_to_draw = [
+                "Помни кто здесь бог!",
+                f"ОЗ = {health_to_add}",
+                "Теперь тебя тоже не убить"
+            ]
+
+        elif command.startswith("TP_"):
             # Разбираем команду TP x y
             parts = command.split("_")
             if len(parts) == 3:
-                try:
-                    x = int(parts[1])
-                    y = int(parts[2])
+                x = int(parts[1])
+                y = int(parts[2])
 
-                    # Телепорт игрока
-                    if self.gsm.current_state and hasattr(self.gsm.current_state, 'player'):
-                        player = self.gsm.current_state.player
-                        player.center_x = x
-                        player.center_y = y
+                self.text_to_draw = [
+                    "Дарую новые координаты!",
+                    f"x:{x}, y{y}",
+                    "Совсем лицеисты обленились"
+                ]
 
-                        # Обновляем данные
-                        if hasattr(player, 'data'):
-                            player.data.set_player_position(x, y)
-                except ValueError:
-                    return "Неверные координаты. Используйте: TP x y"
+                # Телепорт игрока
+                player = self.gsm.current_state.player
+                player.center_x = x * self.TILE_SIZE
+                player.center_y = y * self.TILE_SIZE
+
+                # Обновляем данные
+                player.data.set_player_position(x, y)
+            else:
+                self.text_to_draw = ["и куда мне тебя переносить?",
+                                     "..."]
+
+        elif command == "DEBUGON":
+            player = self.gsm.current_state.player
+            player.debug_collisions = True
+            self.text_to_draw = ["Не забывай кто здесь бог!",
+                                 "АБРАКАДАБРА",
+                                 "теперь...",
+                                 "Ты видишь чуть больше"]
+
+
+        elif command == "DEBUGOFF":
+            player = self.gsm.current_state.player
+            player.debug_collisions = False
+            self.text_to_draw = ["ТРАХ-ТИБИДОХ",
+                                 "теперь...",
+                                 "Ты нормальный человек"]
+        else:
+            self.text_to_draw = ["ты прав!",
+                                 "вот решение:",
+                                 "..."]

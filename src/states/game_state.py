@@ -180,10 +180,21 @@ class GameplayState(BaseState):
         if hasattr(self.player, 'debug_collisions') and self.player.debug_collisions:
             self.player.draw_debug()
 
+
         # Отключаем камеру для UI (если нужно)
         self.default_camera.use()
         # Переключаемся на UI камеру
         self.default_camera.use()
+
+        # координаты
+        if self.player.debug_collisions:
+            text = f"x:{int(self.player.center_x // self.TILE_SIZE)} y:{int(self.player.center_y // self.TILE_SIZE)}"
+            arcade.Text(text,
+                        self.gsm.window.width - 3*self.TILE_SIZE,
+                        self.gsm.window.height - self.TILE_SIZE,
+                        arcade.color.LIME,
+                        18).draw()
+
 
         # Рисуем UI элементы
         for ui_element in self.ui_elements:
