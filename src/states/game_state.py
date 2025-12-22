@@ -6,9 +6,8 @@ from .base_state import BaseState
 from ..entities import Player
 from ..ui.health_bar import HealthBar
 from ..ui.vertical_bar import VerticalBar
-from ..world.map import GameMap
-from ..world.tilemanager import TileManager
 from src.world.camera import Camera
+from ..world.map_loader import MapLoader
 
 
 class GameplayState(BaseState):
@@ -39,26 +38,23 @@ class GameplayState(BaseState):
         self.player_list = SpriteList()
         self.player_list.append(self.player)
 
-        # TileManager с увеличенными тайлами
-        self.tile_manager = TileManager(
-            self.gsm.window.resource_manager,
-            tile_size=self.TILE_SIZE
-        )
-        self.tile_manager.load_tileset("tiles/")
+        self.map_loader = MapLoader(self.gsm.window.resource_manager)
 
-        # GameMap тоже с увеличенными тайлами
-        self.game_map = GameMap(
-            self.tile_manager,
-            "maps/forest.txt",
-            tile_size=self.TILE_SIZE
+        # Загружаем Tiled карту
+        success = self.map_loader.load(
+            "maps/test_map.tmx",  # НОВЫЙ ФАЙЛ
+            scale=1
         )
 
-        # Камера
+        if not success:
+            print("⚠️ Не удалось загрузить Tiled карту, используем fallback")
 
+        # Получаем слой коллизий
+        self.collision_layer = self.map_loader.get_collision_layer()
+
+        # Камера - используем границы из map_loader
         self.camera = Camera(self.gsm.window.width, self.gsm.window.height)
-
-        # Устанавливаем границы карты (теперь они в 4 раза больше!)
-        bounds = self.game_map.get_bounds()
+        bounds = self.map_loader.get_bounds()
         self.camera.set_map_bounds(
             bounds['left'], bounds['bottom'],
             bounds['width'], bounds['height']
@@ -152,7 +148,7 @@ class GameplayState(BaseState):
             return
 
             # Обновляем игрока
-        self.player.update(delta_time, game_map=self.game_map)
+        self.player.update(delta_time, collision_layer=self.collision_layer)
 
         # Камера следует за игроком
         self.camera.follow_player(self.player.center_x, self.player.center_y)
@@ -171,7 +167,7 @@ class GameplayState(BaseState):
         self.camera.use()
 
         # Рисуем карту
-        self.game_map.draw()
+        self.map_loader.draw()
 
         # Рисуем игрока
         self.player_list.draw()

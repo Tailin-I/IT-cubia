@@ -4,11 +4,87 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="консоль">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед изменением карты">
+      <change afterPath="$PROJECT_DIR$/export_structure.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_structure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/062.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/063.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/064.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/config_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/tilemanager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/trigger_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/trigger_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,19 +129,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.gamepanel.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_structure.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/Tailin/PycharmProjects/ITCUBIA/generate_structure.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.export structure.executor": "Run",
+    "Python.gamepanel.executor": "Run",
+    "Python.generate_structure.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/test.py",
+    "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/res/ui" />
@@ -80,6 +157,29 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="export structure" type="PythonConfigurationType" factoryName="Python">
+      <module name="ITCUBIA" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (ITCUBIA)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/export_structure.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="generate_structure" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ITCUBIA" />
       <option name="ENV_FILES" value="" />
@@ -127,8 +227,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.generate_structure" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.generate_structure" />
+      <item itemvalue="Python.export structure" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -291,7 +392,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766067900166</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="перед изменением карты">
+      <option name="closed" value="true" />
+      <created>1766150233896</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1766150233896</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -367,7 +476,8 @@
     <MESSAGE value="норм версия камеры и тайлменеджера(но грязи в коде все равно навалом)" />
     <MESSAGE value="перед ui" />
     <MESSAGE value="консоль" />
-    <option name="LAST_COMMIT_MESSAGE" value="консоль" />
+    <MESSAGE value="перед изменением карты" />
+    <option name="LAST_COMMIT_MESSAGE" value="перед изменением карты" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

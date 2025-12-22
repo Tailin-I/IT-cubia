@@ -10,6 +10,7 @@ class Trigger:
     def check_collision(self, entity_rect):
         """Проверяем столкновение с сущностью"""
         # Простая проверка прямоугольников
+        print(12)
         return self._rects_collide(self.rect, entity_rect)
 
     def activate(self, entity):

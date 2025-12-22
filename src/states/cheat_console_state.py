@@ -16,6 +16,10 @@ class CheatConsoleState(BaseState):
 
         self.count_to_text = 0
 
+        self.back_color = (68, 71, 78, 180)
+        self.main_color = (76, 106, 253)
+        self.text_color = (240, 240, 240)
+
         # речь дип сика
         self.deep_seek_speech = ["Бог, слушает тебя..."]
         self.text_to_draw = []
@@ -75,13 +79,13 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
                 panel_width, panel_height),
-            (30, 30, 40, 100)  # Темно-синий
+            self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
                 self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
                 panel_width, panel_height),
-            arcade.color.LIME, 2
+            self.main_color , 2
         )
 
         # ---РЕЧЬ ДИП СИКА---
@@ -91,7 +95,7 @@ class CheatConsoleState(BaseState):
         arcade.draw_text(
             text,
             self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
-            arcade.color.LIME, 24,
+            self.main_color , 24,
             anchor_x="center"
         )
 
@@ -106,14 +110,14 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
                 self.gsm.window.width // 2 - self.TILE_SIZE, self.TILE_SIZE),
-            arcade.color.LIME, 1
+            self.back_color , 1
         )
 
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
             int(4.6 * self.TILE_SIZE), self.gsm.window.height - 2 * self.TILE_SIZE,
-            arcade.color.LIME, 20
+            self.main_color , 20
         ).draw()
 
         # ---ИСТОРИЯ КОМАНД---
@@ -123,7 +127,7 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 2.2 * self.TILE_SIZE, self.gsm.window.height // 2,
                 panel_width, panel_height),
-            (30, 30, 40, 100)  # Темно-синий
+            self.back_color   # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
@@ -131,19 +135,19 @@ class CheatConsoleState(BaseState):
                 self.gsm.window.height // 2,
                 panel_width,
                 panel_height
-            ), arcade.color.LIME, 2
+            ), self.main_color , 2
         )
 
         for i in range(len(self.history) - 1, -1, -1):
-            color = arcade.color.LIGHT_GRAY
+            color = self.text_color
             if self.history_cursor == i and "|" not in self.input_buffer:
-                color = arcade.color.LIME
+                color = self.main_color
             text = self.history[i]
             if len(text) > 10:
                 text = text[:15] + "..."
             arcade.Text(
                 text,
-                0.6 * self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
+                0.65 * self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
                 color, 9
             ).draw()
 
@@ -154,13 +158,13 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
                 panel_width, panel_height),
-            (30, 30, 40, 100)  # Темно-синий
+            self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
                 self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
                 panel_width, panel_height),
-            arcade.color.LIME, 2
+            self.main_color , 2
         )
 
         for i in range(len(self.deep_seek_speech)):
@@ -168,7 +172,7 @@ class CheatConsoleState(BaseState):
                 self.deep_seek_speech[i],
                 self.gsm.window.width - 5.7 * self.TILE_SIZE,
                 self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
-                arcade.color.LIME, 14
+                self.text_color, 14
             ).draw()
 
     def on_enter(self, **kwargs):

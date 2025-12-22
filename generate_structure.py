@@ -7,7 +7,7 @@ def generate_tree(directory, prefix="", ignore_dirs=None, ignore_files=None):
     if ignore_dirs is None:
         ignore_dirs = {'.git', '__pycache__', '.idea', '.vscode'}
     if ignore_files is None:
-        ignore_files = {'.pyc', '.pyo', '.pyd', '.png'}
+        ignore_files = {'.pyc', '.pyo', '.pyd'}
 
     items = os.listdir(directory)
     items = [item for item in items if not item.startswith('.')]

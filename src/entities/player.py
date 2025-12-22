@@ -1,4 +1,7 @@
 import logging
+
+import arcade
+
 from .base_entity import Entity
 from ..core.game_data import game_data
 
@@ -86,17 +89,21 @@ class Player(Entity):
         if current_direction:
             self.last_direction = current_direction
 
-        # ВАЖНО: Двигаем с учетом коллизий!
-        # Нужно передать game_map в update или хранить его в Player
-        # Пока добавим через kwargs
-        game_map = kwargs.get('game_map')
-        if game_map:
-            actual_dx, actual_dy = self.move_with_collision(game_map, dx, dy)
+        # Двигаем с учетом коллизий!
+        collision_layer = kwargs.get('collision_layer')
+
+        if collision_layer:
+            # Используем Tiled коллизии
+            actual_dx, actual_dy = self._move_with_tiled_collision(collision_layer, dx, dy)
         else:
-            # Если карты нет - двигаем без коллизий
-            self.center_x += dx
-            self.center_y += dy
-            actual_dx, actual_dy = dx, dy
+            # Для обратной совместимости
+            game_map = kwargs.get('game_map')
+            if game_map:
+                actual_dx, actual_dy = self.move_with_collision(game_map, dx, dy)
+            else:
+                self.center_x += dx
+                self.center_y += dy
+                actual_dx, actual_dy = dx, dy
 
         # Синхронизируем с game_data
         self.data.set_player_position(self.center_x, self.center_y)
@@ -105,6 +112,32 @@ class Player(Entity):
         if self.debug_collisions and (dx != 0 or dy != 0):
             if actual_dx != dx or actual_dy != dy:
                 print(f"Коллизия! Запланировано: ({dx:.1f}, {dy:.1f}), Разрешено: ({actual_dx:.1f}, {actual_dy:.1f})")
+
+    def _move_with_tiled_collision(self, collision_layer, dx, dy):
+        """
+        Простой метод коллизий для Tiled.
+        """
+        if not collision_layer:
+            self.center_x += dx
+            self.center_y += dy
+            return dx, dy
+
+        # Сохраняем старую позицию
+        old_x, old_y = self.center_x, self.center_y
+
+        # Двигаемся по X
+        self.center_x += dx
+        x_hits = arcade.check_for_collision_with_list(self, collision_layer)
+        if x_hits:
+            self.center_x = old_x
+
+        # Двигаемся по Y
+        self.center_y += dy
+        y_hits = arcade.check_for_collision_with_list(self, collision_layer)
+        if y_hits:
+            self.center_y = old_y
+
+        return self.center_x - old_x, self.center_y - old_y
 
     def _set_direction_texture(self, direction):
         """Сразу устанавливает первую текстуру направления"""

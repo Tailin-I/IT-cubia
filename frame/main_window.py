@@ -20,7 +20,7 @@ class MainWindow(arcade.Window):
 
     def __init__(self):
         # РАЗМЕРЫ:
-        self.ORIGINAL_TILE_SIZE = 16  # Оригинальный размер тайлов
+        self.ORIGINAL_TILE_SIZE = 70  # Оригинальный размер тайлов
         self.TARGET_TILE_SIZE = 64  # Желаемый размер тайлов
         self.SCALE_FACTOR = self.TARGET_TILE_SIZE / self.ORIGINAL_TILE_SIZE  # 4.0
 
