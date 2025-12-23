@@ -28,6 +28,80 @@ class MapLoader:
         # Границы карты
         self.bounds = None
 
+    def _load_events(self, scale: float):
+        """Загружает события из Tiled"""
+        if not self.tile_map:
+            return
+
+        # 1. Загружаем зоны взаимодействия из Object Layer "events"
+        for layer_name, object_list in self.tile_map.object_lists.items():
+            if layer_name.lower() == "events":
+                self.event_manager = EventManager(self.rm, self.tile_map.tile_height)
+                self.event_manager.load_events_from_objects(object_list, scale)
+                break
+
+        # 2. Создаем визуальные спрайты из Tile Layer "chests_visual"
+        chests_visual_layer = self.tile_map.sprite_lists.get("chests_visual")
+        if chests_visual_layer and self.event_manager:
+            self.event_manager.create_visual_sprites_from_tile_layer(
+                chests_visual_layer, scale
+            )
+
+            # Делаем оригинальные тайлы невидимыми
+            for sprite in chests_visual_layer:
+                sprite.visible = False
+
+    def _create_chest_sprites_from_layer(self):
+        """Создает спрайты сундуков из визуального слоя"""
+        if not self.containers_layer or not self.event_manager:
+            return
+
+        from src.entities.chest import ChestSprite
+        from src.core.resource_manager import resource_manager
+
+        # Для каждого тайла в визуальном слое
+        for i, tile_sprite in enumerate(self.containers_layer):
+            # Ищем событие рядом с этим тайлом
+            chest_event = self._find_chest_event_near(tile_sprite.center_x, tile_sprite.center_y)
+
+            if chest_event:
+                # Создаем свой спрайт сундука на тех же координатах
+                texture = resource_manager.load_texture("")
+                sprite = ChestSprite(
+                    texture=texture,
+                    x=tile_sprite.center_x,
+                    y=tile_sprite.center_y,
+                    event=chest_event
+                )
+
+                # Связываем событие со спрайтом
+                chest_event.set_sprite(sprite)
+
+                # Добавляем спрайт в отдельный список
+                if not hasattr(self, 'chest_sprites'):
+                    self.chest_sprites = []
+                self.chest_sprites.append(sprite)
+
+                print(f"   ✅ Создан спрайт сундука для события {chest_event.event_id}")
+
+    def _find_chest_event_near(self, x, y, max_distance=32):
+        """Находит событие сундука рядом с координатами"""
+        if not self.event_manager:
+            return None
+
+        for event in self.event_manager.events:
+            if event.type == "chest":
+                # Проверяем расстояние до центра зоны события
+                ex, ey, ew, eh = event.rect
+                event_center_x = ex + ew / 2
+                event_center_y = ey + eh / 2
+
+                distance = ((x - event_center_x)**2 + (y - event_center_y)**2) ** 0.5
+
+                if distance < max_distance:
+                    return event
+        return None
+
     def load(self, map_file: str, scale: float = 1.0) -> bool:
         """
         Загружает Tiled карту.
@@ -51,6 +125,7 @@ class MapLoader:
                     "ground": {"use_spatial_hash": False},
                     "walls": {"use_spatial_hash": False},
                     "collisions": {"use_spatial_hash": True},  # Важно для коллизий!
+                    "containers": {"use_spatial_hash": False}
                 }
             )
 
@@ -60,30 +135,30 @@ class MapLoader:
             self.ground_layer = self.tile_map.sprite_lists.get("ground")
             self.walls_layer = self.tile_map.sprite_lists.get("walls")
             self.collisions_layer = self.tile_map.sprite_lists.get("collisions")
+            self.containers_layer = self.tile_map.sprite_lists.get("containers")
 
             self._load_events(scale)
+
+            # сцена для отрисовки
+            self.scene = arcade.Scene.from_tilemap(self.tile_map)
+
             if self.collisions_layer:
                 for sprite in self.collisions_layer:
                     sprite.visible = False  # Делаем каждый спрайт невидимым
-            # Создаем сцену
-            self.scene = arcade.Scene.from_tilemap(self.tile_map)
+
+            if self.containers_layer:
+                for container in self.collisions_layer:
+                    container.visible = False
+
 
             # Получаем границы карты
             self._calculate_bounds()
-
-            self.logger.info(f"Карта Tiled загружена: {map_file}")
-            self.logger.info(f"Размеры: {self.bounds['width']}x{self.bounds['height']}")
-            self.logger.info(f"Слои: ground={bool(self.ground_layer)}, "
-                             f"walls={bool(self.walls_layer)}, "
-                             f"collisions={bool(self.collisions_layer)}")
 
             return True
 
         except Exception as e:
             self.logger.error(f"Ошибка загрузки карты Tiled {map_file}: {e}")
 
-            # Создаем fallback
-            self._create_fallback_map()
             return False
 
     def _calculate_bounds(self):
@@ -106,36 +181,6 @@ class MapLoader:
             'width': width_tiles * tile_width,
             'height': height_tiles * tile_height,
         }
-
-    def _create_fallback_map(self):
-        """Создает простую карту при ошибке"""
-        self.logger.warning("Создаю fallback карту")
-
-        # Создаем пустые спрайтлисты
-        self.ground_layer = arcade.SpriteList()
-        self.walls_layer = arcade.SpriteList()
-        self.collisions_layer = arcade.SpriteList(use_spatial_hash=True)
-
-        # Простая карта 20x15
-        width_tiles = 20
-        height_tiles = 15
-        tile_size = 64
-
-        # Здесь можно добавить простые тайлы...
-        self.bounds = {
-            'left': 0,
-            'bottom': 0,
-            'right': width_tiles * tile_size,
-            'top': height_tiles * tile_size,
-            'width': width_tiles * tile_size,
-            'height': height_tiles * tile_size,
-        }
-
-        self.scene = arcade.Scene()
-
-        self.scene.add_sprite_list("ground", sprite_list=self.ground_layer)
-        self.scene.add_sprite_list("walls", sprite_list=self.walls_layer)
-        self.scene.add_sprite_list("collisions", sprite_list=self.collisions_layer)
 
     def is_solid_at(self, x: float, y: float) -> bool:
         """Проверяет, есть ли коллизия в координатах (x, y)"""
@@ -165,24 +210,6 @@ class MapLoader:
         if self.scene:
             self.scene.draw()
 
-    def _load_events(self, scale: float):
-        """Загружает события из Tiled"""
-        if not self.tile_map:
-            return
-
-        # Ищем слой событий
-        for layer_name, object_list in self.tile_map.object_lists.items():
-            if "event" in layer_name.lower():
-                print(f"🎯 Найден слой событий: {layer_name} ({len(object_list)} объектов)")
-                self.event_manager = EventManager(self.rm)
-
-                self.event_manager.load_from_tiled(
-                    object_list=object_list,
-                    scale=scale
-                )
-                return
-
-        print("ℹ️ Слой событий не найден, создаю пустой менеджер")
 
     def update_events(self, delta_time: float, player, game_state):
         """Обновляет события"""

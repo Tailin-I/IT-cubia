@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="как то работает">
-      <change afterPath="$PROJECT_DIR$/res/containers/chest.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/containers/chest_opened.png" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="как то раб">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/chest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/chest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/chest_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
@@ -86,7 +82,7 @@
       <recent name="$PROJECT_DIR$/src/core/settings" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.export structure">
     <configuration name="export structure" type="PythonConfigurationType" factoryName="Python">
       <module name="ITCUBIA" />
       <option name="ENV_FILES" value="" />
@@ -346,7 +342,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766503826849</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="как то раб">
+      <option name="closed" value="true" />
+      <created>1766511975491</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1766511975493</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -425,7 +429,8 @@
     <MESSAGE value="перед изменением карты" />
     <MESSAGE value="перед добавлением событий" />
     <MESSAGE value="как то работает" />
-    <option name="LAST_COMMIT_MESSAGE" value="как то работает" />
+    <MESSAGE value="как то раб" />
+    <option name="LAST_COMMIT_MESSAGE" value="как то раб" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -41,3 +41,6 @@ class GameEvent:
             self.cooldown -= 1
         if self.cooldown <= 0:
             self.activated = False
+
+    def set_sprite(self, sprite):
+        pass
