@@ -1,35 +1,109 @@
-
 import arcade
-
 from .event import GameEvent
+from .chest_event import ChestEvent
+from .teleport_event import TeleportEvent
 
 
 class EventManager:
-    """Управляет всеми событиями на карте"""
-
     def __init__(self):
-        self.events = []  # Список всех событий
-        self.active_events = {}  # Активные события по ID
+        self.events = []
 
-    def load_from_tiled(self, tiled_object_list):
-        """Загружает события из Tiled Object Layer"""
-        for obj in tiled_object_list:
-            # Определяем тип события
-            event_type = obj.properties.get("type", "trigger")
+    def load_from_tiled(self, object_list, scale: float = 1.0):
+        """Загружает события из списка объектов Tiled"""
+        print(f"=== ЗАГРУЗКА {len(object_list)} СОБЫТИЙ ===")
+
+        for i, obj in enumerate(object_list):
+            print(f"\n🔍 Обрабатываю объект {i}:")
+            print(f"   name: {getattr(obj, 'name', 'без имени')}")
+            print(f"   type: {getattr(obj, 'type', 'не указан')}")
+            print(f"   shape: {getattr(obj, 'shape', 'нет')}")
+
+            properties = getattr(obj, 'properties', {})
+            print(f"   properties: {properties}")
 
             # Создаем событие
-            event = GameEvent(
-                event_id=obj.properties.get("id", f"event_{len(self.events)}"),
-                event_type=event_type,
-                rect=(obj.x, obj.y, obj.width, obj.height),
-                properties=obj.properties
-            )
+            event = self._create_event_from_object(obj, properties, scale, i)
+            if event:
+                self.events.append(event)
 
-            self.events.append(event)
-            print(f"Загружено событие: {event.event_id} ({event_type})")
+        print(f"\n✅ Всего загружено событий: {len(self.events)}")
+        for i, obj in enumerate(object_list):
+            print(f"Объект {i}:")
+            print(f"  Все атрибуты: {[attr for attr in dir(obj) if not attr.startswith('_')]}")
+            print(f"  Тип: {type(obj)}")
 
-    def check_events(self, player, game_state):
-        """Проверяет все события на столкновение с игроком"""
+    def _create_event_from_object(self, obj, properties, scale, index):
+        """Создает событие из TiledObject"""
+        try:
+            # Извлекаем координаты из shape
+            if not hasattr(obj, 'shape') or not obj.shape:
+                print(f"⚠️ Объект {index} не имеет shape")
+                return None
+
+            points = obj.shape
+            if len(points) < 2:
+                print(f"⚠️ Объект {index} имеет недостаточно точек в shape")
+                return None
+
+            # Вычисляем bounding box
+            xs = [p[0] for p in points]
+            ys = [p[1] for p in points]
+
+            x = min(xs)
+            y = min(ys)
+            width = max(xs) - min(xs)
+            height = max(ys) - min(ys)
+
+            # Масштабируем
+            x *= scale
+            y *= scale
+            width *= scale
+            height *= scale
+
+            # Определяем тип события
+            event_type = obj.type.lower() if hasattr(obj, 'type') else "trigger"
+            event_id = properties.get("id", f"{event_type}_{index}")
+
+            print(f"   📏 Размеры: {width:.0f}x{height:.0f} в ({x:.0f}, {y:.0f})")
+
+            # Создаем соответствующее событие
+            if event_type == "chest":
+                # Сундук
+                if "loot" not in properties:
+                    properties["loot"] = "healing_potion:3"  # Тестовый лут
+                return ChestEvent(event_id, (x, y, width, height), properties)
+
+            elif event_type == "teleport":
+                # Телепорт
+                return TeleportEvent(event_id, (x, y, width, height), properties)
+
+            elif event_type == "trigger":
+                # Простой триггер
+                return GameEvent(event_id, "trigger", (x, y, width, height), properties)
+
+            else:
+                # Неизвестный тип - создаем как GameEvent
+                print(f"⚠️ Неизвестный тип события: {event_type}")
+                return GameEvent(event_id, event_type, (x, y, width, height), properties)
+
+        except Exception as e:
+            print(f"❌ Ошибка создания события из объекта {index}: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+
+    def draw(self):
+        pass
+    def update(self, delta_time: float):
+        """Обновляет все события"""
+        for event in self.events:
+            event.update(delta_time)
+
+    def check_collisions(self, player, game_state):
+        """Проверяет столкновения игрока со всеми событиями"""
+        if not player:
+            return
+
         player_rect = (
             player.center_x - player.width / 2,
             player.center_y - player.height / 2,
@@ -41,26 +115,29 @@ class EventManager:
             if event.check_collision(player_rect):
                 event.activate(player, game_state)
 
-    def update(self, delta_time: float):
-        """Обновляет все события"""
-        for event in self.events:
-            event.update(delta_time)
-
     def draw_debug(self):
-        """Отрисовывает события для отладки (только в режиме отладки)"""
+        """Отрисовывает события для отладки"""
         for event in self.events:
-            # Рисуем прямоугольник события
-            x, y, w, h = event.rect
-            color = arcade.color.RED if event.activated else arcade.color.GREEN
+            x, y, width, height = event.rect
+
+            # Цвет в зависимости от типа и состояния
+            if event.type == "chest":
+                color = arcade.color.GOLD if not event.is_opened else arcade.color.GRAY
+            elif event.type == "teleport":
+                color = arcade.color.CYAN
+            else:
+                color = arcade.color.GREEN
+
+            # Рисуем прямоугольник
             arcade.draw_rect_outline(
-                arcade.rect.XYWH(x + w / 2, y + h / 2, w, h),
+                arcade.rect.XYWH(x + width / 2, y + height / 2, width, height),
                 color, 2
             )
 
             # Подпись
-            arcade.Text(
-                f"{event.type}",
-                x + w / 2, y + h / 2,
+            arcade.draw_text(
+                event.type,
+                x + width / 2, y + height / 2,
                 arcade.color.WHITE, 10,
                 anchor_x="center", anchor_y="center"
             )

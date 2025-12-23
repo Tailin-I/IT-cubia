@@ -2,6 +2,8 @@ import arcade
 import logging
 import os
 
+from src.events.event_manager import EventManager
+
 
 class MapLoader:
     """
@@ -12,6 +14,7 @@ class MapLoader:
     def __init__(self, resource_manager):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.rm = resource_manager
+        self.event_manager = None
 
         # Загруженная карта
         self.tile_map = None
@@ -52,11 +55,13 @@ class MapLoader:
             )
 
             # Получаем слои
+
+
             self.ground_layer = self.tile_map.sprite_lists.get("ground")
             self.walls_layer = self.tile_map.sprite_lists.get("walls")
             self.collisions_layer = self.tile_map.sprite_lists.get("collisions")
 
-
+            self._load_events(scale)
             if self.collisions_layer:
                 for sprite in self.collisions_layer:
                     sprite.visible = False  # Делаем каждый спрайт невидимым
@@ -76,6 +81,7 @@ class MapLoader:
 
         except Exception as e:
             self.logger.error(f"Ошибка загрузки карты Tiled {map_file}: {e}")
+
             # Создаем fallback
             self._create_fallback_map()
             return False
@@ -126,6 +132,7 @@ class MapLoader:
         }
 
         self.scene = arcade.Scene()
+
         self.scene.add_sprite_list("ground", sprite_list=self.ground_layer)
         self.scene.add_sprite_list("walls", sprite_list=self.walls_layer)
         self.scene.add_sprite_list("collisions", sprite_list=self.collisions_layer)
@@ -157,3 +164,39 @@ class MapLoader:
         """Отрисовывает карту"""
         if self.scene:
             self.scene.draw()
+
+    def _load_events(self, scale: float):
+        """Загружает события из Tiled"""
+        if not self.tile_map:
+            return
+
+        # Ищем слой событий
+        for layer_name, object_list in self.tile_map.object_lists.items():
+            if "event" in layer_name.lower():
+                print(f"🎯 Найден слой событий: {layer_name} ({len(object_list)} объектов)")
+
+                self.event_manager = EventManager()
+
+                self.event_manager.load_from_tiled(
+                    object_list=object_list,
+                    scale=scale
+                )
+                return
+
+        print("ℹ️ Слой событий не найден, создаю пустой менеджер")
+        self.event_manager = EventManager()
+    def update_events(self, delta_time: float, player, game_state):
+        """Обновляет события"""
+        if self.event_manager:
+            self.event_manager.update(delta_time)
+            self.event_manager.check_collisions(player, game_state)
+
+    def draw_events(self):
+        """Отрисовывает события"""
+        if self.event_manager:
+            self.event_manager.draw()
+
+    def draw_events_debug(self):
+        """Отладочная отрисовка событий"""
+        if self.event_manager:
+            self.event_manager.draw_debug()

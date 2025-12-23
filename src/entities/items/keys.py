@@ -1,0 +1,21 @@
+from .base_item import Item
+
+
+class Key(Item):
+    """Ключ для открытия дверей/сундуков"""
+
+    def __init__(self, key_id: str = "basic_key", name: str = "Старый ключ"):
+        super().__init__(
+            item_id=f"key_{key_id}",
+            name=name,
+            texture_path="res/consumables/key.png"
+
+        )
+        self.is_stackable = False
+        self.is_key_item = True
+        self.key_id = key_id  # Какой замок открывает
+        self.description = f"Ключ для замка '{key_id}'"
+
+    def use(self, user) -> bool:
+        print(f"🔑 Ключ '{self.key_id}' нельзя просто так использовать")
+        return False  # Ключи не расходуются при использовании

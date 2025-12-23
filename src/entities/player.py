@@ -38,7 +38,7 @@ class Player(Entity):
         self.setup_hitbox({'left': 0.1, 'right': 0.1, 'top': 0.2, 'bottom': 0})
 
         # Включаем отладку коллизий (потом можно отключить)
-        self.debug_collisions = False
+        self.debug_collisions = True
 
     def setdefault(self):
         pos = self.data.get_player_position()

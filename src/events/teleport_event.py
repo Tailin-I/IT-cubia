@@ -7,8 +7,8 @@ class TeleportEvent(GameEvent):
         super().__init__(event_id, "teleport", rect, properties)
 
         self.target_map = properties.get("target_map")
-        self.target_x = properties.get("target_X", 0)
-        self.target_y = properties.get("target_y", 0)
+        self.target_x = properties.get("target_x", 0) * self.tileSize
+        self.target_y = properties.get("target_y", 0) * self.tileSize
 
     def activate(self, player, game_state):
         if self.activated and self.cooldown > 0:

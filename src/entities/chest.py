@@ -1,0 +1,49 @@
+import arcade
+from typing import Optional
+
+
+class ChestSprite(arcade.Sprite):
+    """Визуальное представление сундука"""
+
+    def __init__(self, texture, x: float, y: float, event=None):
+        super().__init__(texture)
+
+        # Позиция
+        self.center_x = x
+        self.center_y = y
+        self.scale = 1.0
+
+        # Связь с событием
+        self.event = event
+        self.is_opened = False
+
+        # Текстуры для разных состояний
+        self.texture_closed = texture
+        self.texture_open = None  # Можно загрузить позже
+
+    def update_visual(self):
+        """Обновляет визуал в зависимости от состояния"""
+        if self.event and self.event.is_opened:
+            self.is_opened = True
+            if self.texture_open:
+                self.texture = self.texture_open
+            else:
+                # Делаем полупрозрачным
+                self.alpha = 128
+
+    def draw_debug(self):
+        """Отладочная отрисовка"""
+        # Хитбокс
+        color = arcade.color.RED
+        if self.event:
+            if self.event.is_opened:
+                color = arcade.color.GRAY
+            elif self.event.is_locked:
+                color = arcade.color.ORANGE
+            else:
+                color = arcade.color.GREEN
+
+        arcade.draw_rect_outline(
+            arcade.rect.XYWH(self.center_x, self.center_y, self.width, self.height),
+            color, 2
+        )

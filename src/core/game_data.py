@@ -14,6 +14,7 @@ class GameData:
         self.player = {
             "health": 100,
             "position": {"x": 400, "y": 300},
+
             "level": 1,
             "experience": 0
         # Методы: save_to_file(), load_from_file(), get_player_position()

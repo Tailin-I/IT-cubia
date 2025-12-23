@@ -4,87 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед изменением карты">
-      <change afterPath="$PROJECT_DIR$/export_structure.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="перед добавлением событий">
+      <change afterPath="$PROJECT_DIR$/res/consumables/key.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/consumables/manacrystal_full.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/consumables/potion_red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/chest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/items/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/items/base_item.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/items/consumables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/items/item_factory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entities/items/keys.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/lock_picking_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generate_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_structure.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/000.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/001.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/002.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/003.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/004.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/005.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/006.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/007.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/008.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/009.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/010.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/011.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/012.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/013.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/014.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/015.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/016.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/017.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/018.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/019.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/020.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/021.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/022.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/023.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/024.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/025.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/026.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/027.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/028.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/029.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/030.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/031.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/032.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/033.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/034.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/035.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/036.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/037.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/038.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/039.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/040.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/041.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/042.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/043.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/044.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/045.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/046.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/047.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/048.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/049.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/050.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/051.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/052.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/053.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/054.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/055.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/056.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/057.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/058.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/059.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/060.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/061.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/062.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/063.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/064.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/config_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/teleport_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/dialogue_state.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/inventory_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/loading_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/quest_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/stats_state.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/tilemanager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/trigger_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/trigger_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,17 +85,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/test.py",
+    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/res",
     "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/res/ui" />
       <recent name="$PROJECT_DIR$/src/entity" />
-      <recent name="$PROJECT_DIR$/res" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/entities/items" />
       <recent name="$PROJECT_DIR$/src/states" />
       <recent name="$PROJECT_DIR$/frame" />
       <recent name="$PROJECT_DIR$/src/core/settings" />
@@ -400,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766150233896</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="перед добавлением событий">
+      <option name="closed" value="true" />
+      <created>1766433406336</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1766433406336</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -477,7 +432,8 @@
     <MESSAGE value="перед ui" />
     <MESSAGE value="консоль" />
     <MESSAGE value="перед изменением карты" />
-    <option name="LAST_COMMIT_MESSAGE" value="перед изменением карты" />
+    <MESSAGE value="перед добавлением событий" />
+    <option name="LAST_COMMIT_MESSAGE" value="перед добавлением событий" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -29,23 +29,18 @@ class BaseState(ABC):
         self.TILE_SIZE = self.gsm.window.TARGET_TILE_SIZE
         self.SCALE_FACTOR = self.gsm.window.SCALE_FACTOR
 
-    # ТОЛЬКО ЭТИ методы обязательны для всех состояний
-    @abstractmethod
     def on_enter(self, **kwargs):
         """Вход в состояние - ОБЯЗАТЕЛЬНО"""
         pass
 
-    @abstractmethod
     def on_exit(self):
         """Выход из состояния - ОБЯЗАТЕЛЬНО"""
         pass
 
-    @abstractmethod
     def update(self, delta_time: float):
         """Обновление - ОБЯЗАТЕЛЬНО"""
 
 
-    @abstractmethod
     def draw(self):
         """Отрисовка - ОБЯЗАТЕЛЬНО"""
         pass
