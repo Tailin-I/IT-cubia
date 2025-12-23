@@ -2,6 +2,7 @@ from typing import Dict, Any
 
 from .event import GameEvent
 from src.entities.items.item_factory import ItemFactory
+from ..core.asset_loader import AssetLoader
 
 
 class ChestEvent(GameEvent):
@@ -9,6 +10,8 @@ class ChestEvent(GameEvent):
 
     def __init__(self, event_id: str, rect: tuple, properties: Dict[str, Any]):
         super().__init__(event_id, "chest", rect, properties)
+        # Ссылка на спайт
+        self.sprite = None
 
         # Парсим свойства
         self.lock_sequence = properties.get("lock", "")  # например "<<><"
@@ -29,12 +32,10 @@ class ChestEvent(GameEvent):
         """Игрок взаимодействует с сундуком"""
         if self.activated and self.cooldown > 0:
             return
-
-        print(f"📦 Взаимодействие с сундуком '{self.event_id}'")
-
         if self.is_opened:
             print("   Сундук уже пуст!")
             return
+        print(f"📦 Взаимодействие с сундуком '{self.event_id}'")
 
         if self.is_locked:
             print(f"🔒 Заперт! Комбинация: {self.lock_sequence}")
@@ -44,19 +45,33 @@ class ChestEvent(GameEvent):
                                         player=player)
         else:
             self._open_chest(player)
-
         self.activated = True
         self.cooldown = self.max_cooldown
+
+
+
+
+
+
+
+    def set_sprite(self, sprite):
+        """Устанавливает связь с визуальным спрайтом"""
+        self.sprite = sprite
+        if sprite:
+            sprite.event = self  # Двусторонняя связь
 
     def _open_chest(self, player):
         """Открыть сундук и выдать добычу"""
         print(f"🎉 Сундук открыт! Получено:")
 
         for item in self.loot_items:
-            # Добавляем в инвентарь игрока
             self._add_to_inventory(player, item)
 
         self.is_opened = True
+
+        # Обновляем визуал если есть спрайт
+        if self.sprite:
+            self.sprite.update_visual()
 
     def _add_to_inventory(self, player, item):
         """Добавляет предмет в инвентарь игрока"""

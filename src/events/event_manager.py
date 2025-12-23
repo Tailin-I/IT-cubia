@@ -1,12 +1,16 @@
 import arcade
+
 from .event import GameEvent
 from .chest_event import ChestEvent
 from .teleport_event import TeleportEvent
 
 
 class EventManager:
-    def __init__(self):
+    def __init__(self, rm):
         self.events = []
+        self.rm = rm
+        self.tileSize = 70
+        self.chest_sprites = arcade.SpriteList()
 
     def load_from_tiled(self, object_list, scale: float = 1.0):
         """Загружает события из списка объектов Tiled"""
@@ -51,6 +55,7 @@ class EventManager:
 
             x = min(xs)
             y = min(ys)
+
             width = max(xs) - min(xs)
             height = max(ys) - min(ys)
 
@@ -68,10 +73,23 @@ class EventManager:
 
             # Создаем соответствующее событие
             if event_type == "chest":
+                tile_x = properties.get("tile_x", x) * self.tileSize
+                tile_y = properties.get("tile_y", y) * self.tileSize
+                container = properties.get("type", "chest")
                 # Сундук
                 if "loot" not in properties:
-                    properties["loot"] = "healing_potion:3"  # Тестовый лут
-                return ChestEvent(event_id, (x, y, width, height), properties)
+                    properties["loot"] = ""  # Тестовый лут
+                event = ChestEvent(event_id, (x, y, width, height), properties)
+
+                if container == "chest":
+                    from src.entities.chest import ChestSprite
+                    texture = self.rm.load_texture("containers/chest.png")
+                    texture_opened = self.rm.load_texture("containers/chest_opened.png")
+                    sprite = ChestSprite(texture,texture_opened, tile_x, tile_y,properties)
+                    event.set_sprite(sprite)
+                    self.chest_sprites.append(sprite)
+
+                return event
 
             elif event_type == "teleport":
                 # Телепорт
@@ -93,7 +111,7 @@ class EventManager:
             return None
 
     def draw(self):
-        pass
+        self.chest_sprites.draw()
     def update(self, delta_time: float):
         """Обновляет все события"""
         for event in self.events:

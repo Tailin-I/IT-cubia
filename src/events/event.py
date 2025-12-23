@@ -5,6 +5,8 @@ from typing import Dict, Any, Optional
 class GameEvent:
     """Базовый класс для игровых событий"""
 
+
+
     def __init__(self, event_id: str, event_type: str, rect: tuple, properties: Dict[str, Any] = None):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
 

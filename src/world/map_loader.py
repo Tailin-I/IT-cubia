@@ -174,8 +174,7 @@ class MapLoader:
         for layer_name, object_list in self.tile_map.object_lists.items():
             if "event" in layer_name.lower():
                 print(f"🎯 Найден слой событий: {layer_name} ({len(object_list)} объектов)")
-
-                self.event_manager = EventManager()
+                self.event_manager = EventManager(self.rm)
 
                 self.event_manager.load_from_tiled(
                     object_list=object_list,
@@ -184,7 +183,7 @@ class MapLoader:
                 return
 
         print("ℹ️ Слой событий не найден, создаю пустой менеджер")
-        self.event_manager = EventManager()
+
     def update_events(self, delta_time: float, player, game_state):
         """Обновляет события"""
         if self.event_manager:

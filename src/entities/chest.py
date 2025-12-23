@@ -5,13 +5,13 @@ from typing import Optional
 class ChestSprite(arcade.Sprite):
     """Визуальное представление сундука"""
 
-    def __init__(self, texture, x: float, y: float, event=None):
+    def __init__(self, texture, texture_open, x: float, y: float, event=None):
         super().__init__(texture)
 
         # Позиция
         self.center_x = x
         self.center_y = y
-        self.scale = 1.0
+        self.scale = 1
 
         # Связь с событием
         self.event = event
@@ -19,7 +19,7 @@ class ChestSprite(arcade.Sprite):
 
         # Текстуры для разных состояний
         self.texture_closed = texture
-        self.texture_open = None  # Можно загрузить позже
+        self.texture_open = texture_open
 
     def update_visual(self):
         """Обновляет визуал в зависимости от состояния"""
