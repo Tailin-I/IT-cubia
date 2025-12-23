@@ -33,56 +33,98 @@ class MapLoader:
         if not self.tile_map:
             return
 
-        # 1. Загружаем зоны взаимодействия из Object Layer "events"
+
+        # 1. Создаем менеджер событий
+
+        # 2. Загружаем зоны взаимодействия из Object Layer "events"
+        events_loaded = False
         for layer_name, object_list in self.tile_map.object_lists.items():
             if layer_name.lower() == "events":
-                self.event_manager = EventManager(self.rm, self.tile_map.tile_height)
                 self.event_manager.load_events_from_objects(object_list, scale)
+                events_loaded = True
+                print(f"✅ Загружено событий: {len(self.event_manager.events)}")
                 break
 
-        # 2. Создаем визуальные спрайты из Tile Layer "chests_visual"
-        chests_visual_layer = self.tile_map.sprite_lists.get("chests_visual")
-        if chests_visual_layer and self.event_manager:
-            self.event_manager.create_visual_sprites_from_tile_layer(
-                chests_visual_layer, scale
-            )
+        if not events_loaded:
+            print("⚠️ Слой 'events' не найден в Tiled карте")
 
-            # Делаем оригинальные тайлы невидимыми
-            for sprite in chests_visual_layer:
-                sprite.visible = False
+        # 3. Создаем визуальные спрайты из Tile Layer "containers"
+        containers_layer = self.tile_map.sprite_lists.get("containers")
+        if containers_layer and self.event_manager:
+            self._create_chest_sprites_from_layer(containers_layer, scale)
 
-    def _create_chest_sprites_from_layer(self):
-        """Создает спрайты сундуков из визуального слоя"""
-        if not self.containers_layer or not self.event_manager:
-            return
+    def _create_chest_sprites_from_layer(self, containers_layer, scale):
+        """Создает спрайты сундуков из визуального слоя и связывает с событиями"""
+        print(f"🎨 Создание спрайтов для {len(containers_layer)} контейнеров...")
+        print(f"📏 Размер тайла: {self.tile_map.tile_width}x{self.tile_map.tile_height}")
 
         from src.entities.chest import ChestSprite
-        from src.core.resource_manager import resource_manager
 
-        # Для каждого тайла в визуальном слое
-        for i, tile_sprite in enumerate(self.containers_layer):
-            # Ищем событие рядом с этим тайлом
-            chest_event = self._find_chest_event_near(tile_sprite.center_x, tile_sprite.center_y)
+        created_count = 0
+
+        for i, tile_sprite in enumerate(containers_layer):
+            # Позиция тайла в мире
+            sprite_x = tile_sprite.center_x
+            sprite_y = tile_sprite.center_y
+
+            # Координаты в тайлах (для сравнения с Tiled)
+            tile_x = sprite_x / self.tile_map.tile_width
+            tile_y = sprite_y / self.tile_map.tile_height
+
+            # Ищем ближайшее событие сундука (увеличиваем радиус поиска)
+            chest_event = self.event_manager._find_nearest_chest_event(sprite_x, sprite_y,
+                                                                       max_distance=self.tile_map.tile_width * 5)
 
             if chest_event:
-                # Создаем свой спрайт сундука на тех же координатах
-                texture = resource_manager.load_texture("")
-                sprite = ChestSprite(
-                    texture=texture,
-                    x=tile_sprite.center_x,
-                    y=tile_sprite.center_y,
-                    event=chest_event
-                )
+                # Получаем координаты события
+                ex, ey, ew, eh = chest_event.rect
+                event_center_x = ex + ew / 2
+                event_center_y = ey + eh / 2
 
-                # Связываем событие со спрайтом
-                chest_event.set_sprite(sprite)
+                event_tile_x = event_center_x / self.tile_map.tile_width
+                event_tile_y = event_center_y / self.tile_map.tile_height
 
-                # Добавляем спрайт в отдельный список
-                if not hasattr(self, 'chest_sprites'):
-                    self.chest_sprites = []
-                self.chest_sprites.append(sprite)
+                print(f"   ✅ Найдено событие: {chest_event.event_id}")
+                print(f"   📍 Событие (пиксели): ({event_center_x:.0f}, {event_center_y:.0f})")
+                print(f"   📍 Событие (тайлы): ({event_tile_x:.1f}, {event_tile_y:.1f})")
 
-                print(f"   ✅ Создан спрайт сундука для события {chest_event.event_id}")
+                # Проверяем, совпадают ли координаты в тайлах (округленно)
+                if (abs(tile_x - event_tile_x) < 1.0 and abs(tile_y - event_tile_y) < 1.0):
+                    print(f"   🎯 Координаты совпадают в пределах 1 тайла!")
+                else:
+                    print(
+                        f"   ⚠️ Координаты не совпадают: разница ({tile_x - event_tile_x:.1f}, {tile_y - event_tile_y:.1f}) тайлов")
+
+                # Загружаем текстуры
+                try:
+                    texture_closed = self.rm.load_texture("containers/chest.png")
+                    texture_open = self.rm.load_texture("containers/chest_opened.png")
+
+                    # Создаем спрайт сундука
+                    sprite = ChestSprite(
+                        texture=texture_closed,
+                        texture_open=texture_open,
+                        x=sprite_x,
+                        y=sprite_y,
+                        event=chest_event
+                    )
+
+                    # Связываем спрайт с событием
+                    chest_event.set_sprite(sprite)
+                    self.event_manager.chest_sprites.append(sprite)
+
+                    # Делаем оригинальный тайл невидимым
+                    tile_sprite.visible = False
+
+                    created_count += 1
+                    print(f"   🎉 Спрайт создан и связан!")
+
+                except Exception as e:
+                    print(f"   ❌ Ошибка создания спрайта: {e}")
+            else:
+                print(f"   ❌ Событие не найдено")
+
+        print(f"\n📊 ИТОГО: Создано {created_count} из {len(containers_layer)} спрайтов сундуков")
 
     def _find_chest_event_near(self, x, y, max_distance=32):
         """Находит событие сундука рядом с координатами"""
@@ -96,7 +138,7 @@ class MapLoader:
                 event_center_x = ex + ew / 2
                 event_center_y = ey + eh / 2
 
-                distance = ((x - event_center_x)**2 + (y - event_center_y)**2) ** 0.5
+                distance = ((x - event_center_x) ** 2 + (y - event_center_y) ** 2) ** 0.5
 
                 if distance < max_distance:
                     return event
@@ -105,17 +147,16 @@ class MapLoader:
     def load(self, map_file: str, scale: float = 1.0) -> bool:
         """
         Загружает Tiled карту.
-
-        Args:
-            map_file: путь к .tmx файлу (например, "maps/forest_tiled.tmx")
-            scale: масштаб
-
-        Returns:
-            True если успешно
         """
         try:
+            self.event_manager = EventManager(self.rm, 64)
             # Полный путь к файлу
             map_path = os.path.join(self.rm.get_project_root(), "res", map_file)
+
+            print(f"🗺️ Загрузка карты: {map_path}")
+            print(
+                f"📏 Оригинальный размер тайла Tiled: {self.tile_map.tile_width if self.tile_map else 'N/A'}x{self.tile_map.tile_height if self.tile_map else 'N/A'}")
+            print(f"📐 Масштаб: {scale}")
 
             # Загружаем карту через Arcade
             self.tile_map = arcade.load_tilemap(
@@ -124,32 +165,37 @@ class MapLoader:
                 layer_options={
                     "ground": {"use_spatial_hash": False},
                     "walls": {"use_spatial_hash": False},
-                    "collisions": {"use_spatial_hash": True},  # Важно для коллизий!
+                    "collisions": {"use_spatial_hash": True},
                     "containers": {"use_spatial_hash": False}
                 }
             )
 
+            print(f"✅ Карта загружена. Размер: {self.tile_map.width}x{self.tile_map.height} тайлов")
+            print(f"📏 Размер тайла после масштабирования: {self.tile_map.tile_width}x{self.tile_map.tile_height}")
+
             # Получаем слои
-
-
             self.ground_layer = self.tile_map.sprite_lists.get("ground")
             self.walls_layer = self.tile_map.sprite_lists.get("walls")
             self.collisions_layer = self.tile_map.sprite_lists.get("collisions")
             self.containers_layer = self.tile_map.sprite_lists.get("containers")
 
+            print(
+                f"📊 Слои загружены: ground={bool(self.ground_layer)}, walls={bool(self.walls_layer)}, containers={bool(self.containers_layer)}")
+
+            # Загружаем события
             self._load_events(scale)
 
-            # сцена для отрисовки
+            # Создаем сцену для отрисовки
             self.scene = arcade.Scene.from_tilemap(self.tile_map)
 
+            # Скрываем невидимые слои
             if self.collisions_layer:
                 for sprite in self.collisions_layer:
-                    sprite.visible = False  # Делаем каждый спрайт невидимым
+                    sprite.visible = False
 
             if self.containers_layer:
-                for container in self.collisions_layer:
+                for container in self.containers_layer:
                     container.visible = False
-
 
             # Получаем границы карты
             self._calculate_bounds()
@@ -158,7 +204,8 @@ class MapLoader:
 
         except Exception as e:
             self.logger.error(f"Ошибка загрузки карты Tiled {map_file}: {e}")
-
+            import traceback
+            traceback.print_exc()
             return False
 
     def _calculate_bounds(self):
@@ -210,7 +257,6 @@ class MapLoader:
         if self.scene:
             self.scene.draw()
 
-
     def update_events(self, delta_time: float, player, game_state):
         """Обновляет события"""
         if self.event_manager:
@@ -221,8 +267,3 @@ class MapLoader:
         """Отрисовывает события"""
         if self.event_manager:
             self.event_manager.draw()
-
-    def draw_events_debug(self):
-        """Отладочная отрисовка событий"""
-        if self.event_manager:
-            self.event_manager.draw_debug()

@@ -16,6 +16,7 @@ class EventManager:
         """
         self.rm = resource_manager
         self.tile_size = tile_size
+        print("ивентменеджер с размером тайла: ", tile_size)
 
         # Логика событий (зоны взаимодействия из Object Layer)
         self.events: List[GameEvent] = []
@@ -31,48 +32,77 @@ class EventManager:
     def load_events_from_objects(self, object_list, scale: float = 1.0):
         """
         Загружает ТОЛЬКО логические события (зоны взаимодействия) из Object Layer.
-        Вызывается из MapLoader для слоя "events".
         """
         print(f"🎯 Загрузка {len(object_list)} зон взаимодействия...")
+        print(f"📐 Масштаб для координат: {scale}")
 
         for i, obj in enumerate(object_list):
             event = self._create_event_from_object(obj, scale, i)
             if event:
                 self.events.append(event)
 
-                if self.debug_mode:
-                    x, y, w, h = event.rect
-                    print(f"  {i}. {event.event_id} ({event.type}) "
-                          f"в ({x:.0f}, {y:.0f}) {w:.0f}x{h:.0f}")
+                # Отладочная информация
+                x, y, w, h = event.rect
+                print(
+                    f"  {i}. {event.event_id} ({event.type}) в Tiled координатах: x={x / scale:.0f}, y={y / scale:.0f}, w={w / scale:.0f}, h={h / scale:.0f}")
+                print(f"     Игровые координаты: x={x:.0f}, y={y:.0f}, w={w:.0f}, h={h:.0f}")
+
+                if event.type == "chest":
+                    print(f"     Замок: '{getattr(event, 'lock_sequence', 'нет')}'")
+                    print(f"     Лут: {getattr(event, 'loot_items', [])}")
 
         print(f"✅ Загружено {len(self.events)} зон взаимодействия")
 
     def _create_event_from_object(self, obj, scale: float, index: int):
-        """Создает логическое событие из объекта Tiled"""
+        """ПРОСТОЙ вариант - без инверсии Y"""
         try:
-            # Получаем координаты и размеры объекта
-            x = getattr(obj, 'x', 0) * scale
-            y = getattr(obj, 'y', 0) * scale
-            width = getattr(obj, 'width', self.tile_size) * scale
-            height = getattr(obj, 'height', self.tile_size) * scale
+            # БЕЗ ИНВЕРСИИ - используем координаты как есть
+            if hasattr(obj, 'shape') and isinstance(obj.shape, list) and len(obj.shape) >= 4:
+                points = obj.shape
+
+                left = points[0][0]
+                top = points[0][1]
+                right = points[1][0]
+                bottom = points[3][1]
+
+                width = right - left
+                height = bottom - top
+
+                # НЕ ИНВЕРТИРУЕМ Y!
+                x = left
+                y = top  # Используем top как y
+
+                # Но height должно быть ПОЛОЖИТЕЛЬНЫМ
+                if height < 0:
+                    height = abs(height)
+                    y = bottom  # Если height отрицательный, начинаем снизу
+
+                print(f"🎯 Объект {index}:")
+                print(f"   x={x}, y={y}, width={width}, height={height}")
+
+            else:
+                x = getattr(obj, 'x', 0) * scale
+                y = getattr(obj, 'y', 0) * scale
+                width = getattr(obj, 'width', self.tile_size) * scale
+                height = getattr(obj, 'height', self.tile_size) * scale
 
             # Получаем свойства
             properties = getattr(obj, 'properties', {})
             event_type = getattr(obj, 'type', 'trigger').lower()
             event_id = properties.get('id', f"{event_type}_{index}")
 
-            # Создаем соответствующее событие
+            # Создаем событие
             if event_type == "chest":
                 return self._create_chest_event(event_id, (x, y, width, height), properties)
-
             elif event_type == "teleport":
                 return TeleportEvent(event_id, (x, y, width, height), properties)
-
             else:
                 return GameEvent(event_id, event_type, (x, y, width, height), properties)
 
         except Exception as e:
             print(f"❌ Ошибка создания события {index}: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
     def _create_chest_event(self, event_id: str, rect: tuple, properties: dict):
@@ -114,7 +144,6 @@ class EventManager:
                     texture_open=texture_open,
                     x=sprite_x,
                     y=sprite_y,
-                    properties={"event_id": chest_event.event_id}
                 )
 
                 # Связываем спрайт с событием
@@ -129,11 +158,16 @@ class EventManager:
 
         print(f"✅ Создано {len(self.chest_sprites)} спрайтов сундуков")
 
-    def _find_nearest_chest_event(self, x: float, y: float, max_distance: float = 32.0):
+    def _find_nearest_chest_event(self, x: float, y: float, max_distance: float = None):
         """
         Находит ближайшее событие сундука к координатам.
-        Используется для связывания тайлов сундуков с зонами взаимодействия.
         """
+        if max_distance is None:
+            # Используем 3 тайла как максимальное расстояние
+            max_distance = self.tile_size * 3
+
+        print(f"   🔍 Поиск события для позиции ({x:.0f}, {y:.0f}) в радиусе {max_distance}px")
+
         nearest_event = None
         min_distance = float('inf')
 
@@ -147,9 +181,17 @@ class EventManager:
                 # Вычисляем расстояние
                 distance = ((x - event_center_x) ** 2 + (y - event_center_y) ** 2) ** 0.5
 
+                print(
+                    f"   📏 Событие {event.event_id} в ({event_center_x:.0f}, {event_center_y:.0f}): расстояние {distance:.1f}px")
+
                 if distance < min_distance and distance <= max_distance:
                     min_distance = distance
                     nearest_event = event
+
+        if nearest_event:
+            print(f"   ✅ Связано с событием {nearest_event.event_id} (расстояние: {min_distance:.1f}px)")
+        else:
+            print(f"   ❌ Событие не найдено в радиусе {max_distance}px")
 
         return nearest_event
 
@@ -175,82 +217,56 @@ class EventManager:
             player.height
         )
 
+
+
         for event in self.events:
             if event.check_collision(player_rect):
-                # Для сундуков дополнительная проверка дистанции
-                if event.type == "chest" and hasattr(event, 'sprite'):
-                    if self._is_player_close_enough(player, event):
-                        event.activate(player, game_state)
-                else:
-                    event.activate(player, game_state)
+                # print(f"🎯 Коллизия с {event.event_id} ({event.type})")
 
-    def _is_player_close_enough(self, player, chest_event) -> bool:
-        """Проверяет, достаточно ли близко игрок к сундуку"""
-        # Центр сундука (из спрайта)
-        if chest_event.sprite:
-            chest_x = chest_event.sprite.center_x
-            chest_y = chest_event.sprite.center_y
-        else:
-            # Если нет спрайта, используем центр зоны
-            x, y, w, h = chest_event.rect
-            chest_x = x + w / 2
-            chest_y = y + h / 2
+                # ДЛЯ ВСЕХ СОБЫТИЙ проверяем дистанцию через общий метод
+                if self._is_player_close_enough(player, event):
+
+                    # Для сундуков проверяем кнопку взаимодействия
+                    if event.type == "chest":
+                        if hasattr(player, 'input_manager') and player.input_manager:
+                            if player.input_manager.get_action('select'):
+                                print(f"   🔘 Нажата кнопка взаимодействия!")
+                                event.activate(player, game_state)
+                    else:
+                        # Для других событий (телепортов) активируем сразу
+                        event.activate(player, game_state)
+
+    def _is_player_close_enough(self, player, event) -> bool:
+        """
+            Проверяет, достаточно ли близко игрок к событию.
+            Работает для ВСЕХ событий, а не только для сундуков.
+            """
+        # Центр события (из rect)
+        x, y, w, h = event.rect
+        event_center_x = x + w / 2
+        event_center_y = y + h / 2
+
+        # Если у события есть спрайт - используем его центр
+        if hasattr(event, 'sprite') and event.sprite:
+            event_center_x = event.sprite.center_x
+            event_center_y = event.sprite.center_y
 
         # Дистанция
-        distance = ((player.center_x - chest_x) ** 2 +
-                    (player.center_y - chest_y) ** 2) ** 0.5
+        distance = ((player.center_x - event_center_x) ** 2 +
+                    (player.center_y - event_center_y) ** 2) ** 0.5
 
-        # Максимальная дистанция для взаимодействия (1.5 тайла)
+        # Максимальная дистанция для взаимодействия
         max_distance = self.tile_size * 1.5
 
-        if distance > max_distance:
-            if self.debug_mode:
-                print(f"   📏 Игрок слишком далеко от сундука: {distance:.1f} > {max_distance}")
-            return False
+        if self.debug_mode:
+            print(f"   📏 Дистанция до {event.event_id}: {distance:.1f}px (макс: {max_distance}px)")
 
-        return True
+        return distance <= max_distance
 
     def draw(self):
         """Отрисовывает визуальные элементы событий"""
         self.chest_sprites.draw()
         self.event_sprites.draw()
-
-    def draw_debug(self):
-        """Отрисовывает отладочную информацию"""
-        # Зоны взаимодействия
-        for event in self.events:
-            x, y, width, height = event.rect
-
-            # Цвет в зависимости от типа
-            if event.type == "chest":
-                color = arcade.color.GOLD if not event.is_opened else arcade.color.GRAY
-            elif event.type == "teleport":
-                color = arcade.color.CYAN
-            else:
-                color = arcade.color.GREEN
-
-            # Рамка зоны
-            arcade.draw_rect_outline(
-                arcade.rect.XYWH(x + width / 2, y + height / 2, width, height),
-                color, 2
-            )
-
-            # Подпись
-            arcade.draw_text(
-                f"{event.type}",
-                x + width / 2, y + height / 2,
-                arcade.color.WHITE, 10,
-                anchor_x="center", anchor_y="center"
-            )
-
-            # ID события
-            if hasattr(event, 'event_id'):
-                arcade.draw_text(
-                    event.event_id,
-                    x + width / 2, y + height / 2 - 15,
-                    arcade.color.LIGHT_GRAY, 8,
-                    anchor_x="center", anchor_y="center"
-                )
 
     def get_chest_by_id(self, event_id: str):
         """Возвращает событие сундука по ID"""

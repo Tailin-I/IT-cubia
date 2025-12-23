@@ -54,9 +54,9 @@ class HealthBar(UIComponent):
         )
 
         # Текст (опционально)
-        arcade.draw_text(
+        arcade.Text(
             f"HP: {int(self.current_value)}/{int(self.max_value)}",
             self.x, self.y,
             arcade.color.WHITE, 12,
             anchor_x="center", anchor_y="center"
-        )
+        ).draw()

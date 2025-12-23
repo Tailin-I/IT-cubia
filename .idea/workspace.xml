@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="как то раб">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/health_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/health_bar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="1645dd4b692c39cb2914fc5fe513f1c500e1ff65" />
+        <entry key="$PROJECT_DIR$" value="e395cac3076f21aed64ccec4820f06d48b9562fd" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,20 +57,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.export structure.executor": "Run",
-    "Python.gamepanel.executor": "Run",
-    "Python.generate_structure.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/res",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.export structure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gamepanel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_structure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/Tailin/PycharmProjects/ITCUBIA/res&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/res" />
@@ -82,7 +85,7 @@
       <recent name="$PROJECT_DIR$/src/core/settings" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.export structure">
+  <component name="RunManager" selected="Python.main">
     <configuration name="export structure" type="PythonConfigurationType" factoryName="Python">
       <module name="ITCUBIA" />
       <option name="ENV_FILES" value="" />
@@ -153,9 +156,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.generate_structure" />
       <item itemvalue="Python.export structure" />
+      <item itemvalue="Python.generate_structure" />
+      <item itemvalue="Python.main" />
     </list>
   </component>
   <component name="SharedIndexes">

@@ -147,16 +147,20 @@ class GameplayState(BaseState):
         if self.is_paused:
             return
 
-            # Обновляем игрока
+        self._handle_input()
+
+        # Обновляем игрока
         self.player.update(delta_time, collision_layer=self.collision_layer)
+
+        # Обновляем и проверяем события (КОЛЛИЗИИ!)
+        if hasattr(self.map_loader, 'event_manager') and self.map_loader.event_manager:
+            self.map_loader.event_manager.update(delta_time)
+            self.map_loader.event_manager.check_collisions(self.player, self)
+            # Добавим отладку
 
         # Камера следует за игроком
         self.camera.follow_player(self.player.center_x, self.player.center_y)
 
-        # Обработка ввода для камеры (масштабирование)
-        self._handle_camera_input()
-
-        self._handle_input()
         # Обновляем UI
         for ui_element in self.ui_elements:
             ui_element.update(delta_time)
@@ -168,6 +172,9 @@ class GameplayState(BaseState):
 
         # Рисуем карту
         self.map_loader.draw()
+
+        # сундуки
+        self.map_loader.event_manager.draw()
 
         # Рисуем игрока
         self.player_list.draw()

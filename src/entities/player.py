@@ -108,10 +108,10 @@ class Player(Entity):
         # Синхронизируем с game_data
         self.data.set_player_position(self.center_x, self.center_y)
 
-        # Отладочная информация
-        if self.debug_collisions and (dx != 0 or dy != 0):
-            if actual_dx != dx or actual_dy != dy:
-                print(f"Коллизия! Запланировано: ({dx:.1f}, {dy:.1f}), Разрешено: ({actual_dx:.1f}, {actual_dy:.1f})")
+        # # Отладочная информация
+        # if self.debug_collisions and (dx != 0 or dy != 0):
+        #     if actual_dx != dx or actual_dy != dy:
+        #         print(f"Коллизия! Запланировано: ({dx:.1f}, {dy:.1f}), Разрешено: ({actual_dx:.1f}, {actual_dy:.1f})")
 
     def _move_with_tiled_collision(self, collision_layer, dx, dy):
         """

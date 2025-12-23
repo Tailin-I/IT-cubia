@@ -26,10 +26,15 @@ class GameEvent:
         ex, ey, ew, eh = self.rect
 
         # Простая проверка прямоугольников
-        return (px < ex + ew and
-                px + pw > ex and
-                py < ey + eh and
-                py + ph > ey)
+        collision = (px < ex + ew and
+                     px + pw > ex and
+                     py < ey + eh and
+                     py + ph > ey)
+
+        if collision and hasattr(self, 'logger'):
+            self.logger.debug(f"Коллизия с {self.event_id}")
+
+        return collision
 
     def activate(self, player, game_state):
         """Активировать событие - будет переопределено"""

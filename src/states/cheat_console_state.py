@@ -1,5 +1,4 @@
 import arcade
-from pipenv.cli.options import pass_state
 
 from src.states.base_state import BaseState
 
@@ -92,12 +91,12 @@ class CheatConsoleState(BaseState):
         text = self.current_line
         if not self.text_to_draw:
             text = "Бог, слушает тебя..."
-        arcade.draw_text(
+        arcade.Text(
             text,
             self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
             self.main_color , 24,
             anchor_x="center"
-        )
+        ).draw()
 
         # ---ПОЛЕ ДЛЯ ВВОДА---
         arcade.draw_rect_filled(
