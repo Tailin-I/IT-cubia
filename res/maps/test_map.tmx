@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="72">
- <tileset firstgid="1" source="../../../../snap/tiled/4760/first.tsx"/>
+ <tileset firstgid="1" source="first.tsx"/>
  <layer id="1" name="ground" width="150" height="50">
   <data encoding="base64" compression="zlib">
    eJztw0ENAAAMA6Hzb6FmZ2JPSFg1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVdWHB/2NvgQ=

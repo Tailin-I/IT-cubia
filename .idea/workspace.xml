@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="ДА НАХУЙ ОНО РАБОТАЕТ">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="load">
+      <change afterPath="$PROJECT_DIR$/res/maps/first.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/test_map.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/test_map.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/tiles_spritesheet.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/tiles_spritesheet.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,32 +53,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.export structure.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gamepanel.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_structure.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/Tailin/PycharmProjects/ITCUBIA/res&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.export structure.executor": "Run",
+    "Python.gamepanel.executor": "Run",
+    "Python.generate_structure.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/res/tiles",
+    "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/tiles" />
       <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/res/ui" />
       <recent name="$PROJECT_DIR$/src/entity" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/maps" />
       <recent name="$PROJECT_DIR$/res/containers" />
       <recent name="$PROJECT_DIR$/src/entities/items" />
       <recent name="$PROJECT_DIR$/src/states" />
       <recent name="$PROJECT_DIR$/frame" />
-      <recent name="$PROJECT_DIR$/src/core/settings" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -371,7 +374,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766599578634</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="ДА НАХУЙ ОНО РАБОТАЕТ">
+      <option name="closed" value="true" />
+      <created>1766600950511</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1766600950511</updated>
+    </task>
+    <task id="LOCAL-00027" summary="load">
+      <option name="closed" value="true" />
+      <created>1766601170994</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1766601170994</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -405,7 +424,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
@@ -452,7 +471,8 @@
     <MESSAGE value="как то работает" />
     <MESSAGE value="как то раб" />
     <MESSAGE value="ДА НАХУЙ ОНО РАБОТАЕТ" />
-    <option name="LAST_COMMIT_MESSAGE" value="ДА НАХУЙ ОНО РАБОТАЕТ" />
+    <MESSAGE value="load" />
+    <option name="LAST_COMMIT_MESSAGE" value="load" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
