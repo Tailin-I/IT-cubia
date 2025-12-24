@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="72">
+ <tileset firstgid="1" source="../../../../snap/tiled/4760/first.tsx"/>
+ <layer id="1" name="ground" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6Hzb6FmZ2JPSFg1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVdWHB/2NvgQ=
+  </data>
+ </layer>
+ <layer id="2" name="walls" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztnVmOwjAQBX0H5so5ADdGI0BCiAmO06+3qZL6L/HSXXFi88E2xvghCMPYHgFgCV6BArwCBXgFCvAKFOAVKOjgVYc5dKN6TbZRfw4doSagYNUrXLzDc/kZ8gIKPLzadgL0ROTZy6vI/sEfdV1n278KxwD+KL062jbrVh/UXimvh7yovOLs4n+Tyasz93Vhb+9sHR7zULSruM8z7xHhhbrPTF59GgvnXVqU9c/mFS75oshzNq8ghgpesc7Uw9OBs+8j3mW5UX5vzHg1dq452wf44/G8f2vfqn+8iiNiLzTTz9lxsF75ovLoSDseNbfyMnN4kmksf6Eci+VcM+bula4Or6LcCyh9hdxY1N/ymZq9F7dyY+GBZY3xqgde68uR9mb2p3iVm2xefWsTp9bxzF1GrzL1B2tU8gqn6pDtuz26H7DB8pxBBU7Vw/I8XIGHU1XPtDNjmUfL3ySocW1WauflYUe6zuudSK+gL3gFCjq/cyAOvAIFeAUK8AoUPL26RA8EWvH0Kvp/EIle8evUDdi4+kk=
+  </data>
+ </layer>
+ <layer id="3" name="collisions" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2m1qg0AURmE3NuD+V9UfaaEEE3W87/2a88BAoVXj5ESTSce27YPBEIwNMDReY49+HOiFrqBAV1CgKyjQFRQ6dPV7Dkikeldjo6uMqneFnGa74vrwwrXyGNcrKHh0xfdHsSKup15dffsdffWj7opu1qTs6m5T9NeHuivl3yMvVVesXawtU1dPtutiOA6H89gF+53a59l2nvMeMbyoj5mpq6PHEjXvq1DNa8KuaMmZYp6zdYUYFboarIWW49nV0/sR97LclO83zro6+hm1ebzer9wHaaq2iM9CdNWPqqM7+1F9Hnw/xtPtsw9PmR7LJ8quLM8149z917XhWYqu1HNQZW5XZtGV5Wvq6ra0ldvTrqyvS3TVg0VXlq50Wul9xqqydXW2T5qa5zl3GbvKdDzMqdQVTdWR7X179HFgw3KdQYWm6rFaF1WugaqbqrqmnZnlervldxI8x7XNdGX1XHf4Huyuruf1LrIr9EVXUFD8PwNAV1CgKyjQFRToCgp/XTEY1uMHaiYK0Q==
+  </data>
+ </layer>
+ <objectgroup id="5" name="events">
+  <object id="10" name="b1" type="teleport" x="1753" y="1754" width="64" height="200">
+   <properties>
+    <property name="target_x" type="int" value="28"/>
+    <property name="target_y" type="int" value="29"/>
+   </properties>
+  </object>
+  <object id="48" name="hidden_chest" type="chest" x="493.333" y="1683.67" width="210" height="206.667">
+   <properties>
+    <property name="lock" value="&lt;&lt;&gt;&gt;"/>
+    <property name="loot" value="healing_potion:3, key_door1:1"/>
+    <property name="tile_x" type="int" value="9"/>
+    <property name="tile_y" type="int" value="25"/>
+   </properties>
+  </object>
+  <object id="52" name="simple_chest" type="chest" x="1539" y="1537" width="141" height="143">
+   <properties>
+    <property name="lock" value=""/>
+    <property name="loot" value="healing_potion"/>
+   </properties>
+  </object>
+  <object id="55" name="chest_as_a_chest" type="chest" x="1413" y="1962" width="130" height="138">
+   <properties>
+    <property name="lock" value="&gt;&lt;&gt;&lt;"/>
+    <property name="loot" value=""/>
+   </properties>
+  </object>
+  <object id="67" name="to_end" type="teleport" x="2380" y="1260" width="70" height="140">
+   <properties>
+    <property name="target_x" type="int" value="126"/>
+    <property name="target_y" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="70" name="end_chest" type="chest" x="8750.67" y="1540" width="284" height="141.333">
+   <properties>
+    <property name="lock" value="&lt;&lt;&lt;&lt;&lt;"/>
+    <property name="loot" value="healing_potion:40000, key_door1:200"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="6" name="containers" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEJAAAIBEGz2j+EEQQ/Kswk2NdxEQAAAAAAAAAAAAAAAAB0cjtg4GMz8JvdAQDY55MBAAAAAAAAAAAAAAAXFAhWAYk=
+  </data>
+ </layer>
+</map>
