@@ -1,6 +1,6 @@
-# src/frame/main_window.py
 import logging
 import arcade
+from config import  constants as C
 from src.core.game_state_manager import GameStateManager
 from src.core.input_manager import InputManager
 from src.core.resource_manager import resource_manager
@@ -15,31 +15,27 @@ from src.states.settings_state import SettingsState
 
 class MainWindow(arcade.Window):
     """
-    Главное окно игры. Теперь только обертка.
-    Вся логика делегируется GameStateManager.
+    Главное окно игры.
+    (Вся логика делегируется GameStateManager)
     """
 
     def __init__(self):
-        # РАЗМЕРЫ:
-        self.ORIGINAL_TILE_SIZE = 70  # Оригинальный размер тайлов
-        self.TARGET_TILE_SIZE = 64  # Желаемый размер тайлов
-        self.SCALE_FACTOR = self.TARGET_TILE_SIZE / self.ORIGINAL_TILE_SIZE  # 4.0
 
         # Константы из вашего GamePanel
-        SCREEN_WIDTH = 1280
-        SCREEN_HEIGHT = 768
-        SCREEN_TITLE = "IT-Кубия"
+        self.screen_width = C.SCREEN_WIDTH
+        self.screen_height = C.SCREEN_HEIGHT
+        self.screen_title = C.SCREEN_TITLE
 
         super().__init__(
-            width=SCREEN_WIDTH,
-            height=SCREEN_HEIGHT,
-            title=SCREEN_TITLE,
+            width=self.screen_width,
+            height=self.screen_height,
+            title=self.screen_title,
             fullscreen=False,
             update_rate=1 / 60
         )
 
         self.logger = logging.getLogger(self.__class__.__name__)
-        self.logger.info(f"Создано окно: {SCREEN_WIDTH}x{SCREEN_HEIGHT}")
+        self.logger.info(f"Создано окно: {self.screen_width}x{self.screen_height}")
 
         # Устанавливаем цвет фона
         arcade.set_background_color(arcade.color.ASH_GREY)

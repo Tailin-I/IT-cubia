@@ -24,7 +24,7 @@ class GameplayState(BaseState):
 
         # 1. Игрок: масштабируем под новые тайлы
         # Если оригинальный игрок 63px, а тайлы теперь 64px:
-        player_scale = self.TILE_SIZE / 63  # ≈1.0159 (почти не меняем)
+        player_scale = self.tile_size / 63  # ≈1.0159 (почти не меняем)
         # Или если хотим, чтобы игрок был точно под тайл:
         # player_scale = 64 / 63  # Делаем игрока 64px
 
@@ -63,11 +63,11 @@ class GameplayState(BaseState):
         # 6. Настраиваем игрока
         # Получаем позицию из game_data
         pos = self.player.data.get_player_position()
-        self.player.center_x = pos[0] * self.SCALE_FACTOR  # Масштабируем позицию!
-        self.player.center_y = pos[1] * self.SCALE_FACTOR  # Масштабируем позицию!
+        self.player.center_x = pos[0] * self.scale_factor  # Масштабируем позицию!
+        self.player.center_y = pos[1] * self.scale_factor  # Масштабируем позицию!
 
         # 7. Скорость игрока пропорциональна размеру тайлов
-        self.player.speed = self.TILE_SIZE / 8  # 8 пикселей за кадр для 64px тайла
+        self.player.speed = self.tile_size / 8  # 8 пикселей за кадр для 64px тайла
 
         # UI элементы
         self.ui_elements = []
@@ -84,8 +84,8 @@ class GameplayState(BaseState):
 
         # Вертикальная полоска 1 (слева)
         self.deepseek_bar = VerticalBar(
-            x=self.TILE_SIZE / 2,  # Ближе к краю
-            y=self.gsm.window.height - 2 * self.TILE_SIZE,
+            x=self.tile_size / 2,  # Ближе к краю
+            y=self.gsm.window.height - 2 * self.tile_size,
             bg_color=arcade.color.PURPLE_NAVY,
             fill_color=arcade.color.PURPLE,
             icon_texture=asset_loader.load_ui_texture("deepseek")
@@ -94,8 +94,8 @@ class GameplayState(BaseState):
 
         # Вертикальная полоска 2 (рядом с первой)
         self.fatigue_bar = VerticalBar(
-            x=self.TILE_SIZE,  # Рядом с первой
-            y=self.gsm.window.height - 2 * self.TILE_SIZE,
+            x=self.tile_size,  # Рядом с первой
+            y=self.gsm.window.height - 2 * self.tile_size,
             bg_color=arcade.color.FRENCH_BEIGE,
             fill_color=arcade.color.BEIGE,
             icon_texture=asset_loader.load_ui_texture("fatigue")
@@ -191,10 +191,10 @@ class GameplayState(BaseState):
 
         # координаты
         if self.player.debug_collisions:
-            text = f"x:{int(self.player.center_x // self.TILE_SIZE)} y:{int(self.player.center_y // self.TILE_SIZE)}"
+            text = f"x:{int(self.player.center_x // self.tile_size)} y:{int(self.player.center_y // self.tile_size)}"
             arcade.Text(text,
-                        self.gsm.window.width - 3*self.TILE_SIZE,
-                        self.gsm.window.height - self.TILE_SIZE,
+                        self.gsm.window.width - 3 * self.tile_size,
+                        self.gsm.window.height - self.tile_size,
                         arcade.color.LIME,
                         18).draw()
 

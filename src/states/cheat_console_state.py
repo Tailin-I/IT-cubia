@@ -73,16 +73,16 @@ class CheatConsoleState(BaseState):
 
         # ---ПАНЕЛЬ КОНСОЛИ---
         panel_width = self.gsm.window.width // 2
-        panel_height = 2 * self.TILE_SIZE
+        panel_height = 2 * self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - self.tile_size,
                 panel_width, panel_height),
             self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
+                self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - self.tile_size,
                 panel_width, panel_height),
             self.main_color , 2
         )
@@ -93,7 +93,7 @@ class CheatConsoleState(BaseState):
             text = "Бог, слушает тебя..."
         arcade.Text(
             text,
-            self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE,
+            self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - self.tile_size,
             self.main_color , 24,
             anchor_x="center"
         ).draw()
@@ -101,36 +101,36 @@ class CheatConsoleState(BaseState):
         # ---ПОЛЕ ДЛЯ ВВОДА---
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.TILE_SIZE),
+                self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - 2 * self.tile_size,
+                self.gsm.window.width // 2 - self.tile_size, self.tile_size),
             (0, 0, 0)
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.gsm.window.height - 2 * self.TILE_SIZE,
-                self.gsm.window.width // 2 - self.TILE_SIZE, self.TILE_SIZE),
+                self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - 2 * self.tile_size,
+                self.gsm.window.width // 2 - self.tile_size, self.tile_size),
             self.back_color , 1
         )
 
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
-            int(4.6 * self.TILE_SIZE), self.gsm.window.height - 2 * self.TILE_SIZE,
+            int(4.6 * self.tile_size), self.gsm.window.height - 2 * self.tile_size,
             self.main_color , 20
         ).draw()
 
         # ---ИСТОРИЯ КОМАНД---
-        panel_width = self.TILE_SIZE * 3.2
-        panel_height = self.gsm.window.height - self.TILE_SIZE
+        panel_width = self.tile_size * 3.2
+        panel_height = self.gsm.window.height - self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                2.2 * self.TILE_SIZE, self.gsm.window.height // 2,
+                2.2 * self.tile_size, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.back_color   # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                2.2 * self.TILE_SIZE,
+                2.2 * self.tile_size,
                 self.gsm.window.height // 2,
                 panel_width,
                 panel_height
@@ -146,22 +146,22 @@ class CheatConsoleState(BaseState):
                 text = text[:15] + "..."
             arcade.Text(
                 text,
-                0.65 * self.TILE_SIZE, self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
+                0.65 * self.tile_size, self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
                 color, 9
             ).draw()
 
         # ---РЕЧЬ ДИП СИКА---
-        panel_width = self.TILE_SIZE * 5
-        panel_height = self.gsm.window.height - self.TILE_SIZE
+        panel_width = self.tile_size * 5
+        panel_height = self.gsm.window.height - self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
+                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.TILE_SIZE, self.gsm.window.height // 2,
+                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.main_color , 2
         )
@@ -169,8 +169,8 @@ class CheatConsoleState(BaseState):
         for i in range(len(self.deep_seek_speech)):
             arcade.Text(
                 self.deep_seek_speech[i],
-                self.gsm.window.width - 5.7 * self.TILE_SIZE,
-                self.gsm.window.height - self.TILE_SIZE - self.TILE_SIZE // 3 * i,
+                self.gsm.window.width - 5.7 * self.tile_size,
+                self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
                 self.text_color, 14
             ).draw()
 
@@ -229,8 +229,8 @@ class CheatConsoleState(BaseState):
 
                 # Телепорт игрока
                 player = self.gsm.current_state.player
-                player.center_x = x * self.TILE_SIZE
-                player.center_y = y * self.TILE_SIZE
+                player.center_x = x * self.tile_size
+                player.center_y = y * self.tile_size
 
                 # Обновляем данные
                 player.data.set_player_position(x, y)
