@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает первой">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/resource_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/resource_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/base_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/base_item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/consumables.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/consumables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/keys.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,20 +54,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.export structure.executor": "Run",
-    "Python.gamepanel.executor": "Run",
-    "Python.generate_structure.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/Tailin/PycharmProjects/ITCUBIA/res/tiles",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.export structure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gamepanel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_structure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/Tailin/PycharmProjects/IT-cubia-master (1)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/res/tiles" />
@@ -396,7 +399,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766602899209</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="надежда умирает первой">
+      <option name="closed" value="true" />
+      <created>1766610579641</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1766610579641</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -479,7 +490,8 @@
     <MESSAGE value="ДА НАХУЙ ОНО РАБОТАЕТ" />
     <MESSAGE value="load" />
     <MESSAGE value="надежда умирает" />
-    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает" />
+    <MESSAGE value="надежда умирает первой" />
+    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает первой" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

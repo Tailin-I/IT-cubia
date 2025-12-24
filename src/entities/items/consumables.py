@@ -1,4 +1,5 @@
 from .base_item import Item
+from ...core.resource_manager import resource_manager as rm
 
 
 class HealingPotion(Item):
@@ -9,7 +10,7 @@ class HealingPotion(Item):
 
             item_id="healing_potion",
             name="Целебное зелье",
-            texture_path="res/consumables/potion_red.png"
+            texture_path=rm.get_resource_path("consumables/potion_red.png")
         )
         self.count = count
         self.is_consumable = True
@@ -34,7 +35,7 @@ class ManaPotion(Item):
         super().__init__(
             item_id="mana_potion",
             name="Зелье маны",
-            texture_path="res/consumables/manacrystal_full.png"
+            texture_path=rm.get_resource_path("consumables/manacrystal_full.png")
         )
         self.count = count
         self.is_consumable = True

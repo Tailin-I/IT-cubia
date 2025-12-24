@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="72">
+<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="74">
  <tileset firstgid="1" source="first.tsx"/>
  <layer id="1" name="ground" width="150" height="50">
   <data encoding="base64" compression="zlib">
@@ -55,10 +55,16 @@
     <property name="loot" value="healing_potion:40000, key_door1:200"/>
    </properties>
   </object>
+  <object id="72" name="bottom_chest" type="chest" x="1050" y="2730" width="210" height="140">
+   <properties>
+    <property name="lock" value="&gt;&lt;&gt;"/>
+    <property name="loot" value="key_door1:1,mana_potion:3"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="6" name="containers" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt1kEJAAAIBEGz2j+EEQQ/Kswk2NdxEQAAAAAAAAAAAAAAAAB0cjtg4GMz8JvdAQDY55MBAAAAAAAAAAAAAAAXFAhWAYk=
+   eJzt2MEJADAIA0Bndf8hHKFUEBHuJsgrhEQAAAAAAAAAAAAAAAAA8JLbARouZgZu0zsAAPtsMgAAAAAA+ONbBwAAAAAAmFHO7QHr
   </data>
  </layer>
 </map>

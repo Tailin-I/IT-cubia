@@ -1,4 +1,6 @@
 from .base_item import Item
+from ...core.resource_manager import resource_manager as rm
+
 
 
 class Key(Item):
@@ -8,7 +10,7 @@ class Key(Item):
         super().__init__(
             item_id=f"key_{key_id}",
             name=name,
-            texture_path="res/consumables/key.png"
+            texture_path=rm.get_resource_path("consumables/key.png")
 
         )
         self.is_stackable = False

@@ -3,6 +3,7 @@ import arcade
 from typing import Dict, Any
 
 
+
 class Item(Entity):
     """Базовый класс для всех предметов"""
 
@@ -10,6 +11,7 @@ class Item(Entity):
         # Загружаем текстуру
         texture = arcade.load_texture(texture_path)
         super().__init__([texture], scale)
+
 
         self.item_id = item_id
         self.name = name

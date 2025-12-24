@@ -1,6 +1,6 @@
-# src/entities/base_entity.py
 import arcade
 from .hitbox_component import HitboxComponent  # Добавляем импорт
+from ..core.resource_manager import ResourceManager
 
 
 class Entity(arcade.Sprite):
@@ -8,6 +8,8 @@ class Entity(arcade.Sprite):
 
     def __init__(self, texture_list, scale):
         super().__init__(texture_list[0], scale)
+
+        self.rm = ResourceManager()
 
         self.time_elapsed = 0  # задержка времени для анимации
 
