@@ -3,7 +3,7 @@ import logging
 import os
 
 from src.events.event_manager import EventManager
-
+from pathlib import Path
 
 class MapLoader:
     """
@@ -150,17 +150,33 @@ class MapLoader:
         """
         try:
             self.event_manager = EventManager(self.rm, 64)
+
+            # Используем pathlib для кроссплатформенных путей
+            map_file_path = Path(map_file)
+
             # Полный путь к файлу
-            map_path = os.path.join(self.rm.get_project_root(), "res", map_file)
+            project_root = Path(self.rm.get_project_root())
+            map_path = project_root / "res" / map_file_path
 
             print(f"🗺️ Загрузка карты: {map_path}")
-            print(
-                f"📏 Оригинальный размер тайла Tiled: {self.tile_map.tile_width if self.tile_map else 'N/A'}x{self.tile_map.tile_height if self.tile_map else 'N/A'}")
-            print(f"📐 Масштаб: {scale}")
+            print(f"📁 Существует ли файл: {map_path.exists()}")
 
-            # Загружаем карту через Arcade
+            # Проверяем существование файла
+            if not map_path.exists():
+                print(f"❌ Файл карты не найден: {map_path}")
+                # Показываем доступные файлы
+                res_dir = project_root / "res"
+                if res_dir.exists():
+                    print(f"📂 Содержимое res/:")
+                    for item in res_dir.iterdir():
+                        print(f"  - {item.name}")
+
+                self._calculate_bounds()
+                return False
+
+            # Загружаем карту через Arcade - передаем строку
             self.tile_map = arcade.load_tilemap(
-                map_path,
+                str(map_path),  # Преобразуем Path в строку
                 scaling=scale,
                 layer_options={
                     "ground": {"use_spatial_hash": False},
@@ -169,10 +185,6 @@ class MapLoader:
                     "containers": {"use_spatial_hash": False}
                 }
             )
-
-            print(f"✅ Карта загружена. Размер: {self.tile_map.width}x{self.tile_map.height} тайлов")
-            print(f"📏 Размер тайла после масштабирования: {self.tile_map.tile_width}x{self.tile_map.tile_height}")
-
             # Получаем слои
             self.ground_layer = self.tile_map.sprite_lists.get("ground")
             self.walls_layer = self.tile_map.sprite_lists.get("walls")
