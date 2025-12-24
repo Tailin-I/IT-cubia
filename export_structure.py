@@ -44,4 +44,4 @@ def export_python_code_to_txt(project_root_dir, output_file_name="project_code.t
     print(f"файл: {output_path}\n")
 
 if __name__ == "__main__":
-    export_python_code_to_txt(".", "itcubia_project_code.txt")
+    export_python_code_to_txt(".", "project_code.txt")

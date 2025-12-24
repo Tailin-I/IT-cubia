@@ -77,7 +77,7 @@ class EventManager:
                     height = abs(height)
                     y = bottom  # Если height отрицательный, начинаем снизу
 
-                print(f"🎯 Объект {index}:")
+                print(f"Объект {index}:")
                 print(f"   x={x}, y={y}, width={width}, height={height}")
 
             else:
@@ -119,10 +119,7 @@ class EventManager:
         Вызывается из MapLoader после загрузки тайлов сундуков.
         """
         if not tile_layer:
-            print("⚠️ Слой chests_visual не найден или пуст")
             return
-
-        print(f"🎨 Создание спрайтов из {len(tile_layer)} тайлов сундуков...")
 
         from src.entities.chest import ChestSprite
 
@@ -230,7 +227,6 @@ class EventManager:
                     if event.type == "chest":
                         if hasattr(player, 'input_manager') and player.input_manager:
                             if player.input_manager.get_action('select'):
-                                print(f"   🔘 Нажата кнопка взаимодействия!")
                                 event.activate(player, game_state)
                     else:
                         # Для других событий (телепортов) активируем сразу

@@ -243,8 +243,7 @@ class CheatConsoleState(BaseState):
             player.debug_collisions = True
             self.text_to_draw = ["Не забывай кто здесь бог!",
                                  "АБРАКАДАБРА",
-                                 "теперь...",
-                                 "Ты видишь чуть больше"]
+                                 "Загляни в неизведанное. Но не везде..."]
 
 
         elif command == "DEBUGOFF":

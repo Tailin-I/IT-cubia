@@ -2,11 +2,9 @@ from typing import Dict, Any
 
 from .event import GameEvent
 from src.entities.items.item_factory import ItemFactory
-from ..core.asset_loader import AssetLoader
-
 
 class ChestEvent(GameEvent):
-    """Событие сундука с добычей"""
+    """Событие сундука"""
 
     def __init__(self, event_id: str, rect: tuple, properties: Dict[str, Any]):
         super().__init__(event_id, "chest", rect, properties)
@@ -14,7 +12,7 @@ class ChestEvent(GameEvent):
         self.sprite = None
 
         # Парсим свойства
-        self.lock_sequence = properties.get("lock", "")  # например "<<><"
+        self.lock_sequence = properties.get("lock", "")
         self.is_locked = len(self.lock_sequence) > 0
         self.is_opened = False
         self.player_sequence = ""
@@ -24,7 +22,7 @@ class ChestEvent(GameEvent):
         self.loot_items = ItemFactory.parse_loot_string(loot_str)
 
         # Для отладки
-        print(f"📦 Создан сундук {event_id}: "
+        self.logger.debug(f"Создан сундук {event_id}: "
               f"замок='{self.lock_sequence}', "
               f"предметов={len(self.loot_items)}")
 
@@ -38,6 +36,7 @@ class ChestEvent(GameEvent):
         print(f"📦 Взаимодействие с сундуком '{self.event_id}'")
 
         if self.is_locked:
+            self.player_sequence = ""
             print(f"🔒 Заперт! Комбинация: {self.lock_sequence}")
             # Открываем мини-игру взлома
             game_state.gsm.push_overlay("lock_picking",
@@ -62,7 +61,7 @@ class ChestEvent(GameEvent):
 
     def _open_chest(self, player):
         """Открыть сундук и выдать добычу"""
-        print(f"🎉 Сундук открыт! Получено:")
+        self.logger.info(f"Сундук открыт! Получено:")
 
         for item in self.loot_items:
             self._add_to_inventory(player, item)
@@ -91,7 +90,7 @@ class ChestEvent(GameEvent):
                 "stackable": item.is_stackable
             })
 
-        print(f"   +{item.count} {item.name}")
+        self.logger.info(f"   +{item.count} {item.name}")
 
     def check_lock_attempt(self, direction: str) -> tuple:
         """
@@ -99,14 +98,13 @@ class ChestEvent(GameEvent):
         Возвращает: (успех, завершено, текущая_последовательность)
         """
         self.player_sequence += direction
+        if not self.lock_sequence.startswith(self.player_sequence):
+            self.player_sequence = ""
+            return None, True, ""
 
         # Если ввели достаточно символов
-        if len(self.player_sequence) == len(self.lock_sequence):
-            if self.player_sequence == self.lock_sequence:
-                return True, True, self.player_sequence  # Успех!
-            else:
-                self.player_sequence = ""  # Сбрасываем
-                return False, True, ""  # Неудача
+        if self.player_sequence == self.lock_sequence:
+            return True, True, self.player_sequence  # Успех!
 
         # Еще вводим
         return None, False, self.player_sequence

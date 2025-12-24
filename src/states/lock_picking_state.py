@@ -13,6 +13,7 @@ class LockPickingState(BaseState):
         self.status_text = ""
 
     def on_enter(self, **kwargs):
+        self.current_sequence = ""
         self.chest_event = kwargs.get("chest_event")
         self.player = kwargs.get("player")
 
@@ -41,16 +42,13 @@ class LockPickingState(BaseState):
     def _handle_lock_result(self, success, completed, sequence):
         """Обрабатывает результат попытки взлома"""
         self.current_sequence = sequence
-
         if completed:
             if success:
-                print("✅ Замок взломан!")
                 self.chest_event._open_chest(self.player)
                 self.status_text = "Замок взломан!"
                 # Закрываем через 1 секунду
                 arcade.schedule(self._close_overlay, 1.0)
             else:
-                print("❌ Неверная комбинация!")
                 self.status_text = "Неверно! Попробуйте снова."
         else:
             # Показываем прогресс
@@ -93,19 +91,19 @@ class LockPickingState(BaseState):
         )
 
         # Текст
-        arcade.draw_text(
+        arcade.Text(
             "ВЗЛОМ ЗАМКА",
             window_x, window_y + 60,
             arcade.color.GOLD, 24,
             anchor_x="center", anchor_y="center"
-        )
+        ).draw()
 
-        arcade.draw_text(
+        arcade.Text(
             self.status_text,
             window_x, window_y,
             arcade.color.WHITE, 20,
             anchor_x="center", anchor_y="center"
-        )
+        ).draw()
 
         # Текущая последовательность
         display_seq = ""
@@ -115,17 +113,17 @@ class LockPickingState(BaseState):
             elif char == ">":
                 display_seq += "→ "
 
-        arcade.draw_text(
+        arcade.Text(
             display_seq,
             window_x, window_y - 40,
             arcade.color.CYAN, 36,
             anchor_x="center", anchor_y="center"
-        )
+        ).draw()
 
         # Подсказки
-        arcade.draw_text(
-            "← / → - Выбор символа  |  ESC - Отмена",
+        arcade.Text(
+            "← / →",
             window_x, window_y - 80,
             arcade.color.LIGHT_GRAY, 16,
             anchor_x="center", anchor_y="center"
-        )
+        ).draw()

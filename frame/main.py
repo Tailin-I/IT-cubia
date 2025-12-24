@@ -6,7 +6,7 @@ from frame.main_window import MainWindow
 
 
 def setup_logging():
-    """Минимальная настройка с понятными backup именами"""
+    """Логирование"""
     import os
     from logging.handlers import RotatingFileHandler
 
@@ -15,13 +15,12 @@ def setup_logging():
 
     log_file = os.path.join(log_dir, 'game.log')
 
-    # Просто переопределяем метод создания backup
+    # переопределение метода создания backup
     class PrettyRotatingHandler(RotatingFileHandler):
         def doRollover(self):
-            # Закрываем текущий файл
+            # Закрытие текущего файла
             if self.stream:
                 self.stream.close()
-            # Создаем backup с понятным именем
             backup_num = 1
             while True:
                 backup_name = f"{self.baseFilename}.backup{backup_num}"
@@ -29,21 +28,18 @@ def setup_logging():
                     break
                 backup_num += 1
 
-            # Переименовываем
             os.rename(self.baseFilename, backup_name)
 
-            # Удаляем лишние backup
+            # удаление лишних backup
             if self.backupCount > 0:
                 for i in range(backup_num - self.backupCount, 0, -1):
                     old_backup = f"{self.baseFilename}.backup{i}"
                     if os.path.exists(old_backup):
                         os.remove(old_backup)
-
-            # Открываем новый файл
             if not self.delay:
                 self.stream = self._open()
 
-    # Используем наш хендлер
+    # Использование handler
     file_handler = PrettyRotatingHandler(
         filename=log_file,
         maxBytes=5 * 1024 * 1024,
@@ -68,7 +64,7 @@ def setup_logging():
     root_logger.addHandler(file_handler)
     root_logger.addHandler(console_handler)
 
-    # Отключаем логи сторонних библиотек
+    # Отключение логов сторонних библиотек
     for lib in ["PIL", "arcade", "pyglet"]:
         logging.getLogger(lib).setLevel(logging.WARNING)
 

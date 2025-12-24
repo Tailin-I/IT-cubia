@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="как то раб">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="ДА НАХУЙ ОНО РАБОТАЕТ">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/export_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/export_structure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/chest_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/health_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/health_bar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lock_picking_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lock_picking_state.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,7 @@
       <recent name="$PROJECT_DIR$/src/core/settings" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.generate_structure">
     <configuration name="export structure" type="PythonConfigurationType" factoryName="Python">
       <module name="ITCUBIA" />
       <option name="ENV_FILES" value="" />
@@ -353,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766511975493</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="ДА НАХУЙ ОНО РАБОТАЕТ">
+      <option name="closed" value="true" />
+      <created>1766532071183</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1766532071183</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -433,7 +440,8 @@
     <MESSAGE value="перед добавлением событий" />
     <MESSAGE value="как то работает" />
     <MESSAGE value="как то раб" />
-    <option name="LAST_COMMIT_MESSAGE" value="как то раб" />
+    <MESSAGE value="ДА НАХУЙ ОНО РАБОТАЕТ" />
+    <option name="LAST_COMMIT_MESSAGE" value="ДА НАХУЙ ОНО РАБОТАЕТ" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
