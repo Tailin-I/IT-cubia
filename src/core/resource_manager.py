@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 import arcade
 from typing import Dict, Optional
 
@@ -14,11 +16,13 @@ class ResourceManager:
     def get_project_root(self) -> str:
         """Ленивая загрузка корня проекта"""
         if self._project_root is None:
-            current_file = os.path.abspath(__file__)
-            core_dir = os.path.dirname(current_file)
-            src_dir = os.path.dirname(core_dir)
-            self._project_root = os.path.dirname(src_dir)
-        return self._project_root
+            current_file = Path(__file__).resolve()
+            core_dir = current_file.parent
+            src_dir = core_dir.parent
+            self._project_root = str(src_dir.parent)  # Преобразуем в строку
+
+        # Убедимся, что путь нормализован для текущей ОС
+        return os.path.normpath(self._project_root)
 
     def get_resource_path(self, relative_path: str) -> str:
         """Получить абсолютный путь к ресурсу"""
