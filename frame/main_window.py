@@ -1,7 +1,5 @@
 import logging
 import arcade
-from arcade import LRBT
-
 from config import  constants as C
 from src.core.game_state_manager import GameStateManager
 from src.core.input_manager import InputManager
@@ -63,6 +61,8 @@ class MainWindow(arcade.Window):
         # НАЧИНАЕМ С ЛОББИ
         self.gsm.switch_to("lobby")
 
+        self._is_initial_fullscreen_check = True
+
         self.logger.info("MainWindow инициализирован")
 
     def _register_states(self):
@@ -88,6 +88,14 @@ class MainWindow(arcade.Window):
     def on_draw(self):
         """Отрисовка - делегируем GameStateManager"""
         self.clear()
+
+        # Первый кадр после инициализации - принудительно обновляем камеры
+        if self._is_initial_fullscreen_check:
+            self._is_initial_fullscreen_check = False
+            width, height = self.get_size()
+            self.logger.info(f"Первичная инициализация камер: {width}x{height}")
+            self._force_initial_camera_update(width, height)
+
         self.gsm.draw()
 
     def on_update(self, delta_time: float):
@@ -112,36 +120,6 @@ class MainWindow(arcade.Window):
 
         self.input_manager.on_key_release(key, modifiers)
         self.gsm.handle_key_release(key, modifiers)
-
-    def _update_all_cameras(self, width: int, height: int):
-        """Обновляет ВСЕ камеры в проекте с фиксированным обзором"""
-        # Рассчитываем масштаб для сохранения фиксированного обзора
-        scale_x = width / self.viewport_width
-        scale_y = height / self.viewport_height
-        scale = min(scale_x, scale_y)  # Используем минимальный масштаб для сохранения пропорций
-
-        # Рассчитываем viewport с черными полосами (letterbox/pillarbox)
-        viewport_width = int(self.viewport_width * scale)
-        viewport_height = int(self.viewport_height * scale)
-        viewport_x = (width - viewport_width) // 2
-        viewport_y = (height - viewport_height) // 2
-
-        self.logger.info(
-            f"Фиксированный обзор: {viewport_width}x{viewport_height}, окно: {width}x{height}, масштаб: {scale:.2f}")
-
-        # Обновляем камеры в активном состоянии
-        active_state = self.gsm.get_active_state()
-        if active_state:
-            self._update_state_cameras(active_state, viewport_x, viewport_y, viewport_width, viewport_height, scale)
-
-        # Обновляем камеры в основном состоянии
-        if self.gsm.current_state and self.gsm.current_state != active_state:
-            self._update_state_cameras(self.gsm.current_state, viewport_x, viewport_y, viewport_width, viewport_height,
-                                       scale)
-
-        # Обновляем камеры во всех overlay
-        for overlay in self.gsm.overlay_stack:
-            self._update_state_cameras(overlay, viewport_x, viewport_y, viewport_width, viewport_height, scale)
 
     def _update_state_cameras(self, state: BaseState, x: int, y: int, width: int, height: int, scale: float):
         """Обновляет камеры с фиксированным обзором"""
@@ -232,3 +210,193 @@ class MainWindow(arcade.Window):
     def on_close(self):
         """Закрытие окна"""
         super().on_close()
+
+    def _force_initial_camera_update(self, width: int, height: int):
+        """Принудительное обновление камер при первой отрисовке"""
+        # Обновляем все состояния
+        all_states = []
+
+        # Основное состояние
+        if self.gsm.current_state:
+            all_states.append(self.gsm.current_state)
+
+        # Активное состояние (может быть overlay)
+        active_state = self.gsm.get_active_state()
+        if active_state and active_state not in all_states:
+            all_states.append(active_state)
+
+        # Все overlay
+        for overlay in self.gsm.overlay_stack:
+            if overlay not in all_states:
+                all_states.append(overlay)
+
+        # Обновляем каждое состояние
+        for state in all_states:
+            self._init_state_cameras(state, width, height)
+
+    def _init_state_cameras(self, state, width: int, height: int):
+        """Инициализирует камеры состояния с правильными размерами"""
+        if not state:
+            return
+
+        # Для игрового состояния используем фиксированный обзор
+        if hasattr(state, '__class__') and 'GameplayState' in str(state.__class__):
+            scale_x = width / C.VIEWPORT_WIDTH
+            scale_y = height / C.VIEWPORT_HEIGHT
+            scale = min(scale_x, scale_y)
+
+            viewport_width = int(C.VIEWPORT_WIDTH * scale)
+            viewport_height = int(C.VIEWPORT_HEIGHT * scale)
+            viewport_x = (width - viewport_width) // 2
+            viewport_y = (height - viewport_height) // 2
+
+            # Инициализируем игровую камеру
+            if hasattr(state, 'camera') and state.camera:
+                state.camera.viewport = arcade.rect.XYWH(
+                    viewport_x + viewport_width // 2,
+                    viewport_y + viewport_height // 2,
+                    viewport_width,
+                    viewport_height
+                )
+
+            # Инициализируем UI камеру (полный экран для UI)
+            if hasattr(state, 'default_camera') and state.default_camera:
+                state.default_camera.viewport = arcade.rect.XYWH(
+                    width // 2,
+                    height // 2,
+                    width,
+                    height
+                )
+
+        # Для других состояний (лобби, меню) используем полный экран
+        else:
+            if hasattr(state, 'camera') and state.camera:
+                state.camera.viewport = arcade.rect.XYWH(
+                    width // 2,
+                    height // 2,
+                    width,
+                    height
+                )
+
+            if hasattr(state, 'default_camera') and state.default_camera:
+                state.default_camera.viewport = arcade.rect.XYWH(
+                    width // 2,
+                    height // 2,
+                    width,
+                    height
+                )
+
+    def _update_all_cameras(self, width: int, height: int):
+        """Обновляет ВСЕ камеры в проекте с фиксированным обзором"""
+        # Рассчитываем масштаб для сохранения фиксированного обзора
+        scale_x = width / C.VIEWPORT_WIDTH
+        scale_y = height / C.VIEWPORT_HEIGHT
+        scale = min(scale_x, scale_y)
+
+        # Рассчитываем viewport с черными полосами
+        viewport_width = int(C.VIEWPORT_WIDTH * scale)
+        viewport_height = int(C.VIEWPORT_HEIGHT * scale)
+        viewport_x = (width - viewport_width) // 2
+        viewport_y = (height - viewport_height) // 2
+
+        # Определяем какое состояние активно
+        active_state = self.gsm.get_active_state()
+
+        # Обновляем все состояния
+        all_states = []
+
+        # Основное состояние
+        if self.gsm.current_state:
+            all_states.append(self.gsm.current_state)
+
+        # Активное состояние
+        if active_state and active_state not in all_states:
+            all_states.append(active_state)
+
+        # Все overlay
+        for overlay in self.gsm.overlay_stack:
+            if overlay not in all_states:
+                all_states.append(overlay)
+
+        # Обновляем каждое состояние
+        for state in all_states:
+            if hasattr(state, '__class__') and 'GameplayState' in str(state.__class__):
+                # Для игрового состояния используем фиксированный обзор
+                self._update_game_state_cameras(state, viewport_x, viewport_y, viewport_width, viewport_height, width,
+                                                height)
+            else:
+                # Для других состояний (лобби, меню) - полный экран
+                self._update_other_state_cameras(state, width, height)
+
+    def _update_game_state_cameras(self, state: BaseState, viewport_x: int, viewport_y: int,
+                                   viewport_width: int, viewport_height: int,
+                                   screen_width: int, screen_height: int):
+        """Обновляет камеры игрового состояния"""
+        # Игровая камера - фиксированный обзор
+        if hasattr(state, 'camera') and state.camera:
+            state.camera.viewport = arcade.rect.XYWH(
+                viewport_x + viewport_width // 2,
+                viewport_y + viewport_height // 2,
+                viewport_width,
+                viewport_height
+            )
+
+        # UI камера - полный экран для корректного позиционирования UI
+        if hasattr(state, 'default_camera') and state.default_camera:
+            state.default_camera.viewport = arcade.rect.XYWH(
+                screen_width // 2,
+                screen_height // 2,
+                screen_width,
+                screen_height
+            )
+
+        # Обновляем UI элементы с правильным масштабированием
+        if hasattr(state, 'ui_elements'):
+            for ui_element in state.ui_elements:
+                self._update_game_ui_element(ui_element, viewport_x, viewport_y,
+                                             viewport_width, viewport_height,
+                                             screen_width, screen_height)
+
+    def _update_game_ui_element(self, ui_element, viewport_x: int, viewport_y: int,
+                                viewport_width: int, viewport_height: int,
+                                screen_width: int, screen_height: int):
+        """Обновляет UI элементы игрового состояния"""
+        try:
+            # Рассчитываем масштаб
+            scale = viewport_width / C.VIEWPORT_WIDTH
+
+            # Восстанавливаем оригинальные координаты (относительно 1280x768)
+            orig_x = getattr(ui_element, 'original_x', ui_element.x)
+            orig_y = getattr(ui_element, 'original_y', ui_element.y)
+            orig_width = getattr(ui_element, 'original_width', ui_element.width)
+            orig_height = getattr(ui_element, 'original_height', ui_element.height)
+
+            # Пересчитываем позицию относительно viewport
+            ui_element.x = viewport_x + (orig_x * scale)
+            ui_element.y = viewport_y + (orig_y * scale)
+
+            # Масштабируем размеры
+            ui_element.width = orig_width * scale
+            ui_element.height = orig_height * scale
+
+        except Exception as e:
+            self.logger.warning(f"Ошибка обновления UI элемента: {e}")
+
+    def _update_other_state_cameras(self, state: BaseState, width: int, height: int):
+        """Обновляет камеры неигровых состояний (лобби, меню)"""
+        # Для лобби и меню используем полный экран
+        if hasattr(state, 'camera') and state.camera:
+            state.camera.viewport = arcade.rect.XYWH(
+                width // 2,
+                height // 2,
+                width,
+                height
+            )
+
+        if hasattr(state, 'default_camera') and state.default_camera:
+            state.default_camera.viewport = arcade.rect.XYWH(
+                width // 2,
+                height // 2,
+                width,
+                height
+            )

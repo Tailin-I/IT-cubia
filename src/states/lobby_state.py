@@ -42,10 +42,21 @@ class LobbyState(BaseState):
         # Сбрасываем таймеры
         self.last_key_time = time.time()
 
-        # Если передали selected_index (например, возврат из настроек)
-        if 'selected_index' in kwargs:
-            self.selected_index = kwargs['selected_index']
+        # Принудительно обновляем камеру при входе
+        if self.gsm and self.gsm.window:
+            width, height = self.gsm.window.get_size()
+            self._update_camera_on_enter(width, height)
 
+    def _update_camera_on_enter(self, width: int, height: int):
+        """Обновляет камеру при входе в состояние"""
+        # Для лобби используем полный экран
+        if hasattr(self, 'camera') and self.camera:
+            self.camera.viewport = arcade.rect.XYWH(
+                width // 2,
+                height // 2,
+                width,
+                height
+            )
     def on_exit(self):
         """Выход из лобби"""
         print("ВЫХОД ИЗ ЛОББИ")

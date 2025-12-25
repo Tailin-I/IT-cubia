@@ -9,8 +9,8 @@ SCALE_FACTOR = TILE_SIZE / ORIGINAL_TILE_SIZE
 SCREEN_WIDTH = 1440
 SCREEN_HEIGHT = 900
 
-VIEWPORT_WIDTH = 1440  # Фиксированная ширина обзора
-VIEWPORT_HEIGHT = 900  # Фиксированная высота обзора
+VIEWPORT_WIDTH = SCREEN_WIDTH  # Фиксированная ширина обзора
+VIEWPORT_HEIGHT = SCREEN_HEIGHT  # Фиксированная высота обзора
 
 SCREEN_TITLE = "IT-Кубия"
 

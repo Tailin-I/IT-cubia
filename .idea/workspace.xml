@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает нахуй">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="почти сделал полноэкранный режим">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/ui_component.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ui_component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/vertical_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/vertical_bar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +83,7 @@
       <recent name="$PROJECT_DIR$/src/states" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.export structure">
     <configuration name="export structure" type="PythonConfigurationType" factoryName="Python">
       <module name="ITCUBIA" />
       <option name="ENV_FILES" value="" />
@@ -418,7 +415,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766613711593</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="почти сделал полноэкранный режим">
+      <option name="closed" value="true" />
+      <created>1766686037525</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1766686037525</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -477,7 +482,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="герой крутится (задержка)" />
     <MESSAGE value="герой крутится (анимация ходьбы)" />
     <MESSAGE value="сохранение клавиш в json" />
     <MESSAGE value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
@@ -502,14 +506,15 @@
     <MESSAGE value="надежда умирает" />
     <MESSAGE value="надежда умирает первой" />
     <MESSAGE value="надежда умирает нахуй" />
-    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает нахуй" />
+    <MESSAGE value="почти сделал полноэкранный режим" />
+    <option name="LAST_COMMIT_MESSAGE" value="почти сделал полноэкранный режим" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>192</line>
+          <line>203</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -519,7 +524,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>172</line>
+          <line>183</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
