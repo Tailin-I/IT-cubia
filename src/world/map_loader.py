@@ -259,6 +259,7 @@ class MapLoader:
 
     def get_bounds(self):
         """Возвращает границы карты"""
+        print("bounds - ", self.bounds)
         return self.bounds
 
     def draw(self):

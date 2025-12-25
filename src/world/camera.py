@@ -1,6 +1,8 @@
 import arcade
 import logging
 
+from arcade import LRBT
+
 
 class Camera:
     """
@@ -52,13 +54,9 @@ class Camera:
         )
         self.logger.debug(f"Viewport обновлен: {self.camera.viewport}")
 
-    def resize(self, width, height):
-        """При изменении размера окна"""
-        self.logger.info(f"Изменение размера камеры: {width}x{height}")
-        self.viewport_width = width
-        self.viewport_height = height
-        self._update_viewport()
-
+    def resize(self, width: int, height: int):
+        """Изменяет размер камеры"""
+        self.camera.match_window()
 
     def set_map_bounds(self, left, bottom, width, height):
         """

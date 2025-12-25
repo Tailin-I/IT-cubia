@@ -8,6 +8,8 @@ from ..ui.health_bar import HealthBar
 from ..ui.vertical_bar import VerticalBar
 from src.world.camera import Camera
 from ..world.map_loader import MapLoader
+from config import constants as C
+
 
 
 class GameplayState(BaseState):
@@ -19,14 +21,14 @@ class GameplayState(BaseState):
     def __init__(self, gsm, asset_loader):
         super().__init__("game", gsm, asset_loader)
 
+        self.viewport_width = C.VIEWPORT_WIDTH
+        self.viewport_height = C.VIEWPORT_HEIGHT
+
         self.input_manager = self.gsm.input_manager
 
 
-        # 1. Игрок: масштабируем под новые тайлы
-        # Если оригинальный игрок 63px, а тайлы теперь 64px:
         player_scale = self.tile_size / 63  # ≈1.0159 (почти не меняем)
-        # Или если хотим, чтобы игрок был точно под тайл:
-        # player_scale = 64 / 63  # Делаем игрока 64px
+
 
         self.default_camera = Camera2D()
         self.default_camera.viewport = (
@@ -40,6 +42,7 @@ class GameplayState(BaseState):
 
         self.map_loader = MapLoader()
 
+
         # Загружаем Tiled карту
         success = self.map_loader.load(
             "maps/testmap.tmx",  # НОВЫЙ ФАЙЛ
@@ -49,16 +52,19 @@ class GameplayState(BaseState):
         if not success:
             print("⚠️ Не удалось загрузить Tiled карту, используем fallback")
 
+        self.map_left = 0
+        self.map_bottom = 0
+        self.map_right = 0
+        self.map_top = 0
+
+        bounds = self.map_loader.get_bounds()
+        self.setup_map_limits(bounds["left"], bounds["bottom"], bounds["right"], bounds["top"])
+
         # Получаем слой коллизий
         self.collision_layer = self.map_loader.get_collision_layer()
 
-        # Камера - используем границы из map_loader
-        self.camera = Camera(self.gsm.window.width, self.gsm.window.height)
-        bounds = self.map_loader.get_bounds()
-        self.camera.set_map_bounds(
-            bounds['left'], bounds['bottom'],
-            bounds['width'], bounds['height']
-        )
+        # Камера
+        self.camera = arcade.camera.Camera2D()
 
         # 6. Настраиваем игрока
         # Получаем позицию из game_data
@@ -72,20 +78,12 @@ class GameplayState(BaseState):
         # UI элементы
         self.ui_elements = []
 
-        # Шкала здоровья (снизу слева)
-        self.health_bar = HealthBar(
-            self.player,
-            x=150,  # Отступ от левого края
-            y=50,  # Отступ от нижнего края
-            width=200,
-            height=20
-        )
-        self.ui_elements.append(self.health_bar)
-
-        # Вертикальная полоска 1 (слева)
+        # Вертикальная полоска 1 (слева) - фиксированная позиция при 1280x768
         self.deepseek_bar = VerticalBar(
-            x=self.tile_size / 2,  # Ближе к краю
-            y=self.gsm.window.height - 2 * self.tile_size,
+            x=15,  # Отступ от левого края при 1280px
+            y=550,  # Отступ сверху при 768px (768 - 2*64 - 64)
+            width=15,
+            height=150,
             bg_color=arcade.color.PURPLE_NAVY,
             fill_color=arcade.color.PURPLE,
             icon_texture=asset_loader.load_ui_texture("deepseek")
@@ -94,17 +92,44 @@ class GameplayState(BaseState):
 
         # Вертикальная полоска 2 (рядом с первой)
         self.fatigue_bar = VerticalBar(
-            x=self.tile_size,  # Рядом с первой
-            y=self.gsm.window.height - 2 * self.tile_size,
+            x=50,  # Отступ от левого края при 1280px
+            y=550,  # Такая же высота как у первой
+            width=15,
+            height=150,
             bg_color=arcade.color.FRENCH_BEIGE,
             fill_color=arcade.color.BEIGE,
             icon_texture=asset_loader.load_ui_texture("fatigue")
         )
         self.ui_elements.append(self.fatigue_bar)
 
+        # Шкала здоровья (снизу слева) - фиксированная позиция
+        self.health_bar = HealthBar(
+            self.player,
+            x=150,  # Отступ от левого края при 1280px
+            y=50,  # Отступ от нижнего края при 768px
+            width=200,
+            height=20
+        )
+        self.ui_elements.append(self.health_bar)
+
+        # Сохраняем оригинальные координаты для масштабирования
+        for ui_element in self.ui_elements:
+            ui_element.original_x = ui_element.x
+            ui_element.original_y = ui_element.y
+            if hasattr(ui_element, 'width'):
+                ui_element.original_width = ui_element.width
+            if hasattr(ui_element, 'height'):
+                ui_element.original_height = ui_element.height
+
         # Устанавливаем начальные значения
         self.deepseek_bar.set_value(75, 100)
         self.fatigue_bar.set_value(30, 100)
+
+    def setup_map_limits(self, left, bottom, width, height):
+        self.map_left = left
+        self.map_bottom = bottom
+        self.map_right = left + width
+        self.map_top = bottom + height
 
     def teleport_to(self, x: int, y: int, map: str = None):
         """
@@ -115,6 +140,7 @@ class GameplayState(BaseState):
         if map:
             path = f"maps/{map}.tmx"
             self.logger.info(f"Смена карты: {map}")
+
 
             # Загружаем новую карту
             success = self.map_loader.load(path, scale=1)
@@ -127,10 +153,7 @@ class GameplayState(BaseState):
 
             # Обновляем границы карты для камеры
             bounds = self.map_loader.get_bounds()
-            self.camera.set_map_bounds(
-                bounds['left'], bounds['bottom'],
-                bounds['width'], bounds['height']
-            )
+            self.setup_map_limits(bounds["left"], bounds["bottom"], bounds["right"], bounds["top"])
 
         # Устанавливаем позицию игрока
         tile_x = x * self.tile_size
@@ -142,8 +165,20 @@ class GameplayState(BaseState):
         # Обновляем данные игрока
         self.player.data.set_player_position(tile_x, tile_y, map)
 
-        # Камера следит за новой позицией
-        self.camera.follow_player(tile_x, tile_y)
+        target_x = self.player.center_x
+        target_y = self.player.center_y
+
+        # 3. ОГРАНИЧЕНИЕ ПОЗИЦИИ (Замена set_map_bounds)
+        # Учитываем половину размера экрана, чтобы камера не показывала пустоту за краем
+        half_screen_w = self.gsm.window.width / 2
+        half_screen_h = self.gsm.window.height / 2
+
+        # Зажимаем камеру между границами карты
+        final_x = max(self.map_left + half_screen_w, min(target_x, self.map_right - half_screen_w))
+        final_y = max(self.map_bottom + half_screen_h, min(target_y, self.map_top - half_screen_h))
+
+        # 4. ПРИМЕНЕНИЕ (Для мгновенного следования)
+        self.camera.position = (final_x, final_y)
 
         self.logger.info(f"Телепорт в ({x}, {y}) на карте: {map or 'текущая'}")
         return True
@@ -184,6 +219,21 @@ class GameplayState(BaseState):
         # Нужно добавить соответствующие действия в InputManager
         # Пока оставим как TODO
 
+    def on_resize(self, width: int, height: int):
+        """Обновление при изменении размера окна"""
+        # Обновляем позиции UI элементов
+        if hasattr(self, 'ui_elements'):
+            for ui_element in self.ui_elements:
+                if hasattr(ui_element, 'on_resize'):
+                    ui_element.on_resize(width, height)
+
+        # Обновляем позиции вертикальных полосок
+        if hasattr(self, 'deepseek_bar'):
+            self.deepseek_bar.y = height - 2 * self.tile_size
+
+        if hasattr(self, 'fatigue_bar'):
+            self.fatigue_bar.y = height - 2 * self.tile_size
+
     def update(self, delta_time: float):
         """Обновление игровой логики"""
         if self.is_paused:
@@ -200,8 +250,23 @@ class GameplayState(BaseState):
             self.map_loader.event_manager.check_collisions(self.player, self)
             # Добавим отладку
 
-        # Камера следует за игроком
-        self.camera.follow_player(self.player.center_x, self.player.center_y)
+        target_x = self.player.center_x
+        target_y = self.player.center_y
+
+        # 3. ОГРАНИЧЕНИЕ ПОЗИЦИИ (Замена set_map_bounds)
+        # Учитываем половину размера экрана, чтобы камера не показывала пустоту за краем
+        half_screen_w = self.gsm.window.width / 2
+        half_screen_h = self.gsm.window.height / 2
+
+        # Зажимаем камеру между границами карты
+        final_x = max(self.map_left + half_screen_w, min(target_x, self.map_right - half_screen_w))
+        final_y = max(self.map_bottom + half_screen_h, min(target_y, self.map_top - half_screen_h))
+
+        # 4. ПРИМЕНЕНИЕ (Для мгновенного следования)
+        self.camera.position = (final_x, final_y)
+
+        # ЕСЛИ НУЖНА ПЛАВНОСТЬ (Lerp):
+        # self.camera.position = arcade.math.lerp_2d(self.camera.position, (final_x, final_y), 0.1)
 
         # Обновляем UI
         for ui_element in self.ui_elements:
@@ -245,18 +310,6 @@ class GameplayState(BaseState):
         for ui_element in self.ui_elements:
             ui_element.draw()
 
-    def on_resize(self, width, height):
-        """При изменении размера окна обновляем камеру"""
-        # Обновляем viewport камеры
-        self.camera.viewport = self.camera.viewport = (arcade.rect.XYWH(self.gsm.window.width // 2,
-                                                                        self.gsm.window.height // 2,
-                                                                        self.gsm.window.width,
-                                                                        self.gsm.window.height))
-
-        # Также можно обновить проекцию, если она используется
-        # self.camera.projection = (0, width, 0, height)
-
-        print(f"Размер окна изменен: {width}x{height}")
 
     def _handle_input(self):
         """Обработка ввода для игрового состояния"""
@@ -269,16 +322,6 @@ class GameplayState(BaseState):
             self._open_pause_menu()
         if self.input_manager.get_action("cheat_console"):  # F2
             self.gsm.push_overlay("cheat_console")
-
-        # Для теста - выводим нажатые клавиши движения
-        # if self.input_manager.get_action("up"):
-        #     print("↑ Движение вверх")
-        # if self.input_manager.get_action("down"):
-        #     print("↓ Движение вниз")
-        # if self.input_manager.get_action("left"):
-        #     print("← Движение влево")
-        # if self.input_manager.get_action("right"):
-        #     print("→ Движение вправо")
 
     def _init_ui(self):
         """Инициализирует UI элементы"""

@@ -64,3 +64,16 @@ class VerticalBar(UIComponent):
                     32, 32)
 
             )
+
+    def on_resize(self, width: int, height: int):
+        """Обновляет позицию при изменении размера окна"""
+        # Сохраняем относительную позицию
+        if hasattr(self, '_initial_y'):
+            # Используем сохраненную относительную позицию
+            relative_y = self._initial_y / height if height > 0 else 0.8
+            self.y = height * relative_y
+        else:
+            # Первая инициализация - фиксируем сверху
+            self._initial_y = self.y
+            relative_y = self.y / height if height > 0 else 0.8
+            self.y = height * relative_y

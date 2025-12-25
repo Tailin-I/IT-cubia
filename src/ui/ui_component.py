@@ -12,6 +12,26 @@ class UIComponent:
         self.visible = True
         self.enabled = True
 
+        # Сохраняем оригинальные размеры для масштабирования
+        self.original_x = x
+        self.original_y = y
+        self.original_width = width
+        self.original_height = height
+
+    def on_resize(self, offset_x: int, offset_y: int, width: int, height: int, scale: float):
+        """Обновляет позицию и размер при изменении окна"""
+        # Восстанавливаем оригинальные координаты (относительно 1280x768)
+        orig_x = getattr(self, 'original_x', self.x)
+        orig_y = getattr(self, 'original_y', self.y)
+        orig_width = getattr(self, 'original_width', self.width)
+        orig_height = getattr(self, 'original_height', self.height)
+
+        # Пересчитываем с учетом масштаба и смещения
+        self.x = offset_x + (orig_x * scale)
+        self.y = offset_y + (orig_y * scale)
+        self.width = orig_width * scale
+        self.height = orig_height * scale
+
     def update(self, delta_time):
         """Обновление анимаций и логики"""
         pass

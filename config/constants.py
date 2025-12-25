@@ -6,8 +6,12 @@ TILE_SIZE = 64  # Желаемый размер тайлов
 SCALE_FACTOR = TILE_SIZE / ORIGINAL_TILE_SIZE
 
 # ПАРАМЕТРЫ ОКНА
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 768
+SCREEN_WIDTH = 1440
+SCREEN_HEIGHT = 900
+
+VIEWPORT_WIDTH = 1440  # Фиксированная ширина обзора
+VIEWPORT_HEIGHT = 900  # Фиксированная высота обзора
+
 SCREEN_TITLE = "IT-Кубия"
 
 # ЦВЕТА

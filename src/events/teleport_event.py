@@ -16,8 +16,8 @@ class TeleportEvent(GameEvent):
 
         self.logger.info(f"перемещение на {self.target_map} x:{self.target_x} y{self.target_y}")
 
-        if self.target_map:
-            game_state.teleport_to(self.target_x, self.target_y, self.target_map)
+
+        game_state.teleport_to(self.target_x, self.target_y, self.target_map)
 
         self.activated = True
         self.cooldown = self.max_cooldown
