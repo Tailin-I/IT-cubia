@@ -1,14 +1,13 @@
-# src/states/settings_state.py
 import arcade
 import time
 
 from .base_state import BaseState
-
+from config import constants as C
 
 class SettingsState(BaseState):
     """
     Состояние настроек.
-    Полностью заменяет лобби при открытии.
+    Вызывается как из лобби, так и из игрового меню
     """
 
     def __init__(self, gsm, asset_loader):
@@ -23,15 +22,15 @@ class SettingsState(BaseState):
         ]
 
         self.selected_index = 0
-        self.cursor_blink_timer = 0
-        self.cursor_visible = True
         self.key_cooldown = 0.15
         self.last_key_time = 0
 
         # Цвета
-        self.normal_color = arcade.color.LIGHT_GRAY
-        self.selected_color = arcade.color.GOLD
-        self.value_color = arcade.color.CYAN
+        self.text_color = C.TEXT_COLOR
+        self.selected_color = C.UI_MAIN_COLOR
+        self.title_color = C.UI_TITLE_COLOR
+        self.menu_background_color = C.MENU_BACKGROUND_COLOR
+        self.bg_color = C.FOGGING_COLOR
 
         # Для двух режимов
         self.is_overlay = False
@@ -50,13 +49,8 @@ class SettingsState(BaseState):
     def on_exit(self):
         """Выход из настроек"""
 
-    def update(self, delta_time):  # ⬅️ И ЭТОГО!
-        """Обновление анимации настроек"""
-        # Мигание курсора
-        self.cursor_blink_timer += delta_time
-        if self.cursor_blink_timer >= 0.5:
-            self.cursor_blink_timer = 0
-            self.cursor_visible = not self.cursor_visible
+    def update(self, delta_time):
+        pass
 
     def draw(self):
         """Отрисовка с учётом режима"""
@@ -68,17 +62,9 @@ class SettingsState(BaseState):
             self._draw_as_fullscreen()
 
     def _draw_as_overlay(self):
-        """Отрисовка настроек как overlay (окно поверх)"""
-        # 1. Полупрозрачный фон
-        arcade.draw_rect_filled(arcade.rect.LRBT(
-            0,
-            self.gsm.window.width,
-            0,
-            self.gsm.window.height),
-            (0, 0, 0, 180)
-        )
+        """Отрисовка настроек как overlay"""
 
-        # 2. Окно настроек
+        # Окно настроек
         window_x = self.gsm.window.width // 2
         window_y = self.gsm.window.height // 2
         window_width = 500
@@ -89,14 +75,21 @@ class SettingsState(BaseState):
             arcade.rect.XYWH(
                 window_x, window_y,
                 window_width, window_height),
-            (40, 40, 50)
+            self.menu_background_color
+        )
+
+        arcade.draw_rect_outline(
+            arcade.rect.XYWH(
+                window_x, window_y,
+                window_width, window_height),
+            self.selected_color, 3
         )
 
         # Заголовок
         arcade.Text(
             "НАСТРОЙКИ",
-            window_x, window_y + 180,
-            arcade.color.CYAN,
+            window_x, window_y*1.4,
+            self.title_color,
             32,
             align="center",
             anchor_x="center",
@@ -104,22 +97,12 @@ class SettingsState(BaseState):
             bold=True
         ).draw()
 
-        # Рисуем пункты меню
-        self._draw_menu_in_window(window_x, window_y)
+        # Отрисовка пунктов меню
+        self._draw_menu_list(window_x, window_y*0.9, 22)
 
-        # Подсказки
-        arcade.Text(
-            "← → — Изменить  |  ESC — Назад",
-            window_x, window_y - 190,
-            arcade.color.LIGHT_GRAY,
-            16,
-            align="center",
-            anchor_x="center",
-            anchor_y="center"
-        ).draw()
 
     def _draw_as_fullscreen(self):
-        """Отрисовка настроек как отдельного состояния (полный экран)"""
+        """Отрисовка настроек как отдельного состояния"""
         arcade.draw_texture_rect(
             self.rm.load_texture("backgrounds/lobby_background.png")
             , arcade.rect.XYWH(
@@ -149,97 +132,14 @@ class SettingsState(BaseState):
             bold=True
         ).draw()
 
-        # Рисуем меню (полноэкранная версия)
+        # Рисуем меню
         start_x = self.gsm.window.width // 2
-        start_y = self.gsm.window.height * 0.5
-        spacing = 70
+        start_y = self.gsm.window.height * 0.4
 
-        for i, item in enumerate(self.menu_items):
-            # Выбираем цвет
-            if i == self.selected_index:
-                color = self.selected_color
-                font_size = 42
-                is_bold = True
-            else:
-                color = self.normal_color
-                font_size = 36
-                is_bold = False
+        self._draw_menu_list(start_x, start_y, 36)
 
-            # Текст пункта
-            if "value" in item:
-                # Пункт со значением
-                arcade.Text(
-                    item["text"] + ": ",
-                    start_x - 100,
-                    start_y - i * spacing,
-                    color,
-                    font_size,
-                    anchor_x="right",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
 
-                value_color = self.value_color if i == self.selected_index else arcade.color.LIGHT_BLUE
-                arcade.Text(
-                    f"{item['value']}%",
-                    start_x - 80,
-                    start_y - i * spacing,
-                    value_color,
-                    font_size,
-                    anchor_x="left",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
-            else:
-                # Обычный пункт
-                arcade.Text(
-                    item["text"],
-                    start_x,
-                    start_y - i * spacing,
-                    color,
-                    font_size,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
-
-            # Курсор
-            if i == self.selected_index and self.cursor_visible:
-                arcade.draw_polygon_filled([
-                    (start_x - 250, start_y - i * spacing),
-                    (start_x - 230, start_y - i * spacing + 15),
-                    (start_x - 230, start_y - i * spacing - 15)
-                ], self.selected_color)
-
-                arcade.draw_polygon_filled([
-                    (start_x + 250, start_y - i * spacing),
-                    (start_x + 230, start_y - i * spacing + 15),
-                    (start_x + 230, start_y - i * spacing - 15)
-                ], self.selected_color)
-
-        # Подсказки
-        hints = [
-            "↑ ↓ — Выбор",
-            "← → — Изменить значение",
-            "ENTER — Подтвердить",
-            "ESC — Назад без сохранения"
-        ]
-
-        hint_y = 80
-        for i, hint in enumerate(hints):
-            arcade.Text(
-                hint,
-                self.gsm.window.width // 2,
-                hint_y + i * 25,
-                arcade.color.LIGHT_GRAY,
-                18,
-                align="center",
-                anchor_x="center",
-                anchor_y="center"
-            ).draw()
-
-    def _draw_menu_in_window(self, center_x, center_y):
+    def _draw_menu_list(self, center_x, center_y, font: int):
         """Рисует меню в рамках окна overlay"""
         start_y = center_y + 100
         spacing = 60
@@ -248,64 +148,30 @@ class SettingsState(BaseState):
             # Выбираем цвет
             if i == self.selected_index:
                 color = self.selected_color
-                font_size = 24
+                font_size = font * 1.11
                 is_bold = True
             else:
-                color = self.normal_color
-                font_size = 20
+                color = self.text_color
+                font_size = font
                 is_bold = False
+
+            text = item["text"]
 
             # Текст пункта
             if "value" in item:
-                value_color = self.value_color if i == self.selected_index else arcade.color.LIGHT_BLUE
+                text = f"{item['text']}: {item['value']}%"
 
-                arcade.Text(
-                    item["text"] + ": ",
-                    center_x - 50,
-                    start_y - i * spacing,
-                    color,
-                    font_size,
-                    anchor_x="right",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
-
-                arcade.Text(
-                    f"{item['value']}%",
-                    center_x - 60,
-                    start_y - i * spacing,
-                    value_color,
-                    font_size,
-                    anchor_x="left",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
-            else:
-                arcade.Text(
-                    item["text"],
-                    center_x,
-                    start_y - i * spacing,
-                    color,
-                    font_size,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                    bold=is_bold
-                ).draw()
-
-            # Курсор
-            if i == self.selected_index and self.cursor_visible:
-                arcade.draw_polygon_filled([
-                    (center_x - 180, start_y - i * spacing),
-                    (center_x - 160, start_y - i * spacing + 8),
-                    (center_x - 160, start_y - i * spacing - 8)
-                ], self.selected_color)
-
-                arcade.draw_polygon_filled([
-                    (center_x + 180, start_y - i * spacing),
-                    (center_x + 160, start_y - i * spacing + 8),
-                    (center_x + 160, start_y - i * spacing - 8)
-                ], self.selected_color)
+            arcade.Text(
+                text,
+                center_x,
+                start_y - i * spacing,
+                color,
+                font_size,
+                align="center",
+                anchor_x="center",
+                anchor_y="center",
+                bold=is_bold
+            ).draw()
 
     def handle_key_press(self, key, modifiers):
         """Обработка клавиш в настройках"""

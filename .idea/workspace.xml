@@ -4,12 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает первой">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает нахуй">
+      <change afterPath="$PROJECT_DIR$/res/maps/secmap.tmx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/items/base_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/base_item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/items/consumables.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/consumables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/items/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/test_map.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/testmap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/resource_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/resource_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/chest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/chest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/chest_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/teleport_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/pause_menu_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/settings_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -407,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766610579641</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="надежда умирает нахуй">
+      <option name="closed" value="true" />
+      <created>1766613711593</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1766613711593</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -466,7 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="working on sprite sheet separating" />
     <MESSAGE value="герой крутится (задержка)" />
     <MESSAGE value="герой крутится (анимация ходьбы)" />
     <MESSAGE value="сохранение клавиш в json" />
@@ -491,20 +513,16 @@
     <MESSAGE value="load" />
     <MESSAGE value="надежда умирает" />
     <MESSAGE value="надежда умирает первой" />
-    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает первой" />
+    <MESSAGE value="надежда умирает нахуй" />
+    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает нахуй" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>243</line>
+          <line>192</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>49</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/core/input_manager.py</url>
@@ -513,12 +531,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>223</line>
+          <line>172</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/base_state.py</url>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/states/pause_menu_state.py</url>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

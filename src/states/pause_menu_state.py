@@ -1,8 +1,8 @@
-# src/states/pause_menu_state.py
 import arcade
 import time
 
 from .base_state import BaseState
+from config import constants as C
 
 
 class PauseMenuState(BaseState):
@@ -22,15 +22,15 @@ class PauseMenuState(BaseState):
         ]
 
         self.selected_index = 0
-        self.cursor_blink_timer = 0
-        self.cursor_visible = True
         self.key_cooldown = 0.15
         self.last_key_time = 0
 
         # Цвета
-        self.normal_color = arcade.color.LIGHT_GRAY
-        self.selected_color = arcade.color.GOLD
-        self.bg_color = (0, 0, 0, 200)  # Полупрозрачный чёрный
+        self.text_color = C.TEXT_COLOR
+        self.main_color = C.UI_MAIN_COLOR
+        self.title_color = C.UI_TITLE_COLOR
+        self.menu_background_color = C.MENU_BACKGROUND_COLOR
+        self.bg_color = C.FOGGING_COLOR
 
         # Размеры окна меню
         self.window_width = 400
@@ -43,15 +43,11 @@ class PauseMenuState(BaseState):
         """Выход из меню паузы"""
 
     def update(self, delta_time):
-        """Обновление анимации"""
-        self.cursor_blink_timer += delta_time
-        if self.cursor_blink_timer >= 0.5:
-            self.cursor_blink_timer = 0
-            self.cursor_visible = not self.cursor_visible
+        pass
 
     def draw(self):
         """Отрисовка меню паузы ПОВЕРХ игры"""
-        # Полупрозрачный тёмный фон (затемняем игру)
+        # Полупрозрачный тёмный фон
         arcade.draw_rect_filled(
             arcade.rect.LRBT(
                 0, self.gsm.window.width,
@@ -69,7 +65,7 @@ class PauseMenuState(BaseState):
             arcade.rect.XYWH(
                 window_x, window_y,
                 self.window_width, self.window_height),
-            (30, 30, 40)  # Тёмно-синий
+            self.menu_background_color
         )
 
         # Рамка окна
@@ -77,14 +73,14 @@ class PauseMenuState(BaseState):
             arcade.rect.XYWH(
                 window_x, window_y,
                 self.window_width, self.window_height),
-                arcade.color.GOLD, 3
+            self.main_color, 3
         )
 
         # Заголовок
         arcade.Text(
             "ПАУЗА",
             window_x, window_y + 150,
-            arcade.color.GOLD,
+            self.main_color,
             36,
             align="center",
             anchor_x="center",
@@ -95,17 +91,6 @@ class PauseMenuState(BaseState):
         # Рисуем пункты меню
         self._draw_menu(window_x, window_y)
 
-        # Подсказки
-        arcade.Text(
-            "↑ ↓ — Выбор  |  ENTER — Подтвердить  |  ESC — Назад",
-            window_x, window_y - 180,
-            arcade.color.LIGHT_GRAY,
-            16,
-            align="center",
-            anchor_x="center",
-            anchor_y="center"
-        ).draw()
-
     def _draw_menu(self, center_x, center_y):
         """Рисует пункты меню паузы"""
         start_y = center_y + 50
@@ -114,11 +99,11 @@ class PauseMenuState(BaseState):
         for i, item in enumerate(self.menu_items):
             # Выбираем цвет
             if i == self.selected_index:
-                color = self.selected_color
+                color = self.main_color
                 font_size = 28
                 is_bold = True
             else:
-                color = self.normal_color
+                color = self.text_color
                 font_size = 24
                 is_bold = False
 
@@ -134,21 +119,6 @@ class PauseMenuState(BaseState):
                 bold=is_bold
             ).draw()
 
-            # Курсор для выбранного пункта
-            if i == self.selected_index and self.cursor_visible:
-                # Левый треугольник
-                arcade.draw_polygon_filled([
-                    (center_x - 120, start_y - i * spacing),
-                    (center_x - 100, start_y - i * spacing + 10),
-                    (center_x - 100, start_y - i * spacing - 10)
-                ], self.selected_color)
-
-                # Правый треугольник
-                arcade.draw_polygon_filled([
-                    (center_x + 120, start_y - i * spacing),
-                    (center_x + 100, start_y - i * spacing + 10),
-                    (center_x + 100, start_y - i * spacing - 10)
-                ], self.selected_color)
 
     def handle_key_press(self, key, modifiers):
         """Обработка клавиш в меню паузы"""

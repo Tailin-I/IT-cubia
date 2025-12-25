@@ -1,6 +1,7 @@
 import arcade
 
 from src.states.base_state import BaseState
+from src.world.map_loader import MapLoader
 
 
 class CheatConsoleState(BaseState):
@@ -8,6 +9,8 @@ class CheatConsoleState(BaseState):
 
     def __init__(self, gsm, asset_loader):
         super().__init__("cheat_console", gsm, asset_loader)
+        self.map_loader = MapLoader()
+
         self.input_buffer = "|"  # Введенный текст
         self.cursor_visible = True
         self.can_close = False
@@ -84,7 +87,7 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - self.tile_size,
                 panel_width, panel_height),
-            self.main_color , 2
+            self.main_color, 2
         )
 
         # ---РЕЧЬ ДИП СИКА---
@@ -94,7 +97,7 @@ class CheatConsoleState(BaseState):
         arcade.Text(
             text,
             self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - self.tile_size,
-            self.main_color , 24,
+            self.main_color, 24,
             anchor_x="center"
         ).draw()
 
@@ -109,14 +112,14 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width // 2 - self.tile_size, self.gsm.window.height - 2 * self.tile_size,
                 self.gsm.window.width // 2 - self.tile_size, self.tile_size),
-            self.back_color , 1
+            self.back_color, 1
         )
 
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
             int(4.6 * self.tile_size), self.gsm.window.height - 2 * self.tile_size,
-            self.main_color , 20
+            self.main_color, 20
         ).draw()
 
         # ---ИСТОРИЯ КОМАНД---
@@ -126,7 +129,7 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 2.2 * self.tile_size, self.gsm.window.height // 2,
                 panel_width, panel_height),
-            self.back_color   # Темно-синий
+            self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
@@ -134,7 +137,7 @@ class CheatConsoleState(BaseState):
                 self.gsm.window.height // 2,
                 panel_width,
                 panel_height
-            ), self.main_color , 2
+            ), self.main_color, 2
         )
 
         for i in range(len(self.history) - 1, -1, -1):
@@ -163,7 +166,7 @@ class CheatConsoleState(BaseState):
             arcade.rect.XYWH(
                 self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
                 panel_width, panel_height),
-            self.main_color , 2
+            self.main_color, 2
         )
 
         for i in range(len(self.deep_seek_speech)):
@@ -215,28 +218,45 @@ class CheatConsoleState(BaseState):
             ]
 
         elif command.startswith("TP_"):
-            # Разбираем команду TP x y
             parts = command.split("_")
-            if len(parts) == 3:
+
+            try:
+                # Проверка количества аргументов
+                if len(parts) not in (3, 4):
+                    self.text_to_draw = ["и куда мне тебя переносить?", "..."]
+                    return
+
                 x = int(parts[1])
                 y = int(parts[2])
-
-                self.text_to_draw = [
-                    "Дарую новые координаты!",
-                    f"x:{x}, y{y}",
-                    "Совсем лицеисты обленились"
-                ]
+                mp = parts[3].lower() if len(parts) == 4 else None
 
                 # Телепорт игрока
-                player = self.gsm.current_state.player
-                player.center_x = x * self.tile_size
-                player.center_y = y * self.tile_size
+                self.gsm.current_state.teleport_to(x, y, mp)
 
                 # Обновляем данные
-                player.data.set_player_position(x, y)
-            else:
-                self.text_to_draw = ["и куда мне тебя переносить?",
-                                     "..."]
+                if mp is None:
+
+                    self.text_to_draw = [
+                        "Дарую новые координаты!",
+                        f"x:{x}, y:{y}",
+                        "Бессмысленная трата ресурсов..."
+                    ]
+                else:
+                    self.map_loader.load(
+                        f"maps/{mp}.tmx",
+                    )
+                    self.text_to_draw = [
+                        "Дарую новые координаты!",
+                        f"x:{x}, y:{y}, map:{mp}",
+                        "Совсем лицеисты обленились"
+                    ]
+
+            except ValueError:
+                self.text_to_draw = [
+                    "Чего ты пытаешься добиться?",
+                    "Я не понимаю",
+                    "..."
+                ]
 
         elif command == "DEBUGON":
             player = self.gsm.current_state.player

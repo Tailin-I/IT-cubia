@@ -1,12 +1,13 @@
 import arcade
 import time
 from .base_state import BaseState
+from config import constants as C
+
 
 
 class LobbyState(BaseState):
     """
-    Лобби полностью на клавиатуре.
-    Управление: ↑↓ - выбор, ENTER - подтвердить, ESC - выход.
+    Игровое лобби, первое окно которое встречает пользователя
     """
 
     def __init__(self, gsm, asset_loader):
@@ -23,27 +24,22 @@ class LobbyState(BaseState):
         # Выбранный пункт
         self.selected_index = 0
 
-        # Для плавного мигания курсора
-        self.cursor_blink_timer = 0
-        self.cursor_visible = True
-
         # Для предотвращения быстрых повторных нажатий
         self.key_cooldown = 0.15  # секунд
         self.last_key_time = 0
 
         # Цвета
-        self.normal_color = arcade.color.LIGHT_GRAY
-        self.selected_color = arcade.color.GOLD
-        self.disabled_color = arcade.color.DARK_GRAY
-        self.title_color = arcade.color.CYAN
+        self.text_color = C.TEXT_COLOR
+        self.selected_color = C.UI_MAIN_COLOR
+        self.title_color = C.UI_TITLE_COLOR
+        self.subtitle_color = C.UI_SUBTITLE_COLOR
 
-        # Звуки (если будут)
+        # Звуки
         self.has_sounds = False
 
     def on_enter(self, **kwargs):
         """Вход в лобби"""
         # Сбрасываем таймеры
-        self.cursor_blink_timer = 0
         self.last_key_time = time.time()
 
         # Если передали selected_index (например, возврат из настроек)
@@ -63,15 +59,7 @@ class LobbyState(BaseState):
         pass
 
     def update(self, delta_time: float):
-        """Обновление анимации"""
-        # Мигание курсора
-        self.cursor_blink_timer += delta_time
-        if self.cursor_blink_timer >= 0.5:  # Мигаем каждые 0.5 секунд
-            self.cursor_blink_timer = 0
-            self.cursor_visible = not self.cursor_visible
-
-        # Можно добавить анимацию фона
-        # self.background.update(delta_time)
+        pass
 
     def draw(self):
         """Отрисовка лобби"""
@@ -120,9 +108,9 @@ class LobbyState(BaseState):
 
         # Подзаголовок
         arcade.Text(
-            "Pixel Adventure",
+            "Основано на реальных событиях",
             title_x, title_y - 80,
-            arcade.color.LIGHT_BLUE,
+            self.subtitle_color,
             font_size=24,
             anchor_x="center",
             anchor_y="center"
@@ -130,9 +118,6 @@ class LobbyState(BaseState):
 
         # Рисуем меню
         self._draw_menu()
-
-        # Подсказки управления
-        self._draw_hints()
 
     def _draw_menu(self):
         """Рисует пункты меню"""
@@ -147,7 +132,7 @@ class LobbyState(BaseState):
                 font_size = 42
                 is_bold = True
             else:
-                color = self.normal_color
+                color = self.text_color
                 font_size = 36
                 is_bold = False
 
@@ -163,46 +148,6 @@ class LobbyState(BaseState):
                 bold=is_bold
             )
             text.draw()
-
-            # Рисуем курсор для выбранного пункта
-            if i == self.selected_index and self.cursor_visible:
-                # Левый треугольник
-                arcade.draw_triangle_filled(
-                    start_x - 200, start_y - i * spacing,
-                    start_x - 180, start_y - i * spacing + 15,
-                    start_x - 180, start_y - i * spacing - 15,
-                    self.selected_color
-                )
-                # Правый треугольник
-                arcade.draw_triangle_filled(
-                    start_x + 200, start_y - i * spacing,
-                    start_x + 180, start_y - i * spacing + 15,
-                    start_x + 180, start_y - i * spacing - 15,
-                    self.selected_color
-                )
-
-    def _draw_hints(self):
-        """Рисует подсказки управления"""
-        hints = [
-            "↑ ↓ — Выбор пункта",
-            "ENTER — Подтвердить",
-            "ESC — Выход из игры",
-            "F11 — Полный экран"
-        ]
-
-        hint_y = 80
-        hint_spacing = 25
-
-        for i, hint in enumerate(hints):
-            arcade.Text(
-                hint,
-                self.gsm.window.width // 8,
-                hint_y + i * hint_spacing,
-                arcade.color.LIGHT_GRAY,
-                font_size=18,
-                anchor_x="center",
-                anchor_y="center"
-            ).draw()
 
     def handle_key_press(self, key: int, modifiers: int):
         """Обработка нажатия клавиш"""

@@ -42,7 +42,7 @@ class MainWindow(arcade.Window):
 
         # СОЗДАЕМ МЕНЕДЖЕРЫ
         self.resource_manager = resource_manager
-        self.asset_loader = AssetLoader(self.resource_manager)
+        self.asset_loader = AssetLoader()
         self.input_manager = InputManager()
 
         # СОЗДАЕМ ЦЕНТРАЛЬНЫЙ МЕНЕДЖЕР СОСТОЯНИЙ

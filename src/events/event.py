@@ -9,7 +9,7 @@ class GameEvent:
 
     def __init__(self, event_id: str, event_type: str, rect: tuple, properties: Dict[str, Any] = None):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
-
+        self.show_text_description = False
         self.tileSize = 64
 
         self.event_id = event_id
@@ -46,6 +46,9 @@ class GameEvent:
             self.cooldown -= 1
         if self.cooldown <= 0:
             self.activated = False
+
+    def draw_description(self):
+       """Описание события"""
 
     def set_sprite(self, sprite):
         pass

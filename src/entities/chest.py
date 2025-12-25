@@ -23,7 +23,7 @@ class ChestSprite(arcade.Sprite):
 
     def update_visual(self):
         """Обновляет визуал в зависимости от состояния"""
-        if self.event and self.event.is_opened:
+        if self.event and self.event.is_empty:
             self.is_opened = True
             if self.texture_open:
                 self.texture = self.texture_open
@@ -36,7 +36,7 @@ class ChestSprite(arcade.Sprite):
         # Хитбокс
         color = arcade.color.RED
         if self.event:
-            if self.event.is_opened:
+            if self.event.is_empty:
                 color = arcade.color.GRAY
             elif self.event.is_locked:
                 color = arcade.color.ORANGE

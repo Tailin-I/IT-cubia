@@ -38,11 +38,11 @@ class GameplayState(BaseState):
         self.player_list = SpriteList()
         self.player_list.append(self.player)
 
-        self.map_loader = MapLoader(self.gsm.window.resource_manager)
+        self.map_loader = MapLoader()
 
         # Загружаем Tiled карту
         success = self.map_loader.load(
-            "maps/test_map.tmx",  # НОВЫЙ ФАЙЛ
+            "maps/testmap.tmx",  # НОВЫЙ ФАЙЛ
             scale=1
         )
 
@@ -105,6 +105,48 @@ class GameplayState(BaseState):
         # Устанавливаем начальные значения
         self.deepseek_bar.set_value(75, 100)
         self.fatigue_bar.set_value(30, 100)
+
+    def teleport_to(self, x: int, y: int, map: str = None):
+        """
+        Телепортирует игрока в указанные координаты.
+        Если указан map_path - загружает новую карту.
+        """
+        # Если нужно сменить карту
+        if map:
+            path = f"maps/{map}.tmx"
+            self.logger.info(f"Смена карты: {map}")
+
+            # Загружаем новую карту
+            success = self.map_loader.load(path, scale=1)
+            if not success:
+                self.logger.error(f"Не удалось загрузить карту: {map}")
+                return False
+
+            # Обновляем слой коллизий
+            self.collision_layer = self.map_loader.get_collision_layer()
+
+            # Обновляем границы карты для камеры
+            bounds = self.map_loader.get_bounds()
+            self.camera.set_map_bounds(
+                bounds['left'], bounds['bottom'],
+                bounds['width'], bounds['height']
+            )
+
+        # Устанавливаем позицию игрока
+        tile_x = x * self.tile_size
+        tile_y = y * self.tile_size
+
+        self.player.center_x = tile_x
+        self.player.center_y = tile_y
+
+        # Обновляем данные игрока
+        self.player.data.set_player_position(tile_x, tile_y, map)
+
+        # Камера следит за новой позицией
+        self.camera.follow_player(tile_x, tile_y)
+
+        self.logger.info(f"Телепорт в ({x}, {y}) на карте: {map or 'текущая'}")
+        return True
 
     def on_enter(self, **kwargs):
         """Вызывается при входе в это состояние"""

@@ -1,5 +1,7 @@
 from typing import Dict, Any
 
+import arcade
+
 from .event import GameEvent
 from src.entities.items.item_factory import ItemFactory
 
@@ -10,11 +12,13 @@ class ChestEvent(GameEvent):
         super().__init__(event_id, "chest", rect, properties)
         # Ссылка на спайт
         self.sprite = None
-
+        self.sprite_center_x = 0
+        self.sprite_center_y = 0
+        self.sprite_height = 0
         # Парсим свойства
         self.lock_sequence = properties.get("lock", "")
         self.is_locked = len(self.lock_sequence) > 0
-        self.is_opened = False
+        self.is_empty = False
         self.player_sequence = ""
 
         # Добыча
@@ -30,7 +34,7 @@ class ChestEvent(GameEvent):
         """Игрок взаимодействует с сундуком"""
         if self.activated and self.cooldown > 0:
             return
-        if self.is_opened:
+        if self.is_empty:
             print("   Сундук уже пуст!")
             return
         print(f"📦 Взаимодействие с сундуком '{self.event_id}'")
@@ -48,14 +52,34 @@ class ChestEvent(GameEvent):
         self.cooldown = self.max_cooldown
 
 
-
-
+    def draw_description(self):
+        if self.show_text_description:
+            color = arcade.color.GOLD
+            text = "сундук"
+            if self.is_empty:
+                color = arcade.color.TAN
+            """"""
+            arcade.Text(
+                text,
+                self.sprite_center_x,
+                self.sprite_center_y+  self.sprite_height*0.8,
+                color,
+                18,
+                align="center",
+                anchor_x="center",
+                anchor_y="center",
+                bold=True
+            ).draw()
+            self.show_text_description = False
 
 
 
     def set_sprite(self, sprite):
         """Устанавливает связь с визуальным спрайтом"""
         self.sprite = sprite
+        self.sprite_center_x = self.sprite.center_x
+        self.sprite_center_y = self.sprite.center_y
+        self.sprite_height = self.sprite.height
         if sprite:
             sprite.event = self  # Двусторонняя связь
 
@@ -66,7 +90,7 @@ class ChestEvent(GameEvent):
         for item in self.loot_items:
             self._add_to_inventory(player, item)
 
-        self.is_opened = True
+        self.is_empty = True
 
         # Обновляем визуал если есть спрайт
         if self.sprite:

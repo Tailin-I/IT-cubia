@@ -59,6 +59,7 @@ class Camera:
         self.viewport_height = height
         self._update_viewport()
 
+
     def set_map_bounds(self, left, bottom, width, height):
         """
         Устанавливает границы карты.

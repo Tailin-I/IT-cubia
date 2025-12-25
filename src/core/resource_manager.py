@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 import arcade
-from typing import Dict, Optional
+from typing import Dict
 
 
 class ResourceManager:
@@ -62,3 +62,4 @@ class ResourceManager:
 
 # Глобальный экземпляр менеджера
 resource_manager = ResourceManager()
+

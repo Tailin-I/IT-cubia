@@ -1,7 +1,10 @@
+from ..core.resource_manager import resource_manager
+
+
 class AssetLoader:
     """Загружает игровые ресурсы (только файлы!)"""
 
-    def __init__(self, resource_manager):
+    def __init__(self):
         self.rm = resource_manager
         self._texture_cache = {}  # Кэш ТОЛЬКО текстур
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="74">
+<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="77">
  <tileset firstgid="1" source="first.tsx"/>
  <layer id="1" name="ground" width="150" height="50">
   <data encoding="base64" compression="zlib">
@@ -61,10 +61,22 @@
     <property name="loot" value="key_door1:1,mana_potion:3"/>
    </properties>
   </object>
+  <object id="74" name="to sec map" type="teleport" x="74.6667" y="2733.33" width="65.3333" height="209.333">
+   <properties>
+    <property name="target_map" value="secmap"/>
+    <property name="target_x" type="int" value="48"/>
+    <property name="target_y" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="76" name="chest_next_to_secmap" type="chest" x="74.6667" y="2945.33" width="205.333" height="208">
+   <properties>
+    <property name="loot" value="mana_potion:2"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="6" name="containers" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2MEJADAIA0Bndf8hHKFUEBHuJsgrhEQAAAAAAAAAAAAAAAAA8JLbARouZgZu0zsAAPtsMgAAAAAA+ONbBwAAAAAAmFHO7QHr
+   eJzt2MEJADAIA0Bn7f5DdAAf0iKIcDdBXiEkAgAAAAAAAAAAAAAAAIDKmQ7wYWNmYDe9AwAwzyYDAAAAAIA3vnUAgMxGAgAAADpcFZ4CTQ==
   </data>
  </layer>
 </map>

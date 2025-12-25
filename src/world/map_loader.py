@@ -1,17 +1,16 @@
 import arcade
 import logging
-import os
 
+from src.core.resource_manager import resource_manager
 from src.events.event_manager import EventManager
 from pathlib import Path
 
 class MapLoader:
     """
-    Простой загрузчик карт Tiled.
-    Только 3 слоя: ground, walls, collisions
+    Загрузчик карт Tiled.
     """
 
-    def __init__(self, resource_manager):
+    def __init__(self):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.rm = resource_manager
         self.event_manager = None
@@ -24,6 +23,7 @@ class MapLoader:
         self.ground_layer = None
         self.walls_layer = None
         self.collisions_layer = None
+        self.containers_layer = None
 
         # Границы карты
         self.bounds = None
@@ -32,9 +32,6 @@ class MapLoader:
         """Загружает события из Tiled"""
         if not self.tile_map:
             return
-
-
-        # 1. Создаем менеджер событий
 
         # 2. Загружаем зоны взаимодействия из Object Layer "events"
         events_loaded = False
@@ -149,7 +146,7 @@ class MapLoader:
         Загружает Tiled карту.
         """
         try:
-            self.event_manager = EventManager(self.rm, 64)
+            self.event_manager = EventManager()
 
             # Используем pathlib для кроссплатформенных путей
             map_file_path = Path(map_file)

@@ -3,20 +3,18 @@ from typing import List
 from .event import GameEvent
 from .chest_event import ChestEvent
 from .teleport_event import TeleportEvent
+from config import  constants as C
+from ..core.resource_manager import resource_manager
 
 
 class EventManager:
-    def __init__(self, resource_manager, tile_size: int = 64):
+    def __init__(self):
         """
         Инициализация менеджера событий.
-
-        Args:
-            resource_manager: Менеджер ресурсов для загрузки текстур
-            tile_size: Размер тайла в пикселях (для расчетов дистанции)
         """
         self.rm = resource_manager
-        self.tile_size = tile_size
-        print("ивентменеджер с размером тайла: ", tile_size)
+        self.tile_size = C.TILE_SIZE
+        print("ивентменеджер с размером тайла: ", self.tile_size)
 
         # Логика событий (зоны взаимодействия из Object Layer)
         self.events: List[GameEvent] = []
@@ -31,10 +29,8 @@ class EventManager:
 
     def load_events_from_objects(self, object_list, scale: float = 1.0):
         """
-        Загружает ТОЛЬКО логические события (зоны взаимодействия) из Object Layer.
+        Загружает события (зоны взаимодействия) из events
         """
-        print(f"🎯 Загрузка {len(object_list)} зон взаимодействия...")
-        print(f"📐 Масштаб для координат: {scale}")
 
         for i, obj in enumerate(object_list):
             event = self._create_event_from_object(obj, scale, i)
@@ -218,13 +214,13 @@ class EventManager:
 
         for event in self.events:
             if event.check_collision(player_rect):
-                # print(f"🎯 Коллизия с {event.event_id} ({event.type})")
+
 
                 # ДЛЯ ВСЕХ СОБЫТИЙ проверяем дистанцию через общий метод
                 if self._is_player_close_enough(player, event):
-
                     # Для сундуков проверяем кнопку взаимодействия
                     if event.type == "chest":
+                        event.show_text_description = True
                         if hasattr(player, 'input_manager') and player.input_manager:
                             if player.input_manager.get_action('select'):
                                 event.activate(player, game_state)
@@ -233,19 +229,12 @@ class EventManager:
                         event.activate(player, game_state)
 
     def _is_player_close_enough(self, player, event) -> bool:
-        """
-            Проверяет, достаточно ли близко игрок к событию.
-            Работает для ВСЕХ событий, а не только для сундуков.
-            """
+        """Проверяет, достаточно ли близко игрок к событию."""
         # Центр события (из rect)
         x, y, w, h = event.rect
         event_center_x = x + w / 2
         event_center_y = y + h / 2
 
-        # Если у события есть спрайт - используем его центр
-        if hasattr(event, 'sprite') and event.sprite:
-            event_center_x = event.sprite.center_x
-            event_center_y = event.sprite.center_y
 
         # Дистанция
         distance = ((player.center_x - event_center_x) ** 2 +
@@ -263,6 +252,9 @@ class EventManager:
         """Отрисовывает визуальные элементы событий"""
         self.chest_sprites.draw()
         self.event_sprites.draw()
+
+        for i in self.events:
+            i.draw_description()
 
     def get_chest_by_id(self, event_id: str):
         """Возвращает событие сундука по ID"""

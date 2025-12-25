@@ -7,8 +7,8 @@ class TeleportEvent(GameEvent):
         super().__init__(event_id, "teleport", rect, properties)
 
         self.target_map = properties.get("target_map")
-        self.target_x = properties.get("target_x", 0) * self.tileSize
-        self.target_y = properties.get("target_y", 0) * self.tileSize
+        self.target_x = properties.get("target_x", 0)
+        self.target_y = properties.get("target_y", 0)
 
     def activate(self, player, game_state):
         if self.activated and self.cooldown > 0:
@@ -17,10 +17,7 @@ class TeleportEvent(GameEvent):
         self.logger.info(f"перемещение на {self.target_map} x:{self.target_x} y{self.target_y}")
 
         if self.target_map:
-            game_state.map_loader.load(f"maps/{self.target_map}.tmx")
+            game_state.teleport_to(self.target_x, self.target_y, self.target_map)
 
-        player.center_x = self.target_x
-        player.center_y = self.target_y
-        player.data.set_player_position(self.target_x, self.target_y)
         self.activated = True
         self.cooldown = self.max_cooldown

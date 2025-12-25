@@ -483,7 +483,7 @@ class InputManager:
         key_value = self.get_key_string_for_code(key)
 
         # Обработка обычных букв
-        if (key_value.isalpha() or key_value.isnumeric()) and len(key_value) == 1:
+        if (key_value.isalpha() or key_value.isdigit()) and len(key_value) == 1:
             return f"{first_part}{key_value}|{second_part}"
 
         # Обработка специальных клавиш через словарь
