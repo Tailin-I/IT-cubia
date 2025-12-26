@@ -17,7 +17,7 @@ class ChestSprite(arcade.Sprite):
         self.event = event
         self.is_opened = False
 
-        # Текстуры для разных состояний
+        # Текстуры для разных состоянийk
         self.texture_closed = texture
         self.texture_open = texture_open
 

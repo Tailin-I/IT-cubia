@@ -118,7 +118,7 @@ class CheatConsoleState(BaseState):
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
-            int(4.6 * self.tile_size), self.gsm.window.height - 2 * self.tile_size,
+            5.2 * self.tile_size, self.gsm.window.height - 2 * self.tile_size,
             self.main_color, 20
         ).draw()
 
@@ -149,7 +149,7 @@ class CheatConsoleState(BaseState):
                 text = text[:15] + "..."
             arcade.Text(
                 text,
-                0.65 * self.tile_size, self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
+                0.7 * self.tile_size, self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
                 color, 9
             ).draw()
 
@@ -158,13 +158,13 @@ class CheatConsoleState(BaseState):
         panel_height = self.gsm.window.height - self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
+                self.gsm.window.width *0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
+                self.gsm.window.width *0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.main_color, 2
         )
@@ -172,8 +172,8 @@ class CheatConsoleState(BaseState):
         for i in range(len(self.deep_seek_speech)):
             arcade.Text(
                 self.deep_seek_speech[i],
-                self.gsm.window.width - 5.7 * self.tile_size,
-                self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
+                self.gsm.window.width *0.75,
+                self.gsm.window.height * 0.93 - self.tile_size // 3 * i,
                 self.text_color, 14
             ).draw()
 
