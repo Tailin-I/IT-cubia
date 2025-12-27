@@ -1,12 +1,11 @@
 import arcade
-from typing import Optional
-
+from config import constants as C
 
 class ChestSprite(arcade.Sprite):
     """Визуальное представление сундука"""
 
-    def __init__(self, texture, texture_open, x: float, y: float, event=None):
-        super().__init__(texture)
+    def __init__(self, texture, texture_open, x: float, y: float, event=None, scale=C.SCALE_FACTOR):
+        super().__init__(texture, scale=scale)
 
         # Позиция
         self.center_x = x
@@ -17,7 +16,7 @@ class ChestSprite(arcade.Sprite):
         self.event = event
         self.is_opened = False
 
-        # Текстуры для разных состояний
+        # Текстуры для разных состоянийk
         self.texture_closed = texture
         self.texture_open = texture_open
 

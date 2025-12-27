@@ -125,7 +125,7 @@ class EventManager:
             sprite_y = tile_sprite.center_y
 
             # Ищем ближайшее событие сундука для этого тайла
-            chest_event = self._find_nearest_chest_event(sprite_x, sprite_y)
+            chest_event = self.find_nearest_chest_event(sprite_x, sprite_y)
 
             if chest_event:
                 # Создаем спрайт сундука
@@ -151,7 +151,7 @@ class EventManager:
 
         print(f"✅ Создано {len(self.chest_sprites)} спрайтов сундуков")
 
-    def _find_nearest_chest_event(self, x: float, y: float, max_distance: float = None):
+    def find_nearest_chest_event(self, x: float, y: float, max_distance: float = None):
         """
         Находит ближайшее событие сундука к координатам.
         """

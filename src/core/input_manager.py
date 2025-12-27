@@ -28,7 +28,6 @@ class InputManager:
             'right': ["D", "RIGHT"],
             'select': ["ENTER"],
             'escape': ["ESCAPE"],
-            'fullscreen': ["F11"],
             'cheat_console': ["F2"]
         }
 
@@ -158,52 +157,29 @@ class InputManager:
         self.logger.info("✓ Настройки сброшены к значениям по умолчанию")
 
     def rebind_action(self, action_name, new_key):
-        """
-        Переназначает клавишу для указанного действия.
-
-        Args:
-            action_name (str): Название действия ('move_up', 'interact' и т.д.)
-            new_key (int): Код новой клавиши из arcade.key.*
-
-        Returns:
-            bool: True если переназначение успешно, False в противном случае
-        """
+        """Переназначает клавишу для указанного действия"""
         if action_name not in self.key_codes:
             self.logger.error(f"Действие '{action_name}' не найдено")
             return False
 
-        # Получаем строковое представление клавиши
         new_key_string = self.code_to_string.get(new_key)
         if new_key_string is None:
             self.logger.error(f"Неизвестный код клавиши {new_key}")
             return False
 
-        # Проверяем, не используется ли клавиша для другого действия
-        conflict_action = None
+        # Проверка конфликта
         for action, codes in self.key_codes.items():
             if new_key in codes and action != action_name:
-                conflict_action = action
+                # Автоматически удалить конфликтующую привязку
+                self.remove_key_binding(action, new_key)
                 break
 
-        if conflict_action:
-            self.logger.warning(f"Клавиша уже используется для '{conflict_action}'")
-            # Удаляем клавишу из старого действия
-            if new_key_string in self.key_bindings[conflict_action]:
-                self.key_bindings[conflict_action].remove(new_key_string)
-                self.key_codes[conflict_action].remove(new_key)
-
-        # Добавляем новую клавишу к действию (если её ещё нет)
+        # Добавляем новую клавишу
         if new_key_string not in self.key_bindings[action_name]:
             self.key_bindings[action_name].append(new_key_string)
             self.key_codes[action_name].append(new_key)
 
-        # Сохраняем изменения
-        self.save_key_bindings()
-        self.logger.info(f"Клавиша '{new_key_string}' переназначена для '{action_name}'")
-
-        if not self.save_key_bindings():
-            return False
-        return True
+        return self.save_key_bindings()
 
     def remove_key_binding(self, action_name, key_to_remove):
         """

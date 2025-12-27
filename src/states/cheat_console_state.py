@@ -2,6 +2,7 @@ import arcade
 
 from src.states.base_state import BaseState
 from src.world.map_loader import MapLoader
+from config import constants as C
 
 
 class CheatConsoleState(BaseState):
@@ -118,7 +119,7 @@ class CheatConsoleState(BaseState):
         # ---ТЕКСТ---
         arcade.Text(
             self.input_buffer,
-            int(4.6 * self.tile_size), self.gsm.window.height - 2 * self.tile_size,
+            5.2 * self.tile_size, self.gsm.window.height - 2 * self.tile_size,
             self.main_color, 20
         ).draw()
 
@@ -149,7 +150,7 @@ class CheatConsoleState(BaseState):
                 text = text[:15] + "..."
             arcade.Text(
                 text,
-                0.65 * self.tile_size, self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
+                0.7 * self.tile_size, self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
                 color, 9
             ).draw()
 
@@ -158,13 +159,13 @@ class CheatConsoleState(BaseState):
         panel_height = self.gsm.window.height - self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
+                self.gsm.window.width *0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width - 3.3 * self.tile_size, self.gsm.window.height // 2,
+                self.gsm.window.width *0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.main_color, 2
         )
@@ -172,8 +173,8 @@ class CheatConsoleState(BaseState):
         for i in range(len(self.deep_seek_speech)):
             arcade.Text(
                 self.deep_seek_speech[i],
-                self.gsm.window.width - 5.7 * self.tile_size,
-                self.gsm.window.height - self.tile_size - self.tile_size // 3 * i,
+                self.gsm.window.width *0.75,
+                self.gsm.window.height * 0.93 - self.tile_size // 3 * i,
                 self.text_color, 14
             ).draw()
 
@@ -243,7 +244,7 @@ class CheatConsoleState(BaseState):
                     ]
                 else:
                     self.map_loader.load(
-                        f"maps/{mp}.tmx",
+                        f"maps/{mp}.tmx"
                     )
                     self.text_to_draw = [
                         "Дарую новые координаты!",
@@ -258,20 +259,31 @@ class CheatConsoleState(BaseState):
                     "..."
                 ]
 
-        elif command == "DEBUGON":
+        elif command == "DEBUG":
             player = self.gsm.current_state.player
-            player.debug_collisions = True
-            self.text_to_draw = ["Не забывай кто здесь бог!",
-                                 "АБРАКАДАБРА",
-                                 "Загляни в неизведанное. Но не везде..."]
+            player.debug_collisions = not player.debug_collisions
 
+            if player.debug_collisions:
+                self.text_to_draw = ["Не забывай кто здесь бог!",
+                                     "АБРАКАДАБРА",
+                                     "Загляни в неизведанное.",
+                                     "Но не везде..."]
+            else:
+                self.text_to_draw = ["ТРАХ-ТИБИДОХ",
+                                     "теперь...",
+                                     "Ты нормальный человек"]
 
-        elif command == "DEBUGOFF":
+        elif command == "GHOST":
             player = self.gsm.current_state.player
-            player.debug_collisions = False
-            self.text_to_draw = ["ТРАХ-ТИБИДОХ",
-                                 "теперь...",
-                                 "Ты нормальный человек"]
+            player.ghost_mode = not player.ghost_mode
+
+            if player.ghost_mode:
+                self.text_to_draw = ["Ты прав!",
+                                     "Зачем нужны стены?",
+                                     "Теперь ты призрак"]
+            else:
+                self.text_to_draw = ["Нагулялся?)",
+                                     "..."]
         else:
             self.text_to_draw = ["ты прав!",
                                  "вот решение:",

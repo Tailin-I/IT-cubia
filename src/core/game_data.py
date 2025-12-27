@@ -44,8 +44,7 @@ class GameData:
 
         # Настройки
         self.settings = {
-            "volume": 0.7,
-            "fullscreen": False,
+            "volume": 0.7
         }
 
     def save_to_file(self, filename="savegame.dat"):

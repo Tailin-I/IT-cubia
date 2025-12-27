@@ -11,6 +11,11 @@ class Player(Entity):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.data = game_data
 
+        # режим призрака
+        self.ghost_mode = False
+        self.normal_color = (255, 255, 255, 255)  # Белый, непрозрачный
+        self.ghost_color = (100, 100, 255, 128)  # Синий, полупрозрачный
+
         # словарь текстур -> список
         all_textures = []
         for direction in ["up", "down", "left", "right"]:
@@ -58,9 +63,10 @@ class Player(Entity):
         dx, dy = 0, 0
         current_direction = None
 
+        # Обработка ввода
         if self.input_manager.get_action('up'):
             current_direction = "up"
-            dy += self.speed * delta_time * 60  # Умножаем на delta_time для плавности
+            dy += self.speed * delta_time * 60
         if self.input_manager.get_action('down'):
             current_direction = "down"
             dy -= self.speed * delta_time * 60
@@ -71,74 +77,50 @@ class Player(Entity):
             current_direction = "right"
             dx += self.speed * delta_time * 60
 
-        # СРАЗУ меняем текстуру при смене направления
+        # Обработка анимации
         if current_direction and current_direction != self.last_direction:
             self._set_direction_texture(current_direction)
             self.time_elapsed = 0
 
-        # Анимация
         if current_direction and self.time_elapsed > 0.3:
             self._animate_direction(current_direction)
             self.time_elapsed = 0
-
-        # Если стоим - статичная текстура
         elif not current_direction:
             self._set_idle_texture()
 
-        # Обновляем направление
+        # Обновляем последнее направление
         if current_direction:
             self.last_direction = current_direction
 
-        # Двигаем с учетом коллизий!
+        # Перемещение с учетом коллизий
         collision_layer = kwargs.get('collision_layer')
 
-        if collision_layer:
-            # Используем Tiled коллизии
-            actual_dx, actual_dy = self._move_with_tiled_collision(collision_layer, dx, dy)
-        else:
-            # Для обратной совместимости
-            game_map = kwargs.get('game_map')
-            if game_map:
-                actual_dx, actual_dy = self.move_with_collision(game_map, dx, dy)
-            else:
-                self.center_x += dx
-                self.center_y += dy
-                actual_dx, actual_dy = dx, dy
+        self._move_with_tiled_collision(collision_layer, dx, dy)
 
-        # Синхронизируем с game_data
-        self.data.set_player_position(self.center_x, self.center_y)
-
-        # # Отладочная информация
-        # if self.debug_collisions and (dx != 0 or dy != 0):
-        #     if actual_dx != dx or actual_dy != dy:
-        #         print(f"Коллизия! Запланировано: ({dx:.1f}, {dy:.1f}), Разрешено: ({actual_dx:.1f}, {actual_dy:.1f})")
+        self._update_ghost_appearance()
 
     def _move_with_tiled_collision(self, collision_layer, dx, dy):
         """
-        Простой метод коллизий для Tiled.
+        метод коллизий.
         """
-        if not collision_layer:
+        # Если нет слоя коллизий или режим призрака
+        if not collision_layer or self.ghost_mode:
             self.center_x += dx
             self.center_y += dy
-            return dx, dy
+            return
 
         # Сохраняем старую позицию
         old_x, old_y = self.center_x, self.center_y
 
-        # Двигаемся по X
+        # проверяем движение по X
         self.center_x += dx
-        x_hits = arcade.check_for_collision_with_list(self, collision_layer)
-        if x_hits:
-            self.center_x = old_x
+        if arcade.check_for_collision_with_list(self, collision_layer):
+            self.center_x = old_x  # Откатываем, если есть коллизия
 
-        # Двигаемся по Y
+        # проверяем движение по Y
         self.center_y += dy
-        y_hits = arcade.check_for_collision_with_list(self, collision_layer)
-        if y_hits:
-            self.center_y = old_y
-
-        return self.center_x - old_x, self.center_y - old_y
-
+        if arcade.check_for_collision_with_list(self, collision_layer):
+            self.center_y = old_y  # Откатываем, если есть коллизия
     def _set_direction_texture(self, direction):
         """Сразу устанавливает первую текстуру направления"""
         if direction == "up":
@@ -185,3 +167,12 @@ class Player(Entity):
         elif self.last_direction == "right":
             self.cur_texture_index = 6
             self.set_texture(6)
+
+    def _update_ghost_appearance(self):
+        """Обновляет внешний вид в режиме призрака"""
+        if self.ghost_mode and self.color != self.ghost_color:
+            # Устанавливаем синий полупрозрачный цвет
+            self.color = self.ghost_color
+        elif not self.ghost_mode and self.color != self.normal_color:
+            # Возвращаем нормальный цвет
+            self.color = self.normal_color
