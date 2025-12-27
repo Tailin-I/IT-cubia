@@ -27,7 +27,7 @@ class GameplayState(BaseState):
         self.input_manager = self.gsm.input_manager
 
 
-        player_scale = self.tile_size / 63  # ≈1.0159 (почти не меняем)
+        player_scale = self.tile_size / 63  # ≈1.0159
 
 
         self.default_camera = Camera2D()
@@ -70,9 +70,6 @@ class GameplayState(BaseState):
         pos = self.player.data.get_player_position()
         self.player.center_x = pos[0] * self.scale_factor  # Масштабируем позицию!
         self.player.center_y = pos[1] * self.scale_factor  # Масштабируем позицию!
-
-        # 7. Скорость игрока пропорциональна размеру тайлов
-        self.player.speed = self.tile_size / 8  # 8 пикселей за кадр для 64px тайла
 
         # UI элементы
         self.ui_elements = []
@@ -171,7 +168,6 @@ class GameplayState(BaseState):
         target_x = self.player.center_x
         target_y = self.player.center_y
 
-        # 3. ОГРАНИЧЕНИЕ ПОЗИЦИИ (Замена set_map_bounds)
         # Учитываем половину размера экрана, чтобы камера не показывала пустоту за краем
         half_screen_w = self.gsm.window.width / 2
         half_screen_h = self.gsm.window.height / 2

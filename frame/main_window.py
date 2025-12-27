@@ -60,8 +60,6 @@ class MainWindow(arcade.Window):
         # НАЧИНАЕМ С ЛОББИ
         self.gsm.switch_to("lobby")
 
-        self.logger.info("MainWindow инициализирован")
-
     def _register_states(self):
         """Регистрирует все состояния игры"""
         lobby_state = LobbyState(self.gsm, self.asset_loader)

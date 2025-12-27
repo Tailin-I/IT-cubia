@@ -51,7 +51,7 @@ class Player(Entity):
         self.center_y = pos[1]
 
         # Скорость игрока
-        self.speed = 50
+        self.speed = 10
 
         # Текущий индекс текстуры для анимации
         self.cur_texture_index = 0
