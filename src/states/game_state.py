@@ -45,8 +45,7 @@ class GameplayState(BaseState):
 
         # Загружаем Tiled карту
         success = self.map_loader.load(
-            "maps/testmap.tmx",  # НОВЫЙ ФАЙЛ
-            scale=1
+            "maps/testmap.tmx" # НОВЫЙ ФАЙЛ
         )
 
         if not success:
@@ -143,7 +142,7 @@ class GameplayState(BaseState):
 
 
             # Загружаем новую карту
-            success = self.map_loader.load(path, scale=1)
+            success = self.map_loader.load(path)
             if not success:
                 self.logger.error(f"Не удалось загрузить карту: {map}")
                 return False
@@ -310,7 +309,6 @@ class GameplayState(BaseState):
         for ui_element in self.ui_elements:
             ui_element.draw()
 
-
     def _handle_input(self):
         """Обработка ввода для игрового состояния"""
         if not self.input_manager:
@@ -320,7 +318,8 @@ class GameplayState(BaseState):
         if self.input_manager.get_action("escape"):
             print("🔼 Нажата пауза")
             self._open_pause_menu()
-        if self.input_manager.get_action("cheat_console"):  # F2
+        # F2 - чит-консоль
+        if self.input_manager.get_action("cheat_console"):
             self.gsm.push_overlay("cheat_console")
 
     def _init_ui(self):

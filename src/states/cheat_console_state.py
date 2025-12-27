@@ -2,6 +2,7 @@ import arcade
 
 from src.states.base_state import BaseState
 from src.world.map_loader import MapLoader
+from config import constants as C
 
 
 class CheatConsoleState(BaseState):
@@ -243,7 +244,7 @@ class CheatConsoleState(BaseState):
                     ]
                 else:
                     self.map_loader.load(
-                        f"maps/{mp}.tmx",
+                        f"maps/{mp}.tmx"
                     )
                     self.text_to_draw = [
                         "Дарую новые координаты!",
@@ -258,20 +259,31 @@ class CheatConsoleState(BaseState):
                     "..."
                 ]
 
-        elif command == "DEBUGON":
+        elif command == "DEBUG":
             player = self.gsm.current_state.player
-            player.debug_collisions = True
-            self.text_to_draw = ["Не забывай кто здесь бог!",
-                                 "АБРАКАДАБРА",
-                                 "Загляни в неизведанное. Но не везде..."]
+            player.debug_collisions = not player.debug_collisions
 
+            if player.debug_collisions:
+                self.text_to_draw = ["Не забывай кто здесь бог!",
+                                     "АБРАКАДАБРА",
+                                     "Загляни в неизведанное.",
+                                     "Но не везде..."]
+            else:
+                self.text_to_draw = ["ТРАХ-ТИБИДОХ",
+                                     "теперь...",
+                                     "Ты нормальный человек"]
 
-        elif command == "DEBUGOFF":
+        elif command == "GHOST":
             player = self.gsm.current_state.player
-            player.debug_collisions = False
-            self.text_to_draw = ["ТРАХ-ТИБИДОХ",
-                                 "теперь...",
-                                 "Ты нормальный человек"]
+            player.ghost_mode = not player.ghost_mode
+
+            if player.ghost_mode:
+                self.text_to_draw = ["Ты прав!",
+                                     "Зачем нужны стены?",
+                                     "Теперь ты призрак"]
+            else:
+                self.text_to_draw = ["Нагулялся?)",
+                                     "..."]
         else:
             self.text_to_draw = ["ты прав!",
                                  "вот решение:",

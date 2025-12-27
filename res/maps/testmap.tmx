@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="77">
  <tileset firstgid="1" source="first.tsx"/>
+ <tileset firstgid="157" source="../../../../snap/tiled/4760/first.tsx"/>
  <layer id="1" name="ground" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6Hzb6FmZ2JPSFg1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVdWHB/2NvgQ=
+   eJztzjENAAAIA7D5t4AhZPGhAZIe/VtJCgAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1QcOAAAAAADw1QAbIL4x
   </data>
  </layer>
  <layer id="2" name="walls" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJztnVmOwjAQBX0H5so5ADdGI0BCiAmO06+3qZL6L/HSXXFi88E2xvghCMPYHgFgCV6BArwCBXgFCvAKFOAVKOjgVYc5dKN6TbZRfw4doSagYNUrXLzDc/kZ8gIKPLzadgL0ROTZy6vI/sEfdV1n278KxwD+KL062jbrVh/UXimvh7yovOLs4n+Tyasz93Vhb+9sHR7zULSruM8z7xHhhbrPTF59GgvnXVqU9c/mFS75oshzNq8ghgpesc7Uw9OBs+8j3mW5UX5vzHg1dq452wf44/G8f2vfqn+8iiNiLzTTz9lxsF75ovLoSDseNbfyMnN4kmksf6Eci+VcM+bula4Or6LcCyh9hdxY1N/ymZq9F7dyY+GBZY3xqgde68uR9mb2p3iVm2xefWsTp9bxzF1GrzL1B2tU8gqn6pDtuz26H7DB8pxBBU7Vw/I8XIGHU1XPtDNjmUfL3ySocW1WauflYUe6zuudSK+gL3gFCjq/cyAOvAIFeAUK8AoUPL26RA8EWvH0Kvp/EIle8evUDdi4+kk=
+   eJzt3V1OwzAQRWEvgi1nAewYIYqEUEkdZ+6d8XA+yW9tfuzTtAkPHGOMNwYjcByPAUSiKyjQFRToCgp0BQW6gkKHrjqcQze7r8kx9j+HjlgTKKx2RYtf+Fw+x7xAwdHVcTKglzHPrq4y9w8/9brObv9deAzwU3Z1ddtct/pQd6V8PepSdcWzi/+tUld33tfF2b1z9HCch2K7ivc55z1juKj3WamrZ8fC8y4t5fpX64qWvBTzXK0r5NihK64z+3E2cPf7iO+y2pS/N2a6GievubsP+Dk+76+2H7V/usqTcS80s5+7x8H1ykvV0ZXtONY8qsvKw6nSsfxFeSyR51px7n7q2vAq5b2AslfUFrH+kZ+p2ffSVm0RHUSuMV314Lq+XNnezP0pXdVWratX26Spdc65q9hVpf1hzU5d0dQ+qv1uz94PYkQ+Z1Chqf1EPg9XcDS16zPtyiLnMfJvEqzx3lbWztVhR13P67fMrtAXXUGh83cO8tAVFOgKCnQFBbqCwndX2f8HkdFrfDb1AX/0+jY=
   </data>
  </layer>
  <layer id="3" name="collisions" width="150" height="50">
@@ -64,8 +65,8 @@
   <object id="74" name="to sec map" type="teleport" x="74.6667" y="2733.33" width="65.3333" height="209.333">
    <properties>
     <property name="target_map" value="secmap"/>
-    <property name="target_x" type="int" value="48"/>
-    <property name="target_y" type="int" value="10"/>
+    <property name="target_x" type="int" value="46"/>
+    <property name="target_y" type="int" value="11"/>
    </properties>
   </object>
   <object id="76" name="chest_next_to_secmap" type="chest" x="74.6667" y="2945.33" width="205.333" height="208">
