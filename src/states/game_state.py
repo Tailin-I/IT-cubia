@@ -350,6 +350,7 @@ class GameplayState(BaseState):
         for ui_element in self.ui_elements:
             ui_element.draw()
 
+
     def _handle_input(self):
         """Обработка ввода для игрового состояния"""
         if not self.input_manager:
