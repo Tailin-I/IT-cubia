@@ -57,6 +57,7 @@ class Player(Entity):
         self.cur_texture_index = 0
 
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
+        # if self.
         super().update(delta_time)
         self.time_elapsed += delta_time
 

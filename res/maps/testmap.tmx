@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="77">
+<map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="left-down" width="150" height="50" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="78">
  <tileset firstgid="1" source="first.tsx"/>
  <tileset firstgid="157" source="../../../../snap/tiled/4760/first.tsx"/>
  <layer id="1" name="ground" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJztzjENAAAIA7D5t4AhZPGhAZIe/VtJCgAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1QcOAAAAAADw1QAbIL4x
+   eJzt0rENACAMA0FPzEJZiLFoWAEpRFec3Lr4SlIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8LnV4ANz7Lu64gVdAQAAAADTHca9vao=
   </data>
  </layer>
  <layer id="2" name="walls" width="150" height="50">
@@ -14,7 +14,7 @@
  </layer>
  <layer id="3" name="collisions" width="150" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2m1qg0AURmE3NuD+V9UfaaEEE3W87/2a88BAoVXj5ESTSce27YPBEIwNMDReY49+HOiFrqBAV1CgKyjQFRQ6dPV7Dkikeldjo6uMqneFnGa74vrwwrXyGNcrKHh0xfdHsSKup15dffsdffWj7opu1qTs6m5T9NeHuivl3yMvVVesXawtU1dPtutiOA6H89gF+53a59l2nvMeMbyoj5mpq6PHEjXvq1DNa8KuaMmZYp6zdYUYFboarIWW49nV0/sR97LclO83zro6+hm1ebzer9wHaaq2iM9CdNWPqqM7+1F9Hnw/xtPtsw9PmR7LJ8quLM8149z917XhWYqu1HNQZW5XZtGV5Wvq6ra0ldvTrqyvS3TVg0VXlq50Wul9xqqydXW2T5qa5zl3GbvKdDzMqdQVTdWR7X179HFgw3KdQYWm6rFaF1WugaqbqrqmnZnlervldxI8x7XNdGX1XHf4Huyuruf1LrIr9EVXUFD8PwNAV1CgKyjQFRToCgp/XTEY1uMHaiYK0Q==
+   eJzt2uFqg0AQRWFfbMH3f6r8SAsh2Krj3NmZ2fPBQqFV43pijHZs2z4YDMHYAEfjPfbZrwO90BUU6AoKdAUFuoJCh65+9gGJVO9qbHSVUfWukJO1K84Pb5wrj3G+gkJEVzw/mmvG+TSqq/9+R1/9qLuimzUpu7rbFP31oe5K+ffIS9UV9y7WlqmrJ8t1MQJHwH7sgvWa1nm2XOS8zxhR1NvM1NXRa5k176tQzWvCrmgpmGKes3WFOSp0NbgXWk5kV08/j/gsy015vXHW1dHPqC3i/X7lc5CmapvxXYiu+lF1dGc9qu+D39t4unz2ESnTa/mLsivPfc04d5+6Nmyl6Eo9B1XmdmUeXXm+p64uS1u5Pe3K+7xEVz14dOXpSqeVrjNWla2rs3XSlF3k3GXsKtP2YFOpK5qqI9t1++ztwIfnfQYVmqrnqCvLMVTeA1U3VfWedmZeXX2sy+WZBMe4NktXXse6w3Owu7ru1zfL9dUqcwM7uoKC4v8ZALqCAl1Bga6gQFdQ+O2KwfAeLyDFC4g=
   </data>
  </layer>
  <objectgroup id="5" name="events">

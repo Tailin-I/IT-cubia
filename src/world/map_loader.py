@@ -108,6 +108,7 @@ class MapLoader:
         """
         Загружает Tiled карту.
         """
+
         try:
             self.event_manager = EventManager()
 
@@ -181,8 +182,9 @@ class MapLoader:
         # Tiled хранит размеры в тайлах, переводим в пиксели
         width_tiles = self.tile_map.width
         height_tiles = self.tile_map.height
-        tile_width = self.tile_map.tile_width
-        tile_height = self.tile_map.tile_height
+        tile_width = C.TILE_SIZE
+        tile_height = C.TILE_SIZE
+
 
         self.bounds = {
             'left': 0,

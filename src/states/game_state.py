@@ -1,4 +1,3 @@
-import logging
 import arcade
 from arcade import SpriteList, camera, Camera2D
 
@@ -6,7 +5,6 @@ from .base_state import BaseState
 from ..entities import Player
 from ..ui.health_bar import HealthBar
 from ..ui.vertical_bar import VerticalBar
-from src.world.camera import Camera
 from ..world.map_loader import MapLoader
 from config import constants as C
 
@@ -21,13 +19,14 @@ class GameplayState(BaseState):
     def __init__(self, gsm, asset_loader):
         super().__init__("game", gsm, asset_loader)
 
+
         self.viewport_width = C.VIEWPORT_WIDTH
         self.viewport_height = C.VIEWPORT_HEIGHT
 
         self.input_manager = self.gsm.input_manager
 
 
-        player_scale = self.tile_size / 63  # ≈1.0159
+        player_scale = self.tile_size / 63  # ≈1.0159 (почти не меняем)
 
 
         self.default_camera = Camera2D()
@@ -122,15 +121,11 @@ class GameplayState(BaseState):
         self.fatigue_bar.set_value(30, 100)
 
     def setup_map_limits(self, left, bottom, width, height):
-        """Устанавливает границы карты с учетом камеры"""
         self.map_left = left
         self.map_bottom = bottom
         self.map_right = left + width
         self.map_top = bottom + height
 
-        # Логируем границы для отладки
-        self.logger.debug(
-            f"Границы карты: L={self.map_left}, R={self.map_right}, B={self.map_bottom}, T={self.map_top}")
     def teleport_to(self, x: int, y: int, map: str = None):
         """
         Телепортирует игрока в указанные координаты.
@@ -168,6 +163,7 @@ class GameplayState(BaseState):
         target_x = self.player.center_x
         target_y = self.player.center_y
 
+        # 3. ОГРАНИЧЕНИЕ ПОЗИЦИИ (Замена set_map_bounds)
         # Учитываем половину размера экрана, чтобы камера не показывала пустоту за краем
         half_screen_w = self.gsm.window.width / 2
         half_screen_h = self.gsm.window.height / 2
@@ -233,67 +229,38 @@ class GameplayState(BaseState):
         if hasattr(self, 'fatigue_bar'):
             self.fatigue_bar.y = height - 2 * self.tile_size
 
-    def setup_map_limits(self, left, bottom, width, height):
-        """Устанавливает границы карты с учетом камеры"""
-        self.map_left = left
-        self.map_bottom = bottom
-        self.map_right = left + width
-        self.map_top = bottom + height
-
-        # Логируем границы для отладки
-        self.logger.debug(
-            f"Границы карты: L={self.map_left}, R={self.map_right}, B={self.map_bottom}, T={self.map_top}")
-
     def update(self, delta_time: float):
         """Обновление игровой логики"""
         if self.is_paused:
             return
 
-        self._handle_input()
+
+
+        # Обновляем игрока
         self.player.update(delta_time, collision_layer=self.collision_layer)
 
-        # Обновляем события
+
+
+        # Обновляем и проверяем события (КОЛЛИЗИИ!)
         if hasattr(self.map_loader, 'event_manager') and self.map_loader.event_manager:
             self.map_loader.event_manager.update(delta_time)
             self.map_loader.event_manager.check_collisions(self.player, self)
 
+        self._handle_input()
+
         target_x = self.player.center_x
         target_y = self.player.center_y
 
-        # Получаем реальные размеры viewport камеры
-        if hasattr(self.camera, 'viewport'):
-            viewport_rect = self.camera.viewport
-            half_screen_w = viewport_rect.width / 2
-            half_screen_h = viewport_rect.height / 2
-        else:
-            # Запасной вариант
-            half_screen_w = self.gsm.window.width / 2
-            half_screen_h = self.gsm.window.height / 2
+        # Учитываем половину размера экрана, чтобы камера не показывала пустоту за краем
+        half_screen_w = self.gsm.window.width / 2
+        half_screen_h = self.gsm.window.height / 2
 
-        # Увеличиваем границы на 1 тайл для плавного скроллинга
-        tile_buffer = self.tile_size
+        # Зажимаем камеру между границами карты
+        final_x = max(self.map_left + half_screen_w, min(target_x, self.map_right - half_screen_w))
+        final_y = max(self.map_bottom + half_screen_h, min(target_y, self.map_top - half_screen_h))
 
-        # Зажимаем камеру между границами карты с буфером
-        final_x = max(self.map_left + half_screen_w - tile_buffer,
-                      min(target_x, self.map_right - half_screen_w + tile_buffer))
-        final_y = max(self.map_bottom + half_screen_h - tile_buffer,
-                      min(target_y, self.map_top - half_screen_h + tile_buffer))
-
-        # Если карта меньше экрана - центрируем
-        if (self.map_right - self.map_left) < (half_screen_w * 2 - tile_buffer * 2):
-            final_x = (self.map_left + self.map_right) / 2
-
-        if (self.map_top - self.map_bottom) < (half_screen_h * 2 - tile_buffer * 2):
-            final_y = (self.map_bottom + self.map_top) / 2
-
-        # Плавное следование камеры
-        current_x, current_y = self.camera.position
-        lerp_factor = 0.1  # Коэффициент плавности
-
-        final_x = current_x + (final_x - current_x) * lerp_factor
-        final_y = current_y + (final_y - current_y) * lerp_factor
-
-        self.camera.position = (final_x, final_y)
+        # ЕСЛИ НУЖНА ПЛАВНОСТЬ (Lerp):
+        self.camera.position = arcade.math.lerp_2d(self.camera.position, (final_x, final_y), 0.3)
 
         # Обновляем UI
         for ui_element in self.ui_elements:
@@ -301,38 +268,29 @@ class GameplayState(BaseState):
 
     def draw(self):
         """Отрисовка игры"""
-        # Активируем игровую камеру
+        # Активируем камеру
         self.camera.use()
-
-        # Очищаем область за пределами viewport (черные полосы)
-        if hasattr(self, '_clear_viewport_borders'):
-            self._clear_viewport_borders()
 
         # Рисуем карту
         self.map_loader.draw()
+
+        # сундуки
         self.map_loader.event_manager.draw()
+
+        # Рисуем игрока
         self.player_list.draw()
 
-        # Отладочная информация
+        # Отрисовываем хитбокс для отладки
         if hasattr(self.player, 'debug_collisions') and self.player.debug_collisions:
             self.player.draw_debug()
 
-            # Отображаем границы карты
-            arcade.draw_rect_outline(
-                arcade.rect.XYWH(
-                    (self.map_left + self.map_right) / 2,
-                    (self.map_bottom + self.map_top) / 2,
-                    self.map_right - self.map_left,
-                    self.map_top - self.map_bottom
-                ),
-                arcade.color.RED,
-                2
-            )
 
+        # Отключаем камеру для UI (если нужно)
+        self.default_camera.use()
         # Переключаемся на UI камеру
         self.default_camera.use()
 
-        # Координаты игрока
+        # координаты
         if self.player.debug_collisions:
             text = f"x:{int(self.player.center_x // self.tile_size)} y:{int(self.player.center_y // self.tile_size)}"
             arcade.Text(text,
@@ -340,6 +298,7 @@ class GameplayState(BaseState):
                         self.gsm.window.height - self.tile_size,
                         arcade.color.LIME,
                         18).draw()
+
 
         # Рисуем UI элементы
         for ui_element in self.ui_elements:
@@ -366,66 +325,3 @@ class GameplayState(BaseState):
     def _open_pause_menu(self):
         """Открывает меню паузы поверх игры"""
         self.gsm.push_overlay("pause_menu", )
-
-    def _clear_viewport_borders(self):
-        """Очищает черные полосы вокруг viewport"""
-        if not hasattr(self.camera, 'viewport'):
-            return
-
-        viewport_rect = self.camera.viewport
-        window_width = self.gsm.window.width
-        window_height = self.gsm.window.height
-
-        # Черные полосы слева/справа
-        if viewport_rect.x > 0:
-            # Слева
-            arcade.draw_rect_filled(
-                arcade.rect.XYWH(
-                    viewport_rect.x / 2,
-                    window_height / 2,
-                    viewport_rect.x,
-                    window_height
-                ),
-                arcade.color.BLACK
-            )
-
-        if viewport_rect.x + viewport_rect.width < window_width:
-            # Справа
-            right_x = viewport_rect.x + viewport_rect.width
-            right_width = window_width - right_x
-            arcade.draw_rect_filled(
-                arcade.rect.XYWH(
-                    right_x + right_width / 2,
-                    window_height / 2,
-                    right_width,
-                    window_height
-                ),
-                arcade.color.BLACK
-            )
-
-        # Черные полосы сверху/снизу
-        if viewport_rect.y > 0:
-            # Снизу
-            arcade.draw_rect_filled(
-                arcade.rect.XYWH(
-                    window_width / 2,
-                    viewport_rect.y / 2,
-                    window_width,
-                    viewport_rect.y
-                ),
-                arcade.color.BLACK
-            )
-
-        if viewport_rect.y + viewport_rect.height < window_height:
-            # Сверху
-            top_y = viewport_rect.y + viewport_rect.height
-            top_height = window_height - top_y
-            arcade.draw_rect_filled(
-                arcade.rect.XYWH(
-                    window_width / 2,
-                    top_y + top_height / 2,
-                    window_width,
-                    top_height
-                ),
-                arcade.color.BLACK
-            )
