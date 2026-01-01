@@ -20,7 +20,7 @@ class CheatConsoleState(BaseState):
         self.count_to_text = 0
 
         self.back_color = (68, 71, 78, 180)
-        self.main_color = (76, 106, 253)
+        self.main_color = C.DEEPSEEK_COLOR
         self.text_color = (240, 240, 240)
 
         # речь дип сика

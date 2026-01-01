@@ -269,7 +269,7 @@ class GameplayState(BaseState):
             arcade.Text(text,
                         self.gsm.window.width - 3 * self.tile_size,
                         self.gsm.window.height - self.tile_size,
-                        arcade.color.LIME,
+                        C.DEEPSEEK_COLOR,
                         18).draw()
 
 
