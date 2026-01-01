@@ -263,7 +263,6 @@ class GameplayState(BaseState):
 
         # координаты
         if C.debug_mode:
-            self.player.draw_debug()
 
             text = f"x:{int(self.player.center_x // self.tile_size)} y:{int(self.player.center_y // self.tile_size)}"
             arcade.Text(text,

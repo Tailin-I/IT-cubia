@@ -1,3 +1,5 @@
+import logging
+
 import arcade
 from typing import List
 from .event import GameEvent
@@ -12,9 +14,10 @@ class EventManager:
         """
         Инициализация менеджера событий.
         """
+        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
+
         self.rm = resource_manager
         self.tile_size = C.TILE_SIZE
-        print("ивентменеджер с размером тайла: ", self.tile_size)
 
         # Логика событий (зоны взаимодействия из Object Layer)
         self.events: List[GameEvent] = []
@@ -37,22 +40,9 @@ class EventManager:
             if event:
                 self.events.append(event)
 
-                # Отладочная информация
-                x, y, w, h = event.rect
-                print(
-                    f"  {i}. {event.event_id} ({event.type}) в Tiled координатах: x={x / scale:.0f}, y={y / scale:.0f}, w={w / scale:.0f}, h={h / scale:.0f}")
-                print(f"     Игровые координаты: x={x:.0f}, y={y:.0f}, w={w:.0f}, h={h:.0f}")
-
-                if event.type == "chest":
-                    print(f"     Замок: '{getattr(event, 'lock_sequence', 'нет')}'")
-                    print(f"     Лут: {getattr(event, 'loot_items', [])}")
-
-        print(f"✅ Загружено {len(self.events)} зон взаимодействия")
-
     def _create_event_from_object(self, obj, scale: float, index: int):
-        """ПРОСТОЙ вариант - без инверсии Y"""
+        """Создаёт события"""
         try:
-            # БЕЗ ИНВЕРСИИ - используем координаты как есть
             if hasattr(obj, 'shape') and isinstance(obj.shape, list) and len(obj.shape) >= 4:
                 points = obj.shape
 
@@ -64,17 +54,13 @@ class EventManager:
                 width = right - left
                 height = bottom - top
 
-                # НЕ ИНВЕРТИРУЕМ Y!
                 x = left
-                y = top  # Используем top как y
+                y = top
 
-                # Но height должно быть ПОЛОЖИТЕЛЬНЫМ
                 if height < 0:
                     height = abs(height)
-                    y = bottom  # Если height отрицательный, начинаем снизу
+                    y = bottom
 
-                print(f"Объект {index}:")
-                print(f"   x={x}, y={y}, width={width}, height={height}")
 
             else:
                 x = getattr(obj, 'x', 0) * scale
@@ -85,71 +71,30 @@ class EventManager:
             # Получаем свойства
             properties = getattr(obj, 'properties', {})
             event_type = getattr(obj, 'type', 'trigger').lower()
+            name = getattr(obj, 'name','!')
             event_id = properties.get('id', f"{event_type}_{index}")
 
             # Создаем событие
             if event_type == "chest":
-                return self._create_chest_event(event_id, (x, y, width, height), properties)
+                return self._create_chest_event(event_id, name, (x, y, width, height), properties)
             elif event_type == "teleport":
-                return TeleportEvent(event_id, (x, y, width, height), properties)
+                return TeleportEvent(event_id, name,(x, y, width, height), properties)
             else:
-                return GameEvent(event_id, event_type, (x, y, width, height), properties)
+                return GameEvent(event_id, name, event_type, (x, y, width, height), properties)
 
         except Exception as e:
-            print(f"❌ Ошибка создания события {index}: {e}")
+            self.logger.warning(f"❌ Ошибка создания события {index}: {e}")
             import traceback
             traceback.print_exc()
             return None
 
-    def _create_chest_event(self, event_id: str, rect: tuple, properties: dict):
+    def _create_chest_event(self, event_id: str, name: str, rect: tuple, properties: dict):
         """Создает событие сундука"""
         # Добавляем лут по умолчанию если не указан
         if "loot" not in properties:
             properties["loot"] = "healing_potion:3"
 
-        return ChestEvent(event_id, rect, properties)
-
-    def create_visual_sprites_from_tile_layer(self, tile_layer, scale: float = 1.0):
-        """
-        Создает визуальные спрайты из Tile Layer "chests_visual".
-        Вызывается из MapLoader после загрузки тайлов сундуков.
-        """
-        if not tile_layer:
-            return
-
-        from src.entities.chest import ChestSprite
-
-        for i, tile_sprite in enumerate(tile_layer):
-            # Позиция тайла в мире
-            sprite_x = tile_sprite.center_x
-            sprite_y = tile_sprite.center_y
-
-            # Ищем ближайшее событие сундука для этого тайла
-            chest_event = self.find_nearest_chest_event(sprite_x, sprite_y)
-
-            if chest_event:
-                # Создаем спрайт сундука
-                texture_closed = self.rm.load_texture("containers/chest.png")
-                texture_open = self.rm.load_texture("containers/chest_opened.png")
-
-                sprite = ChestSprite(
-                    texture=texture_closed,
-                    texture_open=texture_open,
-                    x=sprite_x,
-                    y=sprite_y,
-                )
-
-                # Связываем спрайт с событием
-                chest_event.set_sprite(sprite)
-                self.chest_sprites.append(sprite)
-
-                if self.debug_mode:
-                    print(f"  {i}. Спрайт для события '{chest_event.event_id}' "
-                          f"в ({sprite_x:.0f}, {sprite_y:.0f})")
-            else:
-                print(f"⚠️ Для тайла сундука {i} не найдено соответствующего события")
-
-        print(f"✅ Создано {len(self.chest_sprites)} спрайтов сундуков")
+        return ChestEvent(event_id, name, rect, properties)
 
     def find_nearest_chest_event(self, x: float, y: float, max_distance: float = None):
         """
@@ -158,8 +103,6 @@ class EventManager:
         if max_distance is None:
             # Используем 3 тайла как максимальное расстояние
             max_distance = self.tile_size * 3
-
-        print(f"   🔍 Поиск события для позиции ({x:.0f}, {y:.0f}) в радиусе {max_distance}px")
 
         nearest_event = None
         min_distance = float('inf')
@@ -254,7 +197,14 @@ class EventManager:
         self.event_sprites.draw()
 
         for i in self.events:
-            i.draw_description()
+            if i.type == "chest":
+                i.draw_names()
+
+
+
+        if C.debug_mode:
+            for i in self.events:
+                i.draw_debug()
 
     def get_chest_by_id(self, event_id: str):
         """Возвращает событие сундука по ID"""

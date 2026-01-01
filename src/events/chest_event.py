@@ -8,8 +8,8 @@ from src.entities.items.item_factory import ItemFactory
 class ChestEvent(GameEvent):
     """Событие сундука"""
 
-    def __init__(self, event_id: str, rect: tuple, properties: Dict[str, Any]):
-        super().__init__(event_id, "chest", rect, properties)
+    def __init__(self, event_id: str, name: str, rect: tuple, properties: Dict[str, Any]):
+        super().__init__(event_id, name,"chest", rect, properties)
         # Ссылка на спайт
         self.sprite = None
         self.sprite_center_x = 0
@@ -52,7 +52,7 @@ class ChestEvent(GameEvent):
         self.cooldown = self.max_cooldown
 
 
-    def draw_description(self):
+    def draw_names(self):
         if self.show_text_description:
             color = arcade.color.GOLD
             text = "сундук"

@@ -1,5 +1,3 @@
-import logging
-
 import arcade
 
 from .base_entity import Entity
@@ -8,7 +6,6 @@ from ..core.game_data import game_data
 
 class Player(Entity):
     def __init__(self, texture_dict, input_manager, scale=1):
-        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.data = game_data
 
         # режим призрака
@@ -40,7 +37,6 @@ class Player(Entity):
         self.last_direction = None
 
         self.setdefault()
-        self.setup_hitbox({'left': 0.1, 'right': 0.1, 'top': 0.2, 'bottom': 0})
 
     def setdefault(self):
         pos = self.data.get_player_position()

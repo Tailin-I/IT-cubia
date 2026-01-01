@@ -223,6 +223,8 @@ class MapLoader:
         if self.scene:
             self.scene.draw()
 
+
+
     def update_events(self, delta_time: float, player, game_state):
         """Обновляет события"""
         if self.event_manager:

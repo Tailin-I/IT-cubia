@@ -3,8 +3,8 @@ from typing import Dict, Any
 from  .event import GameEvent
 
 class TeleportEvent(GameEvent):
-    def __init__(self, event_id: str, rect: tuple, properties: Dict[str, Any]):
-        super().__init__(event_id, "teleport", rect, properties)
+    def __init__(self, event_id: str,name: str, rect: tuple, properties: Dict[str, Any]):
+        super().__init__(event_id, name, "teleport", rect, properties)
 
         self.target_map = properties.get("target_map")
         self.target_x = properties.get("target_x", 0)

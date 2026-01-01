@@ -29,14 +29,11 @@ class AssetLoader:
         return self.rm.load_texture(path)
 
     def load_ui_texture(self, name):
-        """Загружает текстуру для UI (иконки и т.д.)"""
+        """Загружает текстуру для UI - используем кеш ResourceManager"""
         path = f"ui/{name}.png"
-        if path not in self._texture_cache:
-            self._texture_cache[path] = self.rm.load_texture(path)
-        return self._texture_cache[path]
+        return self.rm.load_texture(path)
 
     def load_sound(self, name):
         """Загружает звуковой файл"""
         path = f"sounds/{name}.wav"
         return self.rm.load_sound(path)
-

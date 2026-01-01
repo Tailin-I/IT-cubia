@@ -23,6 +23,7 @@ UI_SUBTITLE_COLOR = arcade.color.LIGHT_BLUE
 FOGGING_COLOR = (0, 0, 0, 200)  # Полупрозрачный чёрный
 
 DEEPSEEK_COLOR = (76, 106, 253)
+DEEPSEEK_COLOR_TRANSLUCENT = (76, 106, 253, 70)
 
 
 cheat_mode = True

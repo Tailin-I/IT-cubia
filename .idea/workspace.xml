@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="надежда умирает нахуй">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="п">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/cheat_console_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/cheat_console_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/maps/testmap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/testmap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/enemy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/hitbox_component.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/npc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/chest_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/teleport_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/triggers.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/animation_system.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/collision_system.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/dialogue_system.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/systems/quest_system.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,7 +439,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767288117349</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="п">
+      <option name="closed" value="true" />
+      <created>1767295526474</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1767295526474</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -481,7 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="герой крутится (задержка)" />
     <MESSAGE value="герой крутится (анимация ходьбы)" />
     <MESSAGE value="сохранение клавиш в json" />
     <MESSAGE value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
@@ -506,7 +530,8 @@
     <MESSAGE value="надежда умирает" />
     <MESSAGE value="надежда умирает первой" />
     <MESSAGE value="надежда умирает нахуй" />
-    <option name="LAST_COMMIT_MESSAGE" value="надежда умирает нахуй" />
+    <MESSAGE value="п" />
+    <option name="LAST_COMMIT_MESSAGE" value="п" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
