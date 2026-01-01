@@ -19,6 +19,7 @@ class GameplayState(BaseState):
     def __init__(self, gsm, asset_loader):
         super().__init__("game", gsm, asset_loader)
 
+        self.is_paused = False
 
         self.viewport_width = C.VIEWPORT_WIDTH
         self.viewport_height = C.VIEWPORT_HEIGHT
@@ -205,29 +206,6 @@ class GameplayState(BaseState):
         print("▶️ ИГРА ВОЗОБНОВЛЕНА")
         self.is_paused = False
 
-    def _handle_camera_input(self):
-        """Обработка ввода для управления камерой"""
-        if not self.input_manager:
-            return
-
-        # Масштабирование (Ctrl + Plus/Minus)
-        # Нужно добавить соответствующие действия в InputManager
-        # Пока оставим как TODO
-
-    def on_resize(self, width: int, height: int):
-        """Обновление при изменении размера окна"""
-        # Обновляем позиции UI элементов
-        if hasattr(self, 'ui_elements'):
-            for ui_element in self.ui_elements:
-                if hasattr(ui_element, 'on_resize'):
-                    ui_element.on_resize(width, height)
-
-        # Обновляем позиции вертикальных полосок
-        if hasattr(self, 'deepseek_bar'):
-            self.deepseek_bar.y = height - 2 * self.tile_size
-
-        if hasattr(self, 'fatigue_bar'):
-            self.fatigue_bar.y = height - 2 * self.tile_size
 
     def update(self, delta_time: float):
         """Обновление игровой логики"""
@@ -245,8 +223,6 @@ class GameplayState(BaseState):
         if hasattr(self.map_loader, 'event_manager') and self.map_loader.event_manager:
             self.map_loader.event_manager.update(delta_time)
             self.map_loader.event_manager.check_collisions(self.player, self)
-
-        self._handle_input()
 
         target_x = self.player.center_x
         target_y = self.player.center_y
@@ -280,18 +256,15 @@ class GameplayState(BaseState):
         # Рисуем игрока
         self.player_list.draw()
 
-        # Отрисовываем хитбокс для отладки
-        if hasattr(self.player, 'debug_collisions') and self.player.debug_collisions:
-            self.player.draw_debug()
-
-
         # Отключаем камеру для UI (если нужно)
         self.default_camera.use()
         # Переключаемся на UI камеру
         self.default_camera.use()
 
         # координаты
-        if self.player.debug_collisions:
+        if C.debug_mode:
+            self.player.draw_debug()
+
             text = f"x:{int(self.player.center_x // self.tile_size)} y:{int(self.player.center_y // self.tile_size)}"
             arcade.Text(text,
                         self.gsm.window.width - 3 * self.tile_size,
@@ -304,18 +277,27 @@ class GameplayState(BaseState):
         for ui_element in self.ui_elements:
             ui_element.draw()
 
-    def _handle_input(self):
-        """Обработка ввода для игрового состояния"""
+
+    def handle_key_press(self, key: int, modifiers: int):
         if not self.input_manager:
             return
 
         # ESC - открыть меню паузы
         if self.input_manager.get_action("escape"):
-            print("🔼 Нажата пауза")
             self._open_pause_menu()
-        # F2 - чит-консоль
-        if self.input_manager.get_action("cheat_console"):
-            self.gsm.push_overlay("cheat_console")
+
+
+        if C.cheat_mode:
+            # F2 - чит-консоль
+            if self.input_manager.get_action("cheat_console"):
+                self.gsm.push_overlay("cheat_console")
+
+            if self.input_manager.get_action("ghost_mode"):
+                self.player.ghost_mode = not self.player.ghost_mode
+
+            if self.input_manager.get_action("debug_mode"):
+                C.debug_mode = not C.debug_mode
+
 
     def _init_ui(self):
         """Инициализирует UI элементы"""

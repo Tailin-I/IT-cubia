@@ -159,13 +159,13 @@ class CheatConsoleState(BaseState):
         panel_height = self.gsm.window.height - self.tile_size
         arcade.draw_rect_filled(
             arcade.rect.XYWH(
-                self.gsm.window.width *0.85, self.gsm.window.height // 2,
+                self.gsm.window.width * 0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.back_color  # Темно-синий
         )
         arcade.draw_rect_outline(
             arcade.rect.XYWH(
-                self.gsm.window.width *0.85, self.gsm.window.height // 2,
+                self.gsm.window.width * 0.85, self.gsm.window.height // 2,
                 panel_width, panel_height),
             self.main_color, 2
         )
@@ -173,7 +173,7 @@ class CheatConsoleState(BaseState):
         for i in range(len(self.deep_seek_speech)):
             arcade.Text(
                 self.deep_seek_speech[i],
-                self.gsm.window.width *0.75,
+                self.gsm.window.width * 0.75,
                 self.gsm.window.height * 0.93 - self.tile_size // 3 * i,
                 self.text_color, 14
             ).draw()
@@ -260,10 +260,9 @@ class CheatConsoleState(BaseState):
                 ]
 
         elif command == "DEBUG":
-            player = self.gsm.current_state.player
-            player.debug_collisions = not player.debug_collisions
+            C.debug_mode = not C.debug_mode
 
-            if player.debug_collisions:
+            if C.debug_mode:
                 self.text_to_draw = ["Не забывай кто здесь бог!",
                                      "АБРАКАДАБРА",
                                      "Загляни в неизведанное.",
@@ -284,6 +283,11 @@ class CheatConsoleState(BaseState):
             else:
                 self.text_to_draw = ["Нагулялся?)",
                                      "..."]
+        elif command == "GOODBYE":
+            C.cheat_mode = False
+
+            self.text_to_draw = ["Нагулялся?",
+                                 "Ну пока.."]
         else:
             self.text_to_draw = ["ты прав!",
                                  "вот решение:",

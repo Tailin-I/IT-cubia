@@ -28,7 +28,11 @@ class InputManager:
             'right': ["D", "RIGHT"],
             'select': ["ENTER"],
             'escape': ["ESCAPE"],
-            'cheat_console': ["F2"]
+
+            'cheat_console': ["F2"],
+            'ghost_mode': ["NUM_0"],
+            'debug_mode': ["NUM_1"]
+
         }
 
         # Инициализация преобразования клавиш ДО загрузки настроек
@@ -388,6 +392,11 @@ class InputManager:
             "3": arcade.key.KEY_3, "4": arcade.key.KEY_4, "5": arcade.key.KEY_5,
             "6": arcade.key.KEY_6, "7": arcade.key.KEY_7, "8": arcade.key.KEY_8,
             "9": arcade.key.KEY_9,
+
+            "NUM_0": arcade.key.NUM_0, "NUM_1": arcade.key.NUM_1, "NUM_2": arcade.key.NUM_2,
+            "NUM_3": arcade.key.NUM_3, "NUM_4": arcade.key.NUM_4, "NUM_5": arcade.key.NUM_5,
+            "NUM_6": arcade.key.NUM_6, "NUM_7": arcade.key.NUM_7, "NUM_8": arcade.key.NUM_8,
+            "NUM_9": arcade.key.NUM_9,
 
             # Функциональные клавиши
             "F1": arcade.key.F1, "F2": arcade.key.F2, "F3": arcade.key.F3,
