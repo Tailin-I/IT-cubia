@@ -1,6 +1,3 @@
-import arcade
-
-
 class UIComponent:
     """Базовый класс для UI элементов без мыши"""
 

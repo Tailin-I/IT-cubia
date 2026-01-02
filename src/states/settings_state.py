@@ -211,19 +211,16 @@ class SettingsState(BaseState):
 
     def _change_value(self, delta):
         """Изменяет значение выбранной настройки"""
-        print(self.selected_index, len(self.menu_items))
         if self.selected_index < len(self.menu_items):
             item = self.menu_items[self.selected_index]
             if "value" in item:
                 # Ограничиваем значение 0-100
                 new_value = max(0, min(100, item["value"] + delta))
                 item["value"] = new_value
-                print(f"Громкость изменена: {new_value}%")
 
     def _select_menu_item(self):
         """Обрабатывает выбор пункта"""
         selected = self.menu_items[self.selected_index]
-        print(f"Выбрано: {selected['text']}")
 
         if selected["action"] == "volume":
             # Уже обрабатывается стрелками
@@ -240,8 +237,6 @@ class SettingsState(BaseState):
         if self.is_overlay:
             self.gsm.pop_overlay()
         else:
-            # Самостоятельный режим: возвращаемся в лобби
-            print("🔙 Возвращаемся в лобби...")
             self.gsm.switch_to("lobby", selected_index=2)
 
     def handle_key_release(self, key, modifiers):

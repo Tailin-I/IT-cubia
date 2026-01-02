@@ -7,34 +7,25 @@ from .chest_event import ChestEvent
 from .teleport_event import TeleportEvent
 from config import  constants as C
 from ..core.resource_manager import resource_manager
+from ..ui.notification_system import notifications as ns
 
 
 class EventManager:
     def __init__(self):
-        """
-        Инициализация менеджера событий.
-        """
+        """Инициализация менеджера событий."""
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
 
         self.rm = resource_manager
         self.tile_size = C.TILE_SIZE
 
-        # Логика событий (зоны взаимодействия из Object Layer)
+        # Логика событий (зоны взаимодействия из event Layer)
         self.events: List[GameEvent] = []
 
         # Визуальные спрайты (будут созданы из Tile Layer "chests_visual")
         self.chest_sprites = arcade.SpriteList()
 
-        # Спрайты других событий (телепорты, NPC и т.д.)
-        self.event_sprites = arcade.SpriteList()
-
-        self.debug_mode = False
-
     def load_events_from_objects(self, object_list, scale: float = 1.0):
-        """
-        Загружает события (зоны взаимодействия) из events
-        """
-
+        """Загружает события (зоны взаимодействия) из events"""
         for i, obj in enumerate(object_list):
             event = self._create_event_from_object(obj, scale, i)
             if event:
@@ -76,7 +67,7 @@ class EventManager:
 
             # Создаем событие
             if event_type == "chest":
-                return self._create_chest_event(event_id, name, (x, y, width, height), properties)
+                return ChestEvent(event_id, name, (x, y, width, height), properties)
             elif event_type == "teleport":
                 return TeleportEvent(event_id, name,(x, y, width, height), properties)
             else:
@@ -84,24 +75,11 @@ class EventManager:
 
         except Exception as e:
             self.logger.warning(f"❌ Ошибка создания события {index}: {e}")
-            import traceback
-            traceback.print_exc()
             return None
 
-    def _create_chest_event(self, event_id: str, name: str, rect: tuple, properties: dict):
-        """Создает событие сундука"""
-        # Добавляем лут по умолчанию если не указан
-        if "loot" not in properties:
-            properties["loot"] = "healing_potion:3"
-
-        return ChestEvent(event_id, name, rect, properties)
-
     def find_nearest_chest_event(self, x: float, y: float, max_distance: float = None):
-        """
-        Находит ближайшее событие сундука к координатам.
-        """
+        """Находит ближайшее событие сундука к координатам."""
         if max_distance is None:
-            # Используем 3 тайла как максимальное расстояние
             max_distance = self.tile_size * 3
 
         nearest_event = None
@@ -109,25 +87,13 @@ class EventManager:
 
         for event in self.events:
             if event.type == "chest":
-                # Получаем центр зоны события
-                ex, ey, ew, eh = event.rect
-                event_center_x = ex + ew / 2
-                event_center_y = ey + eh / 2
 
                 # Вычисляем расстояние
-                distance = ((x - event_center_x) ** 2 + (y - event_center_y) ** 2) ** 0.5
-
-                print(
-                    f"   📏 Событие {event.event_id} в ({event_center_x:.0f}, {event_center_y:.0f}): расстояние {distance:.1f}px")
+                distance = ((x - event.center_x) ** 2 + (y - event.center_y) ** 2) ** 0.5
 
                 if distance < min_distance and distance <= max_distance:
                     min_distance = distance
                     nearest_event = event
-
-        if nearest_event:
-            print(f"   ✅ Связано с событием {nearest_event.event_id} (расстояние: {min_distance:.1f}px)")
-        else:
-            print(f"   ❌ Событие не найдено в радиусе {max_distance}px")
 
         return nearest_event
 
@@ -167,59 +133,32 @@ class EventManager:
                         if hasattr(player, 'input_manager') and player.input_manager:
                             if player.input_manager.get_action('select'):
                                 event.activate(player, game_state)
+                                player.input_manager.reset_action("select")
                     else:
                         # Для других событий (телепортов) активируем сразу
                         event.activate(player, game_state)
 
+
     def _is_player_close_enough(self, player, event) -> bool:
         """Проверяет, достаточно ли близко игрок к событию."""
-        # Центр события (из rect)
-        x, y, w, h = event.rect
-        event_center_x = x + w / 2
-        event_center_y = y + h / 2
-
 
         # Дистанция
-        distance = ((player.center_x - event_center_x) ** 2 +
-                    (player.center_y - event_center_y) ** 2) ** 0.5
+        distance = ((player.center_x - event.center_x) ** 2 +
+                    (player.center_y - event.center_y) ** 2) ** 0.5
 
         # Максимальная дистанция для взаимодействия
         max_distance = self.tile_size * 1.5
-
-        if self.debug_mode:
-            print(f"   📏 Дистанция до {event.event_id}: {distance:.1f}px (макс: {max_distance}px)")
 
         return distance <= max_distance
 
     def draw(self):
         """Отрисовывает визуальные элементы событий"""
         self.chest_sprites.draw()
-        self.event_sprites.draw()
 
         for i in self.events:
             if i.type == "chest":
                 i.draw_names()
 
-
-
         if C.debug_mode:
             for i in self.events:
                 i.draw_debug()
-
-    def get_chest_by_id(self, event_id: str):
-        """Возвращает событие сундука по ID"""
-        for event in self.events:
-            if event.type == "chest" and event.event_id == event_id:
-                return event
-        return None
-
-    def set_debug_mode(self, enabled: bool):
-        """Включает/выключает режим отладки"""
-        self.debug_mode = enabled
-        print(f"🔧 Отладка событий: {'ВКЛ' if enabled else 'ВЫКЛ'}")
-
-    def clear(self):
-        """Очищает все события и спрайты"""
-        self.events.clear()
-        self.chest_sprites.clear()
-        self.event_sprites.clear()

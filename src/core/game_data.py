@@ -1,29 +1,27 @@
 import json
+import logging
 import pickle
-from typing import Dict, Any, List
-
 
 class GameData:
-    """
-    ЕДИНЫЙ центр всех данных игры.
-    Все состояния читают и пишут сюда.
-    """
+    """центр всех данных игры"""
 
     def __init__(self):
         # Данные игрока
+        self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
+
+
         self.player = {
             "health": 100,
             "position": {"x": 400, "y": 300},
 
             "level": 1,
             "experience": 0
-        # Методы: save_to_file(), load_from_file(), get_player_position()
         }
 
         # Инвентарь игрока (список предметов)
         self.inventory = {
-            "items": [],  # [{id: 1, name: "Меч", count: 1}, ...]
-            "equipped": {"weapon": None, "armor": None},
+            "items": [],
+            "equipped": [],
             "gold": 0
         }
 
@@ -60,7 +58,7 @@ class GameData:
                 data = pickle.load(f)
                 self.__dict__.update(data)  # Обновляем все данные
         except FileNotFoundError:
-            print("Файл сохранения не найден, используем значения по умолчанию")
+            self.logger.warning("Файл сохранения не найден, используем значения по умолчанию")
 
     def export_json(self, filename="savegame_backup.json"):
         """Экспорт в JSON (для отладки)"""
@@ -89,24 +87,9 @@ class GameData:
 
     def add_item(self, item_id, count=1):
         """Добавляет предмет в инвентарь"""
-        # ... логика добавления предмета ...
         pass
 
 
 # Глобальный экземпляр (будет один на всю игру)
 game_data = GameData()
 
-
-# # В ЛЮБОМ файле проекта
-# from src.core.game_data import game_data
-#
-# # Читаем данные
-# player_health = game_data.player["health"]
-# player_position = game_data.get_player_position()
-#
-# # Пишем данные
-# game_data.player["health"] -= 10
-# game_data.set_player_position(150, 200, "forest_map")
-#
-# # Сохраняем
-# game_data.save_to_file("autosave.dat")

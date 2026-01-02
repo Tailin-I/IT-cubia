@@ -1,7 +1,7 @@
 import logging
 from config import  constants as C
 from src.core.game_data import game_data
-from src.core.resource_manager import ResourceManager
+from src.core.resource_manager import resource_manager
 
 
 class BaseState:
@@ -13,7 +13,7 @@ class BaseState:
         self.logger = logging.getLogger(self.__class__.__name__)
 
         self.game_data = game_data
-        self.rm = ResourceManager()
+        self.rm = resource_manager
         self.asset_loader = asset_loader
 
         self.state_id = state_id

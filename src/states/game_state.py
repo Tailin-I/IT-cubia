@@ -1,9 +1,10 @@
 import arcade
-from arcade import SpriteList, camera, Camera2D
+from arcade import SpriteList, Camera2D
 
 from .base_state import BaseState
 from ..entities import Player
 from ..ui.health_bar import HealthBar
+from ..ui.notification_system import notifications as ns
 from ..ui.vertical_bar import VerticalBar
 from ..world.map_loader import MapLoader
 from config import constants as C
@@ -18,6 +19,7 @@ class GameplayState(BaseState):
 
     def __init__(self, gsm, asset_loader):
         super().__init__("game", gsm, asset_loader)
+
 
         self.is_paused = False
 
@@ -44,12 +46,9 @@ class GameplayState(BaseState):
 
 
         # Загружаем Tiled карту
-        success = self.map_loader.load(
+        self.map_loader.load(
             "maps/testmap.tmx" # НОВЫЙ ФАЙЛ
         )
-
-        if not success:
-            print("⚠️ Не удалось загрузить Tiled карту, используем fallback")
 
         self.map_left = 0
         self.map_bottom = 0
@@ -65,19 +64,17 @@ class GameplayState(BaseState):
         # Камера
         self.camera = arcade.camera.Camera2D()
 
-        # 6. Настраиваем игрока
         # Получаем позицию из game_data
         pos = self.player.data.get_player_position()
-        self.player.center_x = pos[0] * self.scale_factor  # Масштабируем позицию!
-        self.player.center_y = pos[1] * self.scale_factor  # Масштабируем позицию!
+        self.player.center_x = pos[0] * self.scale_factor
+        self.player.center_y = pos[1] * self.scale_factor
 
         # UI элементы
         self.ui_elements = []
 
-        # Вертикальная полоска 1 (слева) - фиксированная позиция при 1280x768
         self.deepseek_bar = VerticalBar(
-            x=15,  # Отступ от левого края при 1280px
-            y=550,  # Отступ сверху при 768px (768 - 2*64 - 64)
+            x=15,
+            y=550,
             width=15,
             height=150,
             bg_color=arcade.color.PURPLE_NAVY,
@@ -86,10 +83,9 @@ class GameplayState(BaseState):
         )
         self.ui_elements.append(self.deepseek_bar)
 
-        # Вертикальная полоска 2 (рядом с первой)
         self.fatigue_bar = VerticalBar(
-            x=50,  # Отступ от левого края при 1280px
-            y=550,  # Такая же высота как у первой
+            x=50,
+            y=550,
             width=15,
             height=150,
             bg_color=arcade.color.FRENCH_BEIGE,
@@ -98,11 +94,10 @@ class GameplayState(BaseState):
         )
         self.ui_elements.append(self.fatigue_bar)
 
-        # Шкала здоровья (снизу слева) - фиксированная позиция
         self.health_bar = HealthBar(
             self.player,
-            x=150,  # Отступ от левого края при 1280px
-            y=50,  # Отступ от нижнего края при 768px
+            x=150,
+            y=50,
             width=200,
             height=20
         )
@@ -176,7 +171,7 @@ class GameplayState(BaseState):
         # 4. ПРИМЕНЕНИЕ (Для мгновенного следования)
         self.camera.position = (final_x, final_y)
 
-        self.logger.info(f"Телепорт в ({x}, {y}) на карте: {map or 'текущая'}")
+        ns.notification(f"Телепорт в ({x}, {y}). карта: {map or 'текущая'}")
         return True
 
     def on_enter(self, **kwargs):
@@ -198,12 +193,10 @@ class GameplayState(BaseState):
 
     def on_pause(self):
         """Вызывается при постановке игры на паузу (для overlay)"""
-        print("⏸️ ИГРА НА ПАУЗЕ")
         self.is_paused = True
 
     def on_resume(self):
         """Вызывается при возобновлении игры"""
-        print("▶️ ИГРА ВОЗОБНОВЛЕНА")
         self.is_paused = False
 
 
@@ -216,6 +209,8 @@ class GameplayState(BaseState):
 
         # Обновляем игрока
         self.player.update(delta_time, collision_layer=self.collision_layer)
+        # Обновляем оповещения
+        ns.update(delta_time)
 
 
 
@@ -262,6 +257,7 @@ class GameplayState(BaseState):
         self.default_camera.use()
 
         # координаты
+
         if C.debug_mode:
 
             text = f"x:{int(self.player.center_x // self.tile_size)} y:{int(self.player.center_y // self.tile_size)}"
@@ -276,6 +272,11 @@ class GameplayState(BaseState):
         for ui_element in self.ui_elements:
             ui_element.draw()
 
+            # Рисуем оповещения
+            ns.draw(
+                x=self.tile_size/2,
+                y=self.gsm.window.height - self.tile_size/2
+            )
 
     def handle_key_press(self, key: int, modifiers: int):
         if not self.input_manager:

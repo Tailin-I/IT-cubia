@@ -7,7 +7,7 @@ from src.states.base_state import BaseState
 class GameStateManager:
     """
     Управляет всеми состояниями игры.
-    Центральный мозг - решает, какое состояние активно.
+    Решает, какое состояние активно.
     """
 
     def __init__(self, window):
@@ -18,17 +18,15 @@ class GameStateManager:
         # Все зарегистрированные состояния
         self.states: Dict[str, 'BaseState'] = {}
 
-        # Текущее основное состояние (игра, лобби)
+        # Текущее основное состояние
         self.current_state: Optional['BaseState'] = None
 
         # СТЕК overlay состояний
         self.overlay_stack: List['BaseState'] = []
 
-        # Внешние менеджеры (будут установлены позже)
+        # Внешние менеджеры (установлены позже)
         self.input_manager = None
         self.asset_loader = None
-
-        self.logger.info("GameStateManager создан")
 
     def register_state(self, state_id: str, state_instance: 'BaseState'):
         """Регистрирует состояние в менеджере"""
@@ -53,16 +51,6 @@ class GameStateManager:
         self.current_state = self.states[state_id]
         self.current_state.on_enter(**kwargs)
 
-        # Принудительно обновляем камеры после переключения состояния
-        if self.window:
-            import pyglet
-            pyglet.clock.schedule_once(lambda dt: self._update_cameras_after_switch(), 0.1)
-
-    def _update_cameras_after_switch(self):
-        """Обновляет камеры после переключения состояния"""
-        if hasattr(self.window, '_update_all_cameras'):
-            width, height = self.window.get_size()
-            self.window._update_all_cameras(width, height)
 
     def push_overlay(self, overlay_id: str, **kwargs):
         """Открывает состояние ПОВЕРХ текущего"""
@@ -86,17 +74,6 @@ class GameStateManager:
         # Входим в новый overlay
         new_overlay.on_enter(**kwargs)
 
-        # Обновляем камеры после добавления overlay
-        if self.window:
-            import pyglet
-            pyglet.clock.schedule_once(lambda dt: self._update_cameras_after_overlay(), 0.1)
-
-    def _update_cameras_after_overlay(self):
-        """Обновляет камеры после открытия overlay"""
-        if hasattr(self.window, '_update_all_cameras'):
-            width, height = self.window.get_size()
-            self.window._update_all_cameras(width, height)
-
     def pop_overlay(self):
         """
         Закрывает САМЫЙ ВЕРХНИЙ overlay из стека.
@@ -105,10 +82,6 @@ class GameStateManager:
         if not self.overlay_stack:
             self.logger.warning("Попытка закрыть overlay, но стек пуст")
             return
-        # костыль - если не вписать сюда то состояние не исчезнет а откроется снова
-        self.input_manager.reset_action('cheat_console')
-        self.input_manager.reset_action('escape')
-        self.input_manager.reset_action('select')
 
         # Получаем текущий активный overlay (верх стека)
         current_overlay = self.overlay_stack[-1]
@@ -122,7 +95,7 @@ class GameStateManager:
 
         # Определяем, какое состояние теперь активно
         if self.overlay_stack:
-            # Есть еще overlay'ы в стеке
+            # Есть еще overlay в стеке
             new_active = self.overlay_stack[-1]
             new_active.on_resume()
             self.logger.info(
@@ -156,7 +129,7 @@ class GameStateManager:
         if self.current_state:
             self.current_state.draw()
 
-        # Рисуем ВСЕ overlay'ы по порядку (от нижнего к верхнему)
+        # Рисуем ВСЕ overlay по порядку (от нижнего к верхнему)
         for overlay in self.overlay_stack:
             overlay.draw()
 

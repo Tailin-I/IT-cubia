@@ -2,9 +2,9 @@ from .consumables import HealingPotion, ManaPotion
 from .keys import Key
 from .base_item import Item
 
-
 class ItemFactory:
     """Создает предметы по ID"""
+
 
     @staticmethod
     def create(item_id: str, count: int = 1, **kwargs) -> Item:
@@ -56,7 +56,7 @@ class ItemFactory:
                     if item:
                         items.append(item)
                 except ValueError:
-                    print(f"⚠️ Неверный формат количества: {item_part}")
+                    print(f"Неверный формат количества: {item_part}")
             else:
                 # Если нет количества - 1
                 item = ItemFactory.create(item_part.strip(), 1)

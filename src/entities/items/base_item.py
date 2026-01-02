@@ -26,8 +26,7 @@ class Item(Entity):
         self.is_quest_item = False
 
     def use(self, user):
-        """Использовать предмет (переопределить в наследниках)"""
-        print(f"Используется {self.name}")
+        """Использовать предмет"""
 
     def get_info(self) -> Dict[str, Any]:
         """Возвращает информацию о предмете для UI"""

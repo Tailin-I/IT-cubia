@@ -5,11 +5,10 @@ from src.core.resource_manager import resource_manager
 from src.events.event_manager import EventManager
 from config import constants as C
 from pathlib import Path
+from src.entities.chest import ChestSprite
 
 class MapLoader:
-    """
-    Загрузчик карт Tiled.
-    """
+    """Загрузчик карт Tiled."""
 
     def __init__(self):
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
@@ -31,29 +30,21 @@ class MapLoader:
 
     def _load_events(self, scale: float):
         """Загружает события из Tiled"""
-        if not self.tile_map:
-            return
 
-        # 2. Загружаем зоны взаимодействия из Object Layer "events"
-        events_loaded = False
+        # Загружаем зоны взаимодействия из event Layer"
         for layer_name, object_list in self.tile_map.object_lists.items():
             if layer_name.lower() == "events":
                 self.event_manager.load_events_from_objects(object_list, scale)
-                events_loaded = True
-                print(f"✅ Загружено событий: {len(self.event_manager.events)}")
+                self.logger.debug(f"Загружено событий: {len(self.event_manager.events)}")
                 break
 
-        if not events_loaded:
-            print("⚠️ Слой 'events' не найден в Tiled карте")
 
-        # 3. Создаем визуальные спрайты из Tile Layer "containers"
-        containers_layer = self.tile_map.sprite_lists.get("containers")
-        if containers_layer and self.event_manager:
-            self._create_chest_sprites_from_layer(containers_layer, scale)
+        # Создание визуальных спрайтов из Tile Layer "containers"
+        self._create_chest_sprites_from_layer(self.containers_layer, scale)
 
     def _create_chest_sprites_from_layer(self, containers_layer, scale):
         """Создает спрайты сундуков из визуального слоя"""
-        from src.entities.chest import ChestSprite
+
 
         for tile_sprite in containers_layer:
             sprite_x = tile_sprite.center_x
@@ -67,12 +58,9 @@ class MapLoader:
 
             if chest_event:
                 try:
-                    texture_closed = self.rm.load_texture("containers/chest.png")
-                    texture_open = self.rm.load_texture("containers/chest_opened.png")
-
                     sprite = ChestSprite(
-                        texture=texture_closed,
-                        texture_open=texture_open,
+                        texture=self.rm.load_texture("containers/chest.png"),
+                        texture_open=self.rm.load_texture("containers/chest_opened.png"),
                         x=sprite_x,
                         y=sprite_y,
                         event=chest_event,
@@ -81,28 +69,9 @@ class MapLoader:
 
                     chest_event.set_sprite(sprite)
                     self.event_manager.chest_sprites.append(sprite)
-                    # tile_sprite.visible = False
 
                 except Exception as e:
-                    self.logger.warning(f"❌ Ошибка создания спрайта: {e}")
-
-    def _find_chest_event_near(self, x, y, max_distance=32):
-        """Находит событие сундука рядом с координатами"""
-        if not self.event_manager:
-            return None
-
-        for event in self.event_manager.events:
-            if event.type == "chest":
-                # Проверяем расстояние до центра зоны события
-                ex, ey, ew, eh = event.rect
-                event_center_x = ex + ew / 2
-                event_center_y = ey + eh / 2
-
-                distance = ((x - event_center_x) ** 2 + (y - event_center_y) ** 2) ** 0.5
-
-                if distance < max_distance:
-                    return event
-        return None
+                    self.logger.warning(f"Ошибка создания спрайта: {e}")
 
     def load(self, map_file: str, scale: float = C.SCALE_FACTOR) -> bool:
         """
@@ -123,7 +92,7 @@ class MapLoader:
 
             # Проверяем существование файла
             if not map_path.exists():
-                self.logger.warning(f"❌ Файл карты не найден: {map_path}")
+                self.logger.warning(f"Файл карты не найден: {map_path}")
                 self._calculate_bounds()
                 return False
 
@@ -138,14 +107,15 @@ class MapLoader:
                     "containers": {"use_spatial_hash": False}
                 }
             )
+
+            # Получаем границы карты
+            self._calculate_bounds()
+
             # Получаем слои
             self.ground_layer = self.tile_map.sprite_lists.get("ground")
             self.walls_layer = self.tile_map.sprite_lists.get("walls")
             self.collisions_layer = self.tile_map.sprite_lists.get("collisions")
             self.containers_layer = self.tile_map.sprite_lists.get("containers")
-
-            print(
-                f"Слои загружены: ground={bool(self.ground_layer)}, walls={bool(self.walls_layer)}, containers={bool(self.containers_layer)}")
 
             # Загружаем события
             self._load_events(scale)
@@ -162,15 +132,12 @@ class MapLoader:
                 for container in self.containers_layer:
                     container.visible = False
 
-            # Получаем границы карты
-            self._calculate_bounds()
+
 
             return True
 
         except Exception as e:
             self.logger.error(f"Ошибка загрузки карты Tiled {map_file}: {e}")
-            import traceback
-            traceback.print_exc()
             return False
 
     def _calculate_bounds(self):
@@ -179,7 +146,6 @@ class MapLoader:
             self.bounds = {'left': 0, 'right': 0, 'bottom': 0, 'top': 0, 'width': 0, 'height': 0}
             return
 
-        # Tiled хранит размеры в тайлах, переводим в пиксели
         width_tiles = self.tile_map.width
         height_tiles = self.tile_map.height
         tile_width = C.TILE_SIZE
@@ -220,8 +186,7 @@ class MapLoader:
 
     def draw(self):
         """Отрисовывает карту"""
-        if self.scene:
-            self.scene.draw()
+        self.scene.draw()
 
 
 

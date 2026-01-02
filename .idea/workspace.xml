@@ -4,27 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="п">
+    <list default="true" id="377e0106-b0ef-4a6d-b5f8-49cae34fa61e" name="Changes" comment="отладка 1">
+      <change afterPath="$PROJECT_DIR$/src/ui/notification_system.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/testmap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/testmap.tmx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/asset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/asset_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/base_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/enemy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/hitbox_component.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/npc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/game_state_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/game_state_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/input_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/input_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/resource_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/resource_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/chest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/chest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/base_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/base_item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/consumables.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/consumables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/items/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/items/keys.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/chest_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/chest_event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/event_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/event_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/teleport_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/teleport_event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/triggers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/base_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/base_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/states/game_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/game_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/systems/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/systems/animation_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/systems/collision_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/systems/dialogue_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/systems/quest_system.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lobby_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lobby_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/lock_picking_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/lock_picking_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/pause_menu_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/pause_menu_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/settings_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settings_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/ui_component.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ui_component.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/world/map_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/world/map_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -447,7 +449,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767295526474</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="отладка 1">
+      <option name="closed" value="true" />
+      <created>1767305935532</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1767305935532</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -506,7 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="герой крутится (анимация ходьбы)" />
     <MESSAGE value="сохранение клавиш в json" />
     <MESSAGE value="загрузчик файлов Resource Manager&#10;+ оптимизация" />
     <MESSAGE value="requirements.txt" />
@@ -531,7 +540,8 @@
     <MESSAGE value="надежда умирает первой" />
     <MESSAGE value="надежда умирает нахуй" />
     <MESSAGE value="п" />
-    <option name="LAST_COMMIT_MESSAGE" value="п" />
+    <MESSAGE value="отладка 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="отладка 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -551,8 +561,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/states/lobby_state.py</url>
-          <line>226</line>
+          <line>222</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/states/game_state.py</url>
+          <line>271</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/generate_structure.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

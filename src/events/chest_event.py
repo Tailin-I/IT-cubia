@@ -1,6 +1,7 @@
 from typing import Dict, Any
 
 import arcade
+from ..ui.notification_system import notifications as ns
 
 from .event import GameEvent
 from src.entities.items.item_factory import ItemFactory
@@ -25,23 +26,19 @@ class ChestEvent(GameEvent):
         loot_str = properties.get("loot", "")
         self.loot_items = ItemFactory.parse_loot_string(loot_str)
 
-        # Для отладки
-        self.logger.debug(f"Создан сундук {event_id}: "
-              f"замок='{self.lock_sequence}', "
-              f"предметов={len(self.loot_items)}")
 
     def activate(self, player, game_state):
         """Игрок взаимодействует с сундуком"""
         if self.activated and self.cooldown > 0:
             return
         if self.is_empty:
-            print("   Сундук уже пуст!")
+            ns.notification("Сундук пуст!")
             return
-        print(f"📦 Взаимодействие с сундуком '{self.event_id}'")
+        self.logger.info(f" Взаимодействие с сундуком '{self.event_id}'")
 
         if self.is_locked:
             self.player_sequence = ""
-            print(f"🔒 Заперт! Комбинация: {self.lock_sequence}")
+            self.logger.info(f"Заперт! Комбинация: {self.lock_sequence}")
             # Открываем мини-игру взлома
             game_state.gsm.push_overlay("lock_picking",
                                         chest_event=self,
@@ -85,8 +82,6 @@ class ChestEvent(GameEvent):
 
     def _open_chest(self, player):
         """Открыть сундук и выдать добычу"""
-        self.logger.info(f"Сундук открыт! Получено:")
-
         for item in self.loot_items:
             self._add_to_inventory(player, item)
 
@@ -114,7 +109,7 @@ class ChestEvent(GameEvent):
                 "stackable": item.is_stackable
             })
 
-        self.logger.info(f"   +{item.count} {item.name}")
+        ns.notification(f"+{item.count} {item.name}")
 
     def check_lock_attempt(self, direction: str) -> tuple:
         """

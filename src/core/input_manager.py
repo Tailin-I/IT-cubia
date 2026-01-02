@@ -13,7 +13,6 @@ class InputManager:
         Инициализация обработчика клавиш
         config_file: имя файла для сохранения/загрузки настроек
         """
-        # Получаем логгер для этого класса
         self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
         self.logger.debug(f"Инициализация KeyHandler с config_file={config_file}")
 
@@ -26,8 +25,11 @@ class InputManager:
             'down': ["S", "DOWN"],
             'left': ["A", "LEFT"],
             'right': ["D", "RIGHT"],
+
             'select': ["ENTER"],
             'escape': ["ESCAPE"],
+
+            'stats': ["B"],
 
             'cheat_console': ["F2"],
             'ghost_mode': ["NUM_0"],
@@ -35,7 +37,7 @@ class InputManager:
 
         }
 
-        # Инициализация преобразования клавиш ДО загрузки настроек
+        # Инициализация преобразования клавиш
         self._init_key_mapping()
 
         # Загружаем настройки или используем значения по умолчанию
@@ -85,10 +87,10 @@ class InputManager:
                                 result_bindings[action] = saved_keys
                                 self.logger.debug(f"Действие '{action}': {saved_keys}")
                             else:
-                                self.logger.warning(f"⚠ Внимание: не все ключи для '{action}' являются строками")
+                                self.logger.warning(f"Внимание: не все ключи для '{action}' являются строками")
                                 result_bindings[action] = default_keys.copy()
                         else:
-                            self.logger.error(f"✗ Неверный формат ключей для действия '{action}'")
+                            self.logger.error(f"Неверный формат ключей для действия '{action}'")
                             result_bindings[action] = default_keys.copy()
                     else:
                         # Если действия нет в сохраненных данных, используем значения по умолчанию
@@ -100,10 +102,10 @@ class InputManager:
                 return result_bindings
 
             except json.JSONDecodeError:
-                self.logger.error(f"✗ Ошибка чтения файла {self.config_file}.\nКлавиши установлены по умолчанию.")
+                self.logger.error(f"Ошибка чтения файла {self.config_file}.\nКлавиши установлены по умолчанию.")
                 return self.default_key_bindings.copy()
             except Exception as e:
-                self.logger.exception(f"✗ Ошибка при загрузке настроек: {e}.\nКлавиши установлены по умолчанию.")
+                self.logger.exception(f"Ошибка при загрузке настроек: {e}.\nКлавиши установлены по умолчанию.")
                 return self.default_key_bindings.copy()
         else:
             self.logger.warning(f"Файл настроек не найден. Создаем новый...")
@@ -143,11 +145,11 @@ class InputManager:
                 # Сохраняем данные в JSON с красивым форматированием
                 json.dump(self.key_bindings, f, indent=4, ensure_ascii=False)
 
-            self.logger.info(f"✓ Настройки сохранены в {self.config_file}")
+            self.logger.info(f"Настройки сохранены в {self.config_file}")
             return True
 
         except Exception as e:
-            self.logger.error(f"✗ Ошибка при сохранении настроек: {e}")
+            self.logger.error(f"Ошибка при сохранении настроек: {e}")
             return False
 
     def reset_to_defaults(self):
@@ -158,7 +160,7 @@ class InputManager:
         self.key_codes = self._convert_strings_to_codes(self.key_bindings)
         self._init_actions()
         self.save_key_bindings()
-        self.logger.info("✓ Настройки сброшены к значениям по умолчанию")
+        self.logger.info("Настройки сброшены к значениям по умолчанию")
 
     def rebind_action(self, action_name, new_key):
         """Переназначает клавишу для указанного действия"""
@@ -202,7 +204,6 @@ class InputManager:
                 self.logger.error(f"Неизвестный код клавиши {key_to_remove}")
                 return False
         else:
-            # Уже строка
             key_string = key_to_remove
             # Преобразуем строку в код для удаления из key_codes
             key_to_remove = self.string_to_code.get(key_string)
@@ -216,10 +217,10 @@ class InputManager:
                 self.key_codes[action_name].remove(key_to_remove)
 
             self.save_key_bindings()
-            self.logger.info(f"✓ Привязка '{key_string}' удалена для действия '{action_name}'")
+            self.logger.info(f"Привязка '{key_string}' удалена для действия '{action_name}'")
             return True
 
-        self.logger.warning(f"⚠ Клавиша '{key_string}' не найдена для действия '{action_name}'")
+        self.logger.warning(f"Клавиша '{key_string}' не найдена для действия '{action_name}'")
         return False
 
     def get_key_names(self, key_codes):
@@ -258,7 +259,7 @@ class InputManager:
         return info
 
     def on_key_release(self, key: int, modifiers: int) -> None:
-        """Обработка отпускания клавиши (только одно направление за раз)"""
+        """Обработка отпускания клавиши"""
         # Удаляем клавишу из нажатых
         self.keys_pressed.discard(key)
 
@@ -320,7 +321,7 @@ class InputManager:
             # Включаем только новое направление
             self.actions[new_direction] = True
 
-        # Для остальных действий (interact, fullscreen) обновляем как обычно
+        # Для остальных действий обновляем как обычно
         else:
             for action, codes in self.key_codes.items():
                 if action not in ['up', 'down', 'left', 'right']:
@@ -460,12 +461,15 @@ class InputManager:
                 if key_string is not None:
                     strings.append(key_string)
                 else:
-                    self.logger.warning(f"⚠ Внимание: неизвестный код клавиши {key_code} для действия '{action}'")
+                    self.logger.warning(f"Внимание: неизвестный код клавиши {key_code} для действия '{action}'")
             string_bindings[action] = strings
         return string_bindings
 
     def typing(self, key, first_part, second_part):
         key_value = self.get_key_string_for_code(key)
+        if key_value.startswith("NUM_"):
+            key_value = key_value[-1]
+
 
         # Обработка обычных букв
         if (key_value.isalpha() or key_value.isdigit()) and len(key_value) == 1:

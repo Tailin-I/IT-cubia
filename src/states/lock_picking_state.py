@@ -1,5 +1,6 @@
 import arcade
 from .base_state import BaseState
+from ..ui.notification_system import notifications as ns
 
 
 class LockPickingState(BaseState):
@@ -36,7 +37,7 @@ class LockPickingState(BaseState):
 
         # Отмена
         elif self.gsm.input_manager.get_action("escape"):
-            print("❌ Взлом отменен")
+            ns.notification("Взлом отменен")
             self.gsm.pop_overlay()
 
     def _handle_lock_result(self, success, completed, sequence):

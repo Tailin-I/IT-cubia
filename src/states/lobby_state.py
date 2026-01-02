@@ -59,7 +59,6 @@ class LobbyState(BaseState):
             )
     def on_exit(self):
         """Выход из лобби"""
-        print("ВЫХОД ИЗ ЛОББИ")
 
     def on_pause(self):
         """Пауза (не используется в лобби)"""
@@ -198,13 +197,11 @@ class LobbyState(BaseState):
         self._play_menu_sound("confirm")
 
         if selected["action"] == "new_game":
-            print("🚀 Начинаем новую игру...")
             self.gsm.switch_to("game")
             # Пока просто переходим в игру
-            # self.gsm.switch_to("game")
+
 
         elif selected["action"] == "settings":
-            print("⚙ Открываем настройки...")
             self.gsm.switch_to("settings")
 
         elif selected["action"] == "exit":
@@ -212,7 +209,6 @@ class LobbyState(BaseState):
 
     def _confirm_exit(self):
         """Подтверждение выхода"""
-        print("Выход из игры")
         # Можно добавить диалог подтверждения
         # Пока просто закрываем
         self.gsm.window.close()

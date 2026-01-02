@@ -28,3 +28,7 @@ DEEPSEEK_COLOR_TRANSLUCENT = (76, 106, 253, 70)
 
 cheat_mode = True
 debug_mode = False
+
+# # Текст оповещений
+# text_to_draw = []
+# remove_text_timer = 4

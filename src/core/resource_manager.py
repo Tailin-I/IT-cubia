@@ -14,7 +14,7 @@ class ResourceManager:
         self._project_root = None
 
     def get_project_root(self) -> str:
-        """Ленивая загрузка корня проекта"""
+        """загрузка корня проекта"""
         if self._project_root is None:
             current_file = Path(__file__).resolve()
             core_dir = current_file.parent

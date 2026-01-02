@@ -1,5 +1,6 @@
 from .base_item import Item
 from ...core.resource_manager import resource_manager as rm
+from ...ui.notification_system import notifications as ns
 
 
 
@@ -19,5 +20,5 @@ class Key(Item):
         self.description = f"Ключ для замка '{key_id}'"
 
     def use(self, user) -> bool:
-        print(f"🔑 Ключ '{self.key_id}' нельзя просто так использовать")
+        ns.notification(f"🔑 Ключ '{self.key_id}' нельзя просто так использовать")
         return False  # Ключи не расходуются при использовании

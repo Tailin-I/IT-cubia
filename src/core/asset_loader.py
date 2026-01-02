@@ -2,19 +2,18 @@ from ..core.resource_manager import resource_manager
 
 
 class AssetLoader:
-    """Загружает игровые ресурсы (только файлы!)"""
+    """Загружает игровые ресурсы"""
 
     def __init__(self):
         self.rm = resource_manager
-        self._texture_cache = {}  # Кэш ТОЛЬКО текстур
 
-    def load_player_sprites(self, scale=1.0):
+    def load_player_sprites(self):
         """Загружает спрайты игрока"""
         textures = self.rm.load_spritesheet(
             "player/player_move.png",
             size=(63, 63),
             columns=8,
-            count=8
+            count=8,
         )
         return {
             "up": [textures[0], textures[1]],

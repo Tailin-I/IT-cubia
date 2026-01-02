@@ -1,5 +1,7 @@
 from .base_item import Item
 from ...core.resource_manager import resource_manager as rm
+from ...ui.notification_system import notifications as ns
+
 
 
 class HealingPotion(Item):
@@ -14,7 +16,7 @@ class HealingPotion(Item):
         )
         self.count = count
         self.is_consumable = True
-        self.heal_amount = 50
+        self.heal_amount = 45
         self.description = f"Восстанавливает {self.heal_amount} здоровья"
 
     def use(self, user) -> bool:
@@ -22,15 +24,14 @@ class HealingPotion(Item):
             heal_amount = min(self.heal_amount, user.max_health - user.health)
             user.health += heal_amount
             self.count -= 1
-            print(f"💚 {user.name} восстановил {heal_amount} HP")
+            ns.notification(f"+{heal_amount} HP")
             return True  # Предмет израсходован
-        print(f"❤️ У {user.name} и так полное здоровье")
+        ns.notification(f"И так полное здоровье")
         return False
 
 
 class ManaPotion(Item):
     """Зелье маны"""
-
     def __init__(self, count: int = 1):
         super().__init__(
             item_id="mana_potion",
@@ -43,12 +44,12 @@ class ManaPotion(Item):
         self.description = f"Восстанавливает {self.restore_amount} маны"
 
     def use(self, user) -> bool:
-        # Если у игрока есть мана
         if hasattr(user, 'mana'):
             if user.mana < user.max_mana:
                 restore = min(self.restore_amount, user.max_mana - user.mana)
                 user.mana += restore
                 self.count -= 1
-                print(f"🔵 {user.name} восстановил {restore} маны")
+                ns.notification(f"+{restore} маны")
                 return True
+            ns.notification("И так полная мана")
         return False

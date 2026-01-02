@@ -18,7 +18,6 @@ class GameEvent:
         self.type = event_type  # "chest", "teleport", "dialogue"
         self.rect = rect  # (x, y, width, height)
         self.properties = properties or {}
-        print(event_id)
         self.activated = False
         self.cooldown = 0
         self.max_cooldown = 30  # 0.5 секунды при 60 FPS

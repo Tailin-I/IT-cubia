@@ -151,19 +151,16 @@ class PauseMenuState(BaseState):
     def _select_menu_item(self):
         """Обрабатывает выбор пункта"""
         selected = self.menu_items[self.selected_index]
-        print(f"Выбрано в паузе: {selected['text']}")
 
         if selected["action"] == "resume":
             self._close_pause_menu()
 
         elif selected["action"] == "settings":
             # Открываем настройки как overlay поверх паузы
-            print("Открываем настройки из паузы...")
             self.gsm.push_overlay("settings", is_overlay=True, parent_state="pause_menu")
 
         elif selected["action"] == "main_menu":
             # Подтверждение выхода в главное меню
-            print("Возврат в главное меню...")
             self.gsm.switch_to("lobby")
 
         elif selected["action"] == "exit_game":
